@@ -369,76 +369,76 @@ public class RotondAndesTM {
 //		}
 //	}
 	
-//	/**
-//	 * Metodo que modela la transaccion que actualiza el video que entra como parametro a la base de datos.
-//	 * <b> post: </b> se ha actualizado el video que entra como parametro
-//	 * @param video - Video a actualizar. video != null
-//	 * @throws Exception - cualquier error que se genera actualizando los videos
-//	 */
-//	public void updateVideo(Video video) throws Exception {
-//		DAOTablaVideos daoVideos = new DAOTablaVideos();
-//		try 
-//		{
-//			//////transaccion
-//			this.conn = darConexion();
-//			daoVideos.setConn(conn);
-//			daoVideos.updateVideo(video);
-//
-//		} catch (SQLException e) {
-//			System.err.println("SQLException:" + e.getMessage());
-//			e.printStackTrace();
-//			throw e;
-//		} catch (Exception e) {
-//			System.err.println("GeneralException:" + e.getMessage());
-//			e.printStackTrace();
-//			throw e;
-//		} finally {
-//			try {
-//				daoVideos.cerrarRecursos();
-//				if(this.conn!=null)
-//					this.conn.close();
-//			} catch (SQLException exception) {
-//				System.err.println("SQLException closing resources:" + exception.getMessage());
-//				exception.printStackTrace();
-//				throw exception;
-//			}
-//		}
-//	}
-//
-//	/**
-//	 * Metodo que modela la transaccion que elimina el video que entra como parametro a la base de datos.
-//	 * <b> post: </b> se ha eliminado el video que entra como parametro
-//	 * @param video - Video a eliminar. video != null
-//	 * @throws Exception - cualquier error que se genera actualizando los videos
-//	 */
-//	public void deleteVideo(Video video) throws Exception {
-//		DAOTablaVideos daoVideos = new DAOTablaVideos();
-//		try 
-//		{
-//			//////transaccion
-//			this.conn = darConexion();
-//			daoVideos.setConn(conn);
-//			daoVideos.deleteVideo(video);
-//
-//		} catch (SQLException e) {
-//			System.err.println("SQLException:" + e.getMessage());
-//			e.printStackTrace();
-//			throw e;
-//		} catch (Exception e) {
-//			System.err.println("GeneralException:" + e.getMessage());
-//			e.printStackTrace();
-//			throw e;
-//		} finally {
-//			try {
-//				daoVideos.cerrarRecursos();
-//				if(this.conn!=null)
-//					this.conn.close();
-//			} catch (SQLException exception) {
-//				System.err.println("SQLException closing resources:" + exception.getMessage());
-//				exception.printStackTrace();
-//				throw exception;
-//			}
-//		}
-//	}
+	/**
+	 * Metodo que modela la transaccion que actualiza el ingrediente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el ingrediente que entra como parametro
+	 * @param ingrediente - ingrediente a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateIngrediente(Ingrediente video) throws Exception {
+		DAOIngrediente daoIngredientes = new DAOIngrediente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredientes.setConn(conn);
+			daoIngredientes.updateIngrediente(video);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * Metodo que modela la transaccion que elimina el ingrediente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el ingrediente que entra como parametro
+	 * @param ingrediente - ingrediente a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteIngrediente(Ingrediente ingrediente) throws Exception {
+		DAOIngrediente daoIngredientes = new DAOIngrediente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredientes.setConn(conn);
+			daoIngredientes.deleteIngrediente(ingrediente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 
 }

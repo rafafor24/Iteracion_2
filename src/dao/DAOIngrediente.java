@@ -152,42 +152,42 @@ public class DAOIngrediente {
 
 	}
 	
-//	/**
-//	 * Metodo que actualiza el video que entra como parametro en la base de datos.
-//	 * @param video - el video a actualizar. video !=  null
-//	 * <b> post: </b> se ha actualizado el video en la base de datos en la transaction actual. pendiente que el video master
-//	 * haga commit para que los cambios bajen a la base de datos.
-//	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
-//	 * @throws Exception - Cualquier error que no corresponda a la base de datos
-//	 */
-//	public void updateVideo(Video video) throws SQLException, Exception {
-//
-//		String sql = "UPDATE VIDEO SET ";
-//		sql += "NAME='" + video.getName() + "',";
-//		sql += "DURATION=" + video.getDuration();
-//		sql += " WHERE ID = " + video.getId();
-//
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
-//	}
-//
-//	/**
-//	 * Metodo que elimina el video que entra como parametro en la base de datos.
-//	 * @param video - el video a borrar. video !=  null
-//	 * <b> post: </b> se ha borrado el video en la base de datos en la transaction actual. pendiente que el video master
-//	 * haga commit para que los cambios bajen a la base de datos.
-//	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
-//	 * @throws Exception - Cualquier error que no corresponda a la base de datos
-//	 */
-//	public void deleteVideo(Video video) throws SQLException, Exception {
-//
-//		String sql = "DELETE FROM VIDEO";
-//		sql += " WHERE ID = " + video.getId();
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
-//	}
+	/**
+	 * Metodo que actualiza el ingrediente que entra como parametro en la base de datos.
+	 * @param ingrediente - el ingrediente a actualizar. ingrediente !=  null
+	 * <b> post: </b> se ha actualizado el video en la base de datos en la transaction actual. pendiente que el video master
+	 * haga commit para que los cambios bajen a la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public void updateIngrediente(Ingrediente ingrediente) throws SQLException, Exception {
+
+		String sql = "UPDATE INGREDIENTES SET ";
+		sql += "DESCRIPCION='" + ingrediente.getDescripcion()+"',";
+		sql += "TRADUCCION='" + ingrediente.getTraduccion()+"'";
+		sql += " WHERE NOMBRE='" + ingrediente.getNombre()+"';";
+
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+
+	/**
+	 * Metodo que elimina el ingrediente que entra como parametro en la base de datos.
+	 * @param ingrediente - el ingrediente a borrar. ingrediente !=  null
+	 * <b> post: </b> se ha borrado el video en la base de datos en la transaction actual. pendiente que el video master
+	 * haga commit para que los cambios bajen a la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public void deleteIngrediente(Ingrediente ingrediente) throws SQLException, Exception {
+
+		String sql = "DELETE FROM INGREDIENTES";
+		sql += " WHERE NOMBRE ='" + ingrediente.getNombre()+"';";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
 }

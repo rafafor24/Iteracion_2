@@ -25,8 +25,8 @@ import vos.Restaurante;;
  * @author
  */
 
-@Path("prueba")
-public class RotondAndesServices {
+@Path("ingredientes")
+public class IngredienteServices {
 
 	/**
 	 * Atributo que usa la anotacion @Context para tener el ServletContext de la conexion actual.
@@ -55,7 +55,6 @@ public class RotondAndesServices {
      * el error que se produjo
 	 */
 	@GET
-	@Path( "/ingredientes" )
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getIngredientes() {
 		RotondAndesTM tm = new RotondAndesTM(getPath());
@@ -68,25 +67,6 @@ public class RotondAndesServices {
 		return Response.status(200).entity(ingredientes).build();
 	}
 	
-	/**
-	 * Metodo que expone servicio REST usando GET que da todos los restaurantes de la base de datos.
-	 * <b>URL: </b> http://"ip o nombre de host":8080/RotondAndes/rest/restaurantes
-	 * @return Json con todos los restaurantes de la base de datos o json con 
-     * el error que se produjo
-	 */
-	@GET
-	@Path( "/restaurantes" )
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getRestaurantes() {
-		RotondAndesTM tm = new RotondAndesTM(getPath());
-		List<Restaurante> restaurantes;
-		try {
-			restaurantes = tm.darRestaurantes();
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(restaurantes).build();
-	}
 
 //	 /**
 //     * Metodo que expone servicio REST usando GET que busca el video con el id que entra como parametro
@@ -143,7 +123,6 @@ public class RotondAndesServices {
      * @return Json con el ingrediente que agrego o Json con el error que se produjo
      */
 	@POST
-	@Path( "/ingredientes" )
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addIngrediente(Ingrediente ingrediente) {
@@ -154,28 +133,7 @@ public class RotondAndesServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(ingrediente).build();
-	}
-	
-    /**
-     * Metodo que expone servicio REST usando POST que agrega el restaurante que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/video
-     * @param restaurante - restaurante a agregar
-     * @return Json con el restaurantes que agrego o Json con el error que se produjo
-     */
-	@POST
-	@Path( "/restaurantes" )
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addRestaurante(Restaurante restaurante) {
-		RotondAndesTM tm = new RotondAndesTM(getPath());
-		try {
-			tm.addRestaurante(restaurante);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(restaurante).build();
-	}
-	
+	}	
 	
 	
 //    /**
