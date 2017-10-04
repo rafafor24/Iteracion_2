@@ -59,7 +59,7 @@ public class DAOCliente {
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ArrayList<Cliente> darIngredientes() throws SQLException, Exception {
+	public ArrayList<Cliente> darClientes() throws SQLException, Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
 		String sql = "SELECT * FROM CLIENTES";
@@ -140,7 +140,7 @@ public class DAOCliente {
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo agregar el cliente a la base de datos
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void addIngrediente(Cliente cliente) throws SQLException, Exception {
+	public void addCliente(Cliente cliente) throws SQLException, Exception {
 
 		String sql = "INSERT INTO CLIENTES VALUES (";
 		sql += "'"+cliente.getNombre() + "',";
@@ -184,7 +184,7 @@ public class DAOCliente {
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el cliente.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void deleteIngrediente(Cliente cliente) throws SQLException, Exception {
+	public void deleteCliente(Cliente cliente) throws SQLException, Exception {
 
 		String sql = "DELETE FROM CLIENTES";
 		sql += " WHERE NOMBRE ='" + cliente.getNombre()+"';";
