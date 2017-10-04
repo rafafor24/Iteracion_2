@@ -11,10 +11,12 @@ import java.util.Properties;
 
 import dao.DAOUsuario;
 import dao.DAOIngrediente;
+import dao.DAOMenu;
 import dao.DAOProducto;
 import dao.DAORestaurante;
 import vos.Usuario;
 import vos.Ingrediente;
+import vos.Menu;
 import vos.Producto;
 import vos.Restaurante;
 
@@ -253,6 +255,42 @@ public class RotondAndesTM {
 		return productos;
 	}
 	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Menus de la base de datos.
+	 * @return ListaMenus - objeto que modela  un arreglo de Menus. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Menu> darMenus() throws Exception {
+		List<Menu> menus;
+		DAOMenu daoMenus = new DAOMenu();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenus.setConn(conn);
+			menus = daoMenus.darMenus();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenus.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return menus;
+	}
 
 
 //	/**
@@ -469,6 +507,43 @@ public class RotondAndesTM {
 		} finally {
 			try {
 				daoProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Menu a la base de datos.
+	 * <b> post: </b> se ha agregado el Menu que entra como parametro
+	 * @param menu - el menu a agregar. menu != null
+	 * @throws Exception - cualquier error que se genere agregando el video
+	 */
+	public void addMenu(Menu menu) throws Exception {
+		DAOMenu daoMenus = new DAOMenu();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenus.setConn(conn);
+			daoMenus.addMenu(menu);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenus.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -813,6 +888,77 @@ public class RotondAndesTM {
 		}
 	}
 
+	/**
+	 * Metodo que modela la transaccion que actualiza el menu que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el menu que entra como parametro
+	 * @param menu - menu a actualizar. menu != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateMenu(Menu video) throws Exception {
+		DAOMenu daoMenus = new DAOMenu();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenus.setConn(conn);
+			daoMenus.updateMenu(video);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenus.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 	
+	/**
+	 * Metodo que modela la transaccion que elimina el menu que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el menu que entra como parametro
+	 * @param menu - menu a eliminar. menu != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteMenu(Menu menu) throws Exception {
+		DAOMenu daoMenus = new DAOMenu();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenus.setConn(conn);
+			daoMenus.deleteMenu(menu);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenus.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
 }
 

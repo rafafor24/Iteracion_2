@@ -59,7 +59,7 @@ public class Producto {
 	public Producto(@JsonProperty(value="nombre")String nombre,
 			@JsonProperty(value="descripcion")String descripcion,
 			@JsonProperty(value="traduccion")String traduccion,	
-			@JsonProperty(value="tiempo_preparacion")Integer tiempo_preparacio,
+			@JsonProperty(value="tiempo_preparacion")Integer tiempo_preparacion,
 			@JsonProperty(value="costo_produccion")Integer costo_produccion,
 			@JsonProperty(value="precio_venta") Integer precio_venta,
 			@JsonProperty(value="tipo") Long tipo)
@@ -70,7 +70,7 @@ public class Producto {
 		this.traduccion = traduccion;
 		this.costo_produccion=costo_produccion;
 		this.precio_venta=precio_venta;
-		this.tiempo_preparacion=tiempo_preparacio;
+		this.tiempo_preparacion=tiempo_preparacion;
 		this.tipo=tipo;
 	}
 

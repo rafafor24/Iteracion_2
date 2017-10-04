@@ -58,30 +58,6 @@ public class RestauranteServices {
 		return Response.status(200).entity(restaurantes).build();
 	}
 
-//	 /**
-//     * Metodo que expone servicio REST usando GET que busca el video con el id que entra como parametro
-//     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/<<id>>" para la busqueda"
-//     * @param name - Nombre del video a buscar que entra en la URL como parametro 
-//     * @return Json con el/los videos encontrados con el nombre que entra como parametro o json con 
-//     * el error que se produjo
-//     */
-//	@GET
-//	@Path( "{id: \\d+}" )
-//	@Produces( { MediaType.APPLICATION_JSON } )
-//	public Response getVideo( @PathParam( "id" ) Long id )
-//	{
-//		VideoAndesTM tm = new VideoAndesTM( getPath( ) );
-//		try
-//		{
-//			Video v = tm.buscarVideoPorId( id );
-//			return Response.status( 200 ).entity( v ).build( );			
-//		}
-//		catch( Exception e )
-//		{
-//			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
-//		}
-//	}
-
 //    /**
 //     * Metodo que expone servicio REST usando GET que busca el video con el nombre que entra como parametro
 //     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/nombre/nombre?nombre=<<nombre>>" para la busqueda"
