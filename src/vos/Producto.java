@@ -98,27 +98,28 @@ public class Producto {
 		this.traduccion = traduccion;
 	}
 
-	public Integer getTiempoPreparacion() {
+
+	public Integer getTiempo_preparacion() {
 		return tiempo_preparacion;
 	}
 
-	public void setTiempoPreparacion(Integer tiempo_preparacion) {
+	public void setTiempo_preparacion(Integer tiempo_preparacion) {
 		this.tiempo_preparacion = tiempo_preparacion;
 	}
 
-	public Integer getCostoProduccion() {
+	public Integer getCosto_produccion() {
 		return costo_produccion;
 	}
 
-	public void setCostoProduccion(Integer costo_produccion) {
+	public void setCosto_produccion(Integer costo_produccion) {
 		this.costo_produccion = costo_produccion;
 	}
 
-	public Integer getPrecioVenta() {
+	public Integer getPrecio_venta() {
 		return precio_venta;
 	}
 
-	public void setPrecioVenta(Integer precio_venta) {
+	public void setPrecio_venta(Integer precio_venta) {
 		this.precio_venta = precio_venta;
 	}
 

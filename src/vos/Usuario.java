@@ -82,14 +82,15 @@ public class Usuario {
 		this.rol = rol;
 	}
 
-
-	public String getCorreoElectronico() {
+	public String getCorreo_electronico() {
 		return correo_electronico;
 	}
 
-
-	public void setCorreoElectronico(String correoElectronico) {
-		this.correo_electronico = correoElectronico;
+	public void setCorreo_electronico(String correo_electronico) {
+		this.correo_electronico = correo_electronico;
 	}
+
+
+	
 }
 

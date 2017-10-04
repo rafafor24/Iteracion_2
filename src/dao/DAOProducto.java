@@ -149,9 +149,9 @@ public class DAOProducto {
 		sql += "'"+producto.getNombre() + "',";
 		sql += "'"+producto.getDescripcion() + "',";
 		sql += "'"+producto.getTraduccion()+"',";
-		sql += producto.getTiempoPreparacion()+",";
-		sql += producto.getCostoProduccion()+",";
-		sql += producto.getPrecioVenta()+",";
+		sql += producto.getTiempo_preparacion()+",";
+		sql += producto.getCosto_produccion()+",";
+		sql += producto.getPrecio_venta()+",";
 		sql += producto.getTipo()+")";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -173,9 +173,9 @@ public class DAOProducto {
 		String sql = "UPDATE PRODUCTOS SET ";
 		sql += "DESCRIPCION='" + producto.getDescripcion()+"',";
 		sql += "TRADUCCION='" + producto.getTraduccion()+"'";		
-		sql += "TIEMPO_PREPARACION="+producto.getTiempoPreparacion()+",";
-		sql += "COSTO_PRODUCCION="+producto.getCostoProduccion()+",";
-		sql += "PRECIO_VENTA="+producto.getPrecioVenta()+",";
+		sql += "TIEMPO_PREPARACION="+producto.getTiempo_preparacion()+",";
+		sql += "COSTO_PRODUCCION="+producto.getCosto_produccion()+",";
+		sql += "PRECIO_VENTA="+producto.getPrecio_venta()+",";
 		sql += "TIPO="+producto.getTipo()+",";
 		sql += " WHERE NOMBRE='" + producto.getNombre()+"'";
 

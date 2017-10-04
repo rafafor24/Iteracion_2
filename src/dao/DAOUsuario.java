@@ -146,7 +146,7 @@ public class DAOUsuario {
 		sql += "'"+usuario.getNombre() + "',";
 		sql += usuario.getIdentificacion() + ",";
 		sql += "'"+usuario.getRol() + "',";
-		sql += "'"+usuario.getCorreoElectronico()+"'" + ")";
+		sql += "'"+usuario.getCorreo_electronico()+"'" + ")";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -167,7 +167,7 @@ public class DAOUsuario {
 		String sql = "UPDATE USUARIOS SET ";
 		sql += "IDENTIFICACION=" + usuario.getIdentificacion()+",";
 		sql += "ROL='" + usuario.getRol()+"',";
-		sql += "CORREO_ELECTRONICO='" + usuario.getCorreoElectronico()+"'";
+		sql += "CORREO_ELECTRONICO='" + usuario.getCorreo_electronico()+"'";
 		sql += " WHERE NOMBRE='" + usuario.getNombre()+"'";
 
 
