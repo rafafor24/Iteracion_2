@@ -9,7 +9,7 @@ public class Restaurante {
 	/**
 	 * Nombre del restaurante
 	 */
-	@JsonProperty(value="name")
+	@JsonProperty(value="nombre")
 	private String nombre;
 
 	/**
@@ -36,19 +36,19 @@ public class Restaurante {
 	 * @param id - Id del Restaurante.
 	 * @param nombre - Nombre del Restaurante.
 	 * @param representante - Representante del Restaurante.
-	 * @param tipoComida - Tipo de comida del Restaurante.
-	 * @param paginaWeb - PaginaWeb del Restaurante.
+	 * @param tipo_comida - Tipo de comida del Restaurante.
+	 * @param pagina_web - PaginaWeb del Restaurante.
 	 */
 	public Restaurante(@JsonProperty(value="nombre")String nombre,
 			@JsonProperty(value="representante")String representante,
-			@JsonProperty(value="tipo_comida")String tipoComida,
-			@JsonProperty(value="pagina_web")String paginaWeb) 
+			@JsonProperty(value="tipo_comida")String tipo_comida,
+			@JsonProperty(value="pagina_web")String pagina_web) 
 	{
 		super();
 		this.nombre = nombre;
 		this.representante = representante;
-		this.tipo_comida = tipoComida;
-		this.pagina_web = paginaWeb;
+		this.tipo_comida = tipo_comida;
+		this.pagina_web = pagina_web;
 	}
 
 	public String getNombre() {

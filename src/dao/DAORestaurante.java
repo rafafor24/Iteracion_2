@@ -143,7 +143,7 @@ public class DAORestaurante {
 	 */
 	public void addRestaurante(Restaurante restaurante) throws SQLException, Exception {
 
-		String sql = "INSERT INTO INGREDIENTES VALUES (";
+		String sql = "INSERT INTO RESTAURANTES VALUES (";
 		sql += "'"+restaurante.getNombre() + "',";
 		sql += "'"+restaurante.getRepresentante() + "',";
 		sql += "'"+restaurante.getTipoComida() + "',";
@@ -155,42 +155,44 @@ public class DAORestaurante {
 
 	}
 	
-//	/**
-//	 * Metodo que actualiza el video que entra como parametro en la base de datos.
-//	 * @param video - el video a actualizar. video !=  null
-//	 * <b> post: </b> se ha actualizado el video en la base de datos en la transaction actual. pendiente que el video master
-//	 * haga commit para que los cambios bajen a la base de datos.
-//	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
-//	 * @throws Exception - Cualquier error que no corresponda a la base de datos
-//	 */
-//	public void updateVideo(Video video) throws SQLException, Exception {
-//
-//		String sql = "UPDATE VIDEO SET ";
-//		sql += "NAME='" + video.getName() + "',";
-//		sql += "DURATION=" + video.getDuration();
-//		sql += " WHERE ID = " + video.getId();
-//
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
-//	}
-//
-//	/**
-//	 * Metodo que elimina el video que entra como parametro en la base de datos.
-//	 * @param video - el video a borrar. video !=  null
-//	 * <b> post: </b> se ha borrado el video en la base de datos en la transaction actual. pendiente que el video master
-//	 * haga commit para que los cambios bajen a la base de datos.
-//	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
-//	 * @throws Exception - Cualquier error que no corresponda a la base de datos
-//	 */
-//	public void deleteVideo(Video video) throws SQLException, Exception {
-//
-//		String sql = "DELETE FROM VIDEO";
-//		sql += " WHERE ID = " + video.getId();
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
-//	}
+	/**
+	 * Metodo que actualiza el restaurante que entra como parametro en la base de datos.
+	 * @param restaurante - el restaurante a actualizar. restaurante !=  null
+	 * <b> post: </b> se ha actualizado el restaurante en la base de datos en la transaction actual. pendiente que el restaurante master
+	 * haga commit para que los cambios bajen a la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el restaurante.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public void updateRestaurante(Restaurante restaurante) throws SQLException, Exception {
+
+		String sql = "UPDATE RESTAURANTES SET ";
+		sql += "REPRESENTANTE='"+restaurante.getRepresentante() + "',";
+		sql += "TIPO_COMIDA='"+restaurante.getTipoComida() + "',";
+		sql += "PAGINA_WEB='"+restaurante.getPaginaWeb()+"' ";
+		sql += " WHERE NOMBRE ='" + restaurante.getNombre()+"'";
+
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+
+	/**
+	 * Metodo que elimina el restaurante que entra como parametro en la base de datos.
+	 * @param restaurante - el restaurante a borrar. restaurante !=  null
+	 * <b> post: </b> se ha borrado el restaurante en la base de datos en la transaction actual. pendiente que el restaurante master
+	 * haga commit para que los cambios bajen a la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el restaurante.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public void deleteRestaurante(Restaurante restaurante) throws SQLException, Exception {
+
+		String sql = "DELETE FROM RESTAURANTES";
+		sql += " WHERE NOMBRE='" + restaurante.getNombre()+"'";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+
 }
