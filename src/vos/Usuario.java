@@ -2,55 +2,55 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class Cliente {
+public class Usuario {
 ////Atributos
 	
 	/**
-	 * Nombre del cliente
+	 * Nombre del usuario
 	 */
 	@JsonProperty(value="nombre")
 	private String nombre;
 
 	/**
-	 * Identificacion del cliente
+	 * Identificacion del usuario
 	 */
 	@JsonProperty(value="identificacion")
 	private Integer identificacion;
 	
 	/**
-	 * rol del cliente
+	 * rol del usuario
 	 */
 	@JsonProperty(value="rol")
 	private String rol;
 	
 	/**
-	 * correo electronico del cliente
+	 * correo electronico del usuario
 	 */
-	@JsonProperty(value="correoElectronico")
-	private String correoElectronico;
+	@JsonProperty(value="correo_electronico")
+	private String correo_electronico;
 	
 	
 	
 
 
 	/**
-	 * Metodo constructor de la clase Cliente
-	 * <b>post: </b> Crea el Cliente con los valores que entran como parametro
-	 * @param nombre - Nombre del Cliente.
-	 * @param identificacion - Identificacion del Cliente.
-	 * @param rol - rol del Cliente.
-	 * @param correoElectronico - correo electronico del Cliente.
+	 * Metodo constructor de la clase Usuario
+	 * <b>post: </b> Crea el Usuario con los valores que entran como parametro
+	 * @param nombre - Nombre del Usuario.
+	 * @param identificacion - Identificacion del Usuario.
+	 * @param rol - rol del Usuario.
+	 * @param correo_electronico - correo electronico del Usuario.
 	 */
-	public Cliente( @JsonProperty(value="nombre")String nombre,
+	public Usuario( @JsonProperty(value="nombre")String nombre,
 			@JsonProperty(value="identificacion")Integer identificacion,
 			@JsonProperty(value="rol")String rol, 
-			@JsonProperty(value="correoElectronico")String correoElectronico) 
+			@JsonProperty(value="correo_electronico")String correo_electronico) 
 	{
 		super();
 		this.nombre = nombre;
 		this.identificacion= identificacion;
 		this.rol= rol;
-		this.correoElectronico= correoElectronico;
+		this.correo_electronico= correo_electronico;
 	}
 	
 	public String getNombre() {
@@ -84,11 +84,12 @@ public class Cliente {
 
 
 	public String getCorreoElectronico() {
-		return correoElectronico;
+		return correo_electronico;
 	}
 
 
 	public void setCorreoElectronico(String correoElectronico) {
-		this.correoElectronico = correoElectronico;
+		this.correo_electronico = correoElectronico;
 	}
 }
+

@@ -15,16 +15,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.RotondAndesTM;
-import vos.Cliente;
-import vos.Ingrediente;
+import vos.Usuario;
+
 
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/RotondAndes/rest/
  * @author
  */
 
-@Path("clientes")
-public class ClienteServices {
+@Path("usuarios")
+public class UsuarioServices {
 	/**
 	 * Atributo que usa la anotacion @Context para tener el ServletContext de la conexion actual.
 	 */
@@ -53,15 +53,15 @@ public class ClienteServices {
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getClientes() {
+	public Response getUsuarios() {
 		RotondAndesTM tm = new RotondAndesTM(getPath());
-		List<Cliente> clientes;
+		List<Usuario> usuarios;
 		try {
-			clientes = tm.darClientes();
+			usuarios = tm.darUsuarios();
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(clientes).build();
+		return Response.status(200).entity(usuarios).build();
 	}
 	
 
@@ -114,22 +114,22 @@ public class ClienteServices {
 
 
 	 /**
-     * Metodo que expone servicio REST usando POST que agrega el Cliente que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/clientes/cliente
-     * @param cliente - Cliente a agregar
-     * @return Json con el cliente que agrego o Json con el error que se produjo
+     * Metodo que expone servicio REST usando POST que agrega el Usuario que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/usuarios/usuario
+     * @param usuario - Usuario a agregar
+     * @return Json con el usuario que agrego o Json con el error que se produjo
      */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addCliente(Cliente cliente) {
+	public Response addUsuario(Usuario usuario) {
 		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
-			tm.addCliente(cliente);
+			tm.addUsuario(usuario);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(cliente).build();
+		return Response.status(200).entity(usuario).build();
 	}	
 	
 	
@@ -154,41 +154,41 @@ public class ClienteServices {
 //	}
 	
     /**
-     * Metodo que expone servicio REST usando PUT que actualiza el cliente que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/cliente
-     * @param cliente - cliente a actualizar. 
-     * @return Json con el cliente que actualizo o Json con el error que se produjo
+     * Metodo que expone servicio REST usando PUT que actualiza el usuario que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/usuario
+     * @param usuario - usuario a actualizar. 
+     * @return Json con el usuario que actualizo o Json con el error que se produjo
      */
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateCliente(Cliente cliente) {
+	public Response updateUsuario(Usuario usuario) {
 		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
-			tm.updateCliente(cliente);
+			tm.updateUsuario(usuario);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(cliente).build();
+		return Response.status(200).entity(usuario).build();
 	}
 	
     /**
-     * Metodo que expone servicio REST usando DELETE que elimina el cliente que recibe en Json
+     * Metodo que expone servicio REST usando DELETE que elimina el usuario que recibe en Json
      * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos
-     * @param cliente - cliente a aliminar. 
-     * @return Json con el cliente que elimino o Json con el error que se produjo
+     * @param usuario - usuario a aliminar. 
+     * @return Json con el usuario que elimino o Json con el error que se produjo
      */
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteCliente(Cliente cliente) {
+	public Response deleteUsuario(Usuario usuario) {
 		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
-			tm.deleteCliente(cliente);
+			tm.deleteUsuario(usuario);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(cliente).build();
+		return Response.status(200).entity(usuario).build();
 	}
 
 }

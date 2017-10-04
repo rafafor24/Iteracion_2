@@ -9,10 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import dao.DAOCliente;
+import dao.DAOUsuario;
 import dao.DAOIngrediente;
 import dao.DAORestaurante;
-import vos.Cliente;
+import vos.Usuario;
 import vos.Ingrediente;
 import vos.Restaurante;
 
@@ -178,19 +178,19 @@ public class RotondAndesTM {
 	}
 	
 	/**
-	 * Metodo que modela la transaccion que retorna todos los Clientes de la base de datos.
-	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * Metodo que modela la transaccion que retorna todos los Usuarios de la base de datos.
+	 * @return ListaUsuarios - objeto que modela  un arreglo de Usuarios. este arreglo contiene el resultado de la busqueda
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public List<Cliente> darClientes() throws Exception {
-		List<Cliente> clientes;
-		DAOCliente daoClientes= new DAOCliente();
+	public List<Usuario> darUsuarios() throws Exception {
+		List<Usuario> usuarios;
+		DAOUsuario daoUsuarios= new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
-			daoClientes.setConn(conn);
-			clientes = daoClientes.darClientes();
+			daoUsuarios.setConn(conn);
+			usuarios = daoUsuarios.darUsuarios();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -202,7 +202,7 @@ public class RotondAndesTM {
 			throw e;
 		} finally {
 			try {
-				daoClientes.cerrarRecursos();
+				daoUsuarios.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -211,7 +211,7 @@ public class RotondAndesTM {
 				throw exception;
 			}
 		}
-		return clientes;
+		return usuarios;
 	}
 
 //	/**
@@ -365,19 +365,19 @@ public class RotondAndesTM {
 	}
 	
 	/**
-	 * Metodo que modela la transaccion que agrega un solo Cliente a la base de datos.
-	 * <b> post: </b> se ha agregado el Cliente que entra como parametro
-	 * @param cliente - el cliente a agregar. cliente != null
-	 * @throws Exception - cualquier error que se genere agregando el cliente
+	 * Metodo que modela la transaccion que agrega un solo Usuario a la base de datos.
+	 * <b> post: </b> se ha agregado el Usuario que entra como parametro
+	 * @param usuario - el usuario a agregar. usuario != null
+	 * @throws Exception - cualquier error que se genere agregando el usuario
 	 */
-	public void addCliente(Cliente cliente) throws Exception {
-		DAOCliente daoClientes = new DAOCliente();
+	public void addUsuario(Usuario usuario) throws Exception {
+		DAOUsuario daoUsuarios = new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
-			daoClientes.setConn(conn);
-			daoClientes.addCliente(cliente);
+			daoUsuarios.setConn(conn);
+			daoUsuarios.addUsuario(usuario);
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -390,7 +390,7 @@ public class RotondAndesTM {
 			throw e;
 		} finally {
 			try {
-				daoClientes.cerrarRecursos();
+				daoUsuarios.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -482,19 +482,19 @@ public class RotondAndesTM {
 		}
 	}
 	/**
-	 * Metodo que modela la transaccion que actualiza el cliente que entra como parametro a la base de datos.
-	 * <b> post: </b> se ha actualizado el cliente que entra como parametro
-	 * @param ingrediente - cliente a actualizar. cliente != null
+	 * Metodo que modela la transaccion que actualiza el usuario que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el usuario que entra como parametro
+	 * @param ingrediente - usuario a actualizar. usuario != null
 	 * @throws Exception - cualquier error que se genera actualizando los videos
 	 */
-	public void updateCliente(Cliente cliente) throws Exception {
-		DAOCliente daoClientes= new DAOCliente();
+	public void updateUsuario(Usuario usuario) throws Exception {
+		DAOUsuario daoUsuarios= new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
-			daoClientes.setConn(conn);
-			daoClientes.updateCliente(cliente);
+			daoUsuarios.setConn(conn);
+			daoUsuarios.updateUsuario(usuario);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -506,7 +506,7 @@ public class RotondAndesTM {
 			throw e;
 		} finally {
 			try {
-				daoClientes.cerrarRecursos();
+				daoUsuarios.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -552,19 +552,19 @@ public class RotondAndesTM {
 		}
 	}
 	/**
-	 * Metodo que modela la transaccion que elimina el cliente que entra como parametro a la base de datos.
-	 * <b> post: </b> se ha eliminado el cliente que entra como parametro
-	 * @param ingrediente - cliente a eliminar. cliente != null
-	 * @throws Exception - cualquier error que se genera actualizando los clientes
+	 * Metodo que modela la transaccion que elimina el usuario que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el usuario que entra como parametro
+	 * @param ingrediente - usuario a eliminar. usuario != null
+	 * @throws Exception - cualquier error que se genera actualizando los usuarios
 	 */
-	public void deleteCliente(Cliente cliente) throws Exception {
-		DAOCliente daoClientes = new DAOCliente();
+	public void deleteUsuario(Usuario usuario) throws Exception {
+		DAOUsuario daoUsuarios = new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
-			daoClientes.setConn(conn);
-			daoClientes.deleteCliente(cliente);
+			daoUsuarios.setConn(conn);
+			daoUsuarios.deleteUsuario(usuario);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -576,7 +576,7 @@ public class RotondAndesTM {
 			throw e;
 		} finally {
 			try {
-				daoClientes.cerrarRecursos();
+				daoUsuarios.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -660,3 +660,4 @@ public class RotondAndesTM {
 
 
 }
+

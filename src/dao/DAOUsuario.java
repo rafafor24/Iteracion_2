@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vos.Cliente;
-import vos.Ingrediente;
+import vos.Usuario;
 
-public class DAOCliente {
+
+public class DAOUsuario {
 	/**
 	 * Arraylits de recursos que se usan para la ejecución de sentencias SQL
 	 */
@@ -21,10 +21,10 @@ public class DAOCliente {
 	private Connection conn;
 
 	/**
-	 * Metodo constructor que crea DAOCliente
+	 * Metodo constructor que crea DAOUsuario
 	 * <b>post: </b> Crea la instancia del DAO e inicializa el Arraylist de recursos
 	 */
-	public DAOCliente() {
+	public DAOUsuario() {
 		recursos = new ArrayList<Object>();
 	}
 
@@ -53,14 +53,14 @@ public class DAOCliente {
 
 
 	/**
-	 * Metodo que, usando la conexión a la base de datos, saca todos los clientes de la base de datos
+	 * Metodo que, usando la conexión a la base de datos, saca todos los usuarios de la base de datos
 	 * <b>SQL Statement:</b> SELECT * FROM CLIENTES;
-	 * @return Arraylist con los clientes de la base de datos.
+	 * @return Arraylist con los usuarios de la base de datos.
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ArrayList<Cliente> darClientes() throws SQLException, Exception {
-		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+	public ArrayList<Usuario> darUsuarios() throws SQLException, Exception {
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 
 		String sql = "SELECT * FROM CLIENTES";
 
@@ -73,9 +73,9 @@ public class DAOCliente {
 			Integer identificacion = rs.getInt("IDENTIFICACION");
 			String rol = rs.getString("ROL");
 			String correoElectronico= rs.getString("CORREOELECTRONICO");
-			clientes.add(new Cliente(name, identificacion,rol, correoElectronico));
+			usuarios.add(new Usuario(name, identificacion,rol, correoElectronico));
 		}
-		return clientes;
+		return usuarios;
 	}
 
 
@@ -133,20 +133,20 @@ public class DAOCliente {
 //	}
 
 	/**
-	 * Metodo que agrega el cliente que entra como parametro a la base de datos.
-	 * @param cliente - el cliente a agregar. cliente !=  null
-	 * <b> post: </b> se ha agregado el cliente a la base de datos en la transaction actual. pendiente que el cliente master
-	 * haga commit para que el cliente baje  a la base de datos.
-	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo agregar el cliente a la base de datos
+	 * Metodo que agrega el usuario que entra como parametro a la base de datos.
+	 * @param usuario - el usuario a agregar. usuario !=  null
+	 * <b> post: </b> se ha agregado el usuario a la base de datos en la transaction actual. pendiente que el usuario master
+	 * haga commit para que el usuario baje  a la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo agregar el usuario a la base de datos
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void addCliente(Cliente cliente) throws SQLException, Exception {
+	public void addUsuario(Usuario usuario) throws SQLException, Exception {
 
 		String sql = "INSERT INTO CLIENTES VALUES (";
-		sql += "'"+cliente.getNombre() + "',";
-		sql += cliente.getIdentificacion() + ",";
-		sql += "'"+cliente.getRol() + "',";
-		sql += "'"+cliente.getCorreoElectronico()+"'" + ")";
+		sql += "'"+usuario.getNombre() + "',";
+		sql += usuario.getIdentificacion() + ",";
+		sql += "'"+usuario.getRol() + "',";
+		sql += "'"+usuario.getCorreoElectronico()+"'" + ")";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -155,20 +155,20 @@ public class DAOCliente {
 	}
 	
 	/**
-	 * Metodo que actualiza el cliente que entra como parametro en la base de datos.
-	 * @param cliente - el cliente a actualizar. cliente !=  null
-	 * <b> post: </b> se ha actualizado el cliente en la base de datos en la transaction actual. pendiente que el cliente master
+	 * Metodo que actualiza el usuario que entra como parametro en la base de datos.
+	 * @param usuario - el usuario a actualizar. usuario !=  null
+	 * <b> post: </b> se ha actualizado el usuario en la base de datos en la transaction actual. pendiente que el usuario master
 	 * haga commit para que los cambios bajen a la base de datos.
-	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el cliente.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el usuario.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void updateCliente(Cliente cliente) throws SQLException, Exception {
+	public void updateUsuario(Usuario usuario) throws SQLException, Exception {
 
 		String sql = "UPDATE CLIENTES SET ";
-		sql += "IDENTIFICACION=" + cliente.getIdentificacion()+",";
-		sql += "ROL='" + cliente.getRol()+"',";
-		sql += "CORREOELECTRONICO='" + cliente.getCorreoElectronico()+"'";
-		sql += " WHERE NOMBRE='" + cliente.getNombre()+"';";
+		sql += "IDENTIFICACION=" + usuario.getIdentificacion()+",";
+		sql += "ROL='" + usuario.getRol()+"',";
+		sql += "CORREOELECTRONICO='" + usuario.getCorreoElectronico()+"'";
+		sql += " WHERE NOMBRE='" + usuario.getNombre()+"';";
 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -177,17 +177,17 @@ public class DAOCliente {
 	}
 
 	/**
-	 * Metodo que elimina el cliente que entra como parametro en la base de datos.
-	 * @param cliente - el cliente a borrar. cliente !=  null
-	 * <b> post: </b> se ha borrado el cliente en la base de datos en la transaction actual. pendiente que el cliente master
+	 * Metodo que elimina el usuario que entra como parametro en la base de datos.
+	 * @param usuario - el usuario a borrar. usuario !=  null
+	 * <b> post: </b> se ha borrado el usuario en la base de datos en la transaction actual. pendiente que el usuario master
 	 * haga commit para que los cambios bajen a la base de datos.
-	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el cliente.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el usuario.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void deleteCliente(Cliente cliente) throws SQLException, Exception {
+	public void deleteUsuario(Usuario usuario) throws SQLException, Exception {
 
 		String sql = "DELETE FROM CLIENTES";
-		sql += " WHERE NOMBRE ='" + cliente.getNombre()+"';";
+		sql += " WHERE NOMBRE ='" + usuario.getNombre()+"';";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
