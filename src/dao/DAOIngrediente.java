@@ -72,7 +72,8 @@ public class DAOIngrediente {
 			String name = rs.getString("NOMBRE");
 			String descripcion = rs.getString("DESCRIPCION");
 			String traduccion = rs.getString("TRADUCCION");
-			ingredientes.add(new Ingrediente(name, descripcion,traduccion));
+			Integer cantidad = rs.getInt("CANTIDAD");
+			ingredientes.add(new Ingrediente(name, descripcion,traduccion,cantidad));
 		}
 		return ingredientes;
 	}
@@ -98,7 +99,8 @@ public class DAOIngrediente {
 			String nombre = rs.getString("NOMBRE");
 			String descripcion = rs.getString("DESCRIPCION");
 			String traduccion = rs.getString("TRADUCCION");
-			ingredientes.add(new Ingrediente(nombre, descripcion,traduccion));
+			Integer cantidad = rs.getInt("CANTIDAD");
+			ingredientes.add(new Ingrediente(name, descripcion,traduccion,cantidad));
 		}
 
 		return ingredientes;
@@ -118,7 +120,8 @@ public class DAOIngrediente {
 		String sql = "INSERT INTO INGREDIENTES VALUES (";
 		sql += "'"+ingrediente.getNombre() + "',";
 		sql += "'"+ingrediente.getDescripcion() + "',";
-		sql += "'"+ingrediente.getTraduccion()+"'" + ")";
+		sql += "'"+ingrediente.getTraduccion()+"',";
+		sql += ingrediente.getCantidad()+")";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -139,6 +142,7 @@ public class DAOIngrediente {
 		String sql = "UPDATE INGREDIENTES SET ";
 		sql += "DESCRIPCION='" + ingrediente.getDescripcion()+"',";
 		sql += "TRADUCCION='" + ingrediente.getTraduccion()+"'";
+		sql += "CANTIDAD="+ingrediente.getCantidad();
 		sql += " WHERE NOMBRE='" + ingrediente.getNombre()+"'";
 
 

@@ -24,6 +24,12 @@ public class Ingrediente {
 	@JsonProperty(value="traduccion")
 	private String traduccion;
 	
+	/**
+	 * Traduccion del ingrediente
+	 */
+	@JsonProperty(value="cantidad")
+	private Integer cantidad;
+	
 	
 	/**
 	 * Metodo constructor de la clase Ingrediente
@@ -35,12 +41,14 @@ public class Ingrediente {
 	 */
 	public Ingrediente( @JsonProperty(value="nombre")String nombre,
 			@JsonProperty(value="descripcion")String descripcion,
-			@JsonProperty(value="traduccion")String traduccion) 
+			@JsonProperty(value="traduccion")String traduccion,
+			@JsonProperty(value="cantidad") Integer cantidad) 
 	{
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.traduccion = traduccion;
+		this.cantidad=cantidad;
 	}
 	
 
@@ -69,4 +77,16 @@ public class Ingrediente {
 		this.traduccion = traduccion;
 	}
 
+
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+	
 }
