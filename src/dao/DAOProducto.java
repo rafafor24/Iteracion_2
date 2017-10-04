@@ -92,7 +92,7 @@ public class DAOProducto {
 	public ArrayList<Producto> buscarProductosPorName(String name) throws SQLException, Exception {
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
-		String sql = "SELECT * FROM PRODUCTOS WHERE NAME ='" + name + "'";
+		String sql = "SELECT * FROM PRODUCTOS WHERE NOMBRE ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
