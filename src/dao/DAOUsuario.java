@@ -89,7 +89,7 @@ public class DAOUsuario {
 	public ArrayList<Usuario> buscarUsuariosPorName(String name) throws SQLException, Exception {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 
-		String sql = "SELECT * FROM VIDEO WHERE NAME ='" + name + "'";
+		String sql = "SELECT * FROM USUARIOS WHERE NAME ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

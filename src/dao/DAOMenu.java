@@ -93,7 +93,7 @@ public class DAOMenu {
 	public ArrayList<Menu> buscarMenusPorName(String name) throws SQLException, Exception {
 		ArrayList<Menu> menus = new ArrayList<Menu>();
 
-		String sql = "SELECT * FROM VIDEO WHERE NAME ='" + name + "'";
+		String sql = "SELECT * FROM MENUS WHERE NAME ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

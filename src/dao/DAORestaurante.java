@@ -90,7 +90,7 @@ public class DAORestaurante {
 	public ArrayList<Restaurante> buscarRestaurantesPorName(String name) throws SQLException, Exception {
 		ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
 
-		String sql = "SELECT * FROM VIDEO WHERE NAME ='" + name + "'";
+		String sql = "SELECT * FROM RESTAURANTES WHERE NAME ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

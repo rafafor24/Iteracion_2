@@ -88,7 +88,7 @@ public class DAOIngrediente {
 	public ArrayList<Ingrediente> buscarIngredientesPorName(String name) throws SQLException, Exception {
 		ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 
-		String sql = "SELECT * FROM VIDEO WHERE NAME ='" + name + "'";
+		String sql = "SELECT * FROM INGREDIENTES WHERE NAME ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
