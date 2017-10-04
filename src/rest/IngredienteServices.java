@@ -67,28 +67,29 @@ public class IngredienteServices {
 	}
 	
 
-//    /**
-//     * Metodo que expone servicio REST usando GET que busca el video con el nombre que entra como parametro
-//     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/nombre/nombre?nombre=<<nombre>>" para la busqueda"
-//     * @param name - Nombre del video a buscar que entra en la URL como parametro 
-//     * @return Json con el/los videos encontrados con el nombre que entra como parametro o json con 
-//     * el error que se produjo
-//     */
-//	@GET
-//	@Path( "{nombre}" )
-//	@Produces( { MediaType.APPLICATION_JSON } )
-//	public Response getVideoName( @QueryParam("nombre") String name) {
-//		VideoAndesTM tm = new VideoAndesTM(getPath());
-//		List<Video> videos;
-//		try {
-//			if (name == null || name.length() == 0)
-//				throw new Exception("Nombre del video no valido");
-//			videos = tm.buscarVideosPorName(name);
-//		} catch (Exception e) {
-//			return Response.status(500).entity(doErrorMessage(e)).build();
-//		}
-//		return Response.status(200).entity(videos).build();
-//	}
+	/**
+     * Metodo que expone servicio REST usando GET que busca el ingrediente con el nombre que entra como parametro
+     * <b>URL: </b> http://"ip o nombre de host":8080/IngredienteAndes/rest/ingredientes/nombre/nombre?nombre=<<nombre>>" para la busqueda"
+     * @param name - Nombre del ingrediente a buscar que entra en la URL como parametro 
+     * @return Json con el/los ingredientes encontrados con el nombre que entra como parametro o json con 
+     * el error que se produjo
+     */
+	@GET
+	@Path( "{nombre}" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response getIngredienteName( @QueryParam("nombre") String name) {
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		List<Ingrediente> ingredientes;
+		try {
+			if (name == null || name.length() == 0)
+				throw new Exception("Nombre del ingrediente no valido");
+			ingredientes = tm.buscarIngredientesPorName(name);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(ingredientes).build();
+	}
+
 
 
 	 /**

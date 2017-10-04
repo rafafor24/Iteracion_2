@@ -293,81 +293,198 @@ public class RotondAndesTM {
 	}
 
 
-//	/**
-//	 * Metodo que modela la transaccion que busca el/los videos en la base de datos con el nombre entra como parametro.
-//	 * @param name - Nombre del video a buscar. name != null
-//	 * @return ListaVideos - objeto que modela  un arreglo de videos. este arreglo contiene el resultado de la busqueda
-//	 * @throws Exception -  cualquier error que se genere durante la transaccion
-//	 */
-//	public List<Video> buscarVideosPorName(String name) throws Exception {
-//		List<Video> videos;
-//		DAOTablaVideos daoVideos = new DAOTablaVideos();
-//		try 
-//		{
-//			//////transaccion
-//			this.conn = darConexion();
-//			daoVideos.setConn(conn);
-//			videos = daoVideos.buscarVideosPorName(name);
-//
-//		} catch (SQLException e) {
-//			System.err.println("SQLException:" + e.getMessage());
-//			e.printStackTrace();
-//			throw e;
-//		} catch (Exception e) {
-//			System.err.println("GeneralException:" + e.getMessage());
-//			e.printStackTrace();
-//			throw e;
-//		} finally {
-//			try {
-//				daoVideos.cerrarRecursos();
-//				if(this.conn!=null)
-//					this.conn.close();
-//			} catch (SQLException exception) {
-//				System.err.println("SQLException closing resources:" + exception.getMessage());
-//				exception.printStackTrace();
-//				throw exception;
-//			}
-//		}
-//		return videos;
-//	}
-//	
-//	/**
-//	 * Metodo que modela la transaccion que busca el video en la base de datos con el id que entra como parametro.
-//	 * @param name - Id del video a buscar. name != null
-//	 * @return Video - Resultado de la busqueda
-//	 * @throws Exception -  cualquier error que se genere durante la transaccion
-//	 */
-//	public Video buscarVideoPorId(Long id) throws Exception {
-//		Video video;
-//		DAOTablaVideos daoVideos = new DAOTablaVideos();
-//		try 
-//		{
-//			//////transaccion
-//			this.conn = darConexion();
-//			daoVideos.setConn(conn);
-//			video = daoVideos.buscarVideoPorId(id);
-//
-//		} catch (SQLException e) {
-//			System.err.println("SQLException:" + e.getMessage());
-//			e.printStackTrace();
-//			throw e;
-//		} catch (Exception e) {
-//			System.err.println("GeneralException:" + e.getMessage());
-//			e.printStackTrace();
-//			throw e;
-//		} finally {
-//			try {
-//				daoVideos.cerrarRecursos();
-//				if(this.conn!=null)
-//					this.conn.close();
-//			} catch (SQLException exception) {
-//				System.err.println("SQLException closing resources:" + exception.getMessage());
-//				exception.printStackTrace();
-//				throw exception;
-//			}
-//		}
-//		return video;
-//	}
+	/**
+	 * Metodo que modela la transaccion que busca el/los productos en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del producto a buscar. name != null
+	 * @return ListaProductos - objeto que modela  un arreglo de productos. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Producto> buscarProductosPorName(String name) throws Exception {
+		List<Producto> productos;
+		DAOProducto daoProductos = new DAOProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductos.setConn(conn);
+			productos = daoProductos.buscarProductosPorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productos;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el/los menus en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del menu a buscar. name != null
+	 * @return ListaMenus - objeto que modela  un arreglo de menus. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Menu> buscarMenusPorName(String name) throws Exception {
+		List<Menu> menus;
+		DAOMenu daoMenus = new DAOMenu();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenus.setConn(conn);
+			menus = daoMenus.buscarMenusPorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenus.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return menus;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el/los ingredientes en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del ingrediente a buscar. name != null
+	 * @return ListaIngredientes - objeto que modela  un arreglo de ingredientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Ingrediente> buscarIngredientesPorName(String name) throws Exception {
+		List<Ingrediente> ingredientes;
+		DAOIngrediente daoIngredientes = new DAOIngrediente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredientes.setConn(conn);
+			ingredientes = daoIngredientes.buscarIngredientesPorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return ingredientes;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el/los restaurantes en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del restaurante a buscar. name != null
+	 * @return ListaRestaurantes - objeto que modela  un arreglo de restaurantes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Restaurante> buscarRestaurantesPorName(String name) throws Exception {
+		List<Restaurante> restaurantes;
+		DAORestaurante daoRestaurantes = new DAORestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurantes.setConn(conn);
+			restaurantes = daoRestaurantes.buscarRestaurantesPorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoRestaurantes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return restaurantes;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el/los usuarios en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del usuario a buscar. name != null
+	 * @return ListaUsuarios - objeto que modela  un arreglo de usuarios. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Usuario> buscarUsuariosPorName(String name) throws Exception {
+		List<Usuario> usuarios;
+		DAOUsuario daoUsuarios = new DAOUsuario();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoUsuarios.setConn(conn);
+			usuarios = daoUsuarios.buscarUsuariosPorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usuarios;
+	}
+
+
+
 	
 	/**
 	 * Metodo que modela la transaccion que agrega un solo Ingrediente a la base de datos.

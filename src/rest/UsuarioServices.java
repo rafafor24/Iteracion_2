@@ -10,6 +10,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -65,28 +66,29 @@ public class UsuarioServices {
 	}
 	
 
-//    /**
-//     * Metodo que expone servicio REST usando GET que busca el video con el nombre que entra como parametro
-//     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/nombre/nombre?nombre=<<nombre>>" para la busqueda"
-//     * @param name - Nombre del video a buscar que entra en la URL como parametro 
-//     * @return Json con el/los videos encontrados con el nombre que entra como parametro o json con 
-//     * el error que se produjo
-//     */
-//	@GET
-//	@Path( "{nombre}" )
-//	@Produces( { MediaType.APPLICATION_JSON } )
-//	public Response getVideoName( @QueryParam("nombre") String name) {
-//		VideoAndesTM tm = new VideoAndesTM(getPath());
-//		List<Video> videos;
-//		try {
-//			if (name == null || name.length() == 0)
-//				throw new Exception("Nombre del video no valido");
-//			videos = tm.buscarVideosPorName(name);
-//		} catch (Exception e) {
-//			return Response.status(500).entity(doErrorMessage(e)).build();
-//		}
-//		return Response.status(200).entity(videos).build();
-//	}
+	/**
+     * Metodo que expone servicio REST usando GET que busca el usuario con el nombre que entra como parametro
+     * <b>URL: </b> http://"ip o nombre de host":8080/UsuarioAndes/rest/usuarios/nombre/nombre?nombre=<<nombre>>" para la busqueda"
+     * @param name - Nombre del usuario a buscar que entra en la URL como parametro 
+     * @return Json con el/los usuarios encontrados con el nombre que entra como parametro o json con 
+     * el error que se produjo
+     */
+	@GET
+	@Path( "{nombre}" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response getUsuarioName( @QueryParam("nombre") String name) {
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		List<Usuario> usuarios;
+		try {
+			if (name == null || name.length() == 0)
+				throw new Exception("Nombre del usuario no valido");
+			usuarios = tm.buscarUsuariosPorName(name);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(usuarios).build();
+	}
+
 
 
 	 /**

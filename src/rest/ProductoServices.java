@@ -62,28 +62,29 @@ public class ProductoServices {
 	}
 	
 
-//    /**
-//     * Metodo que expone servicio REST usando GET que busca el video con el nombre que entra como parametro
-//     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/nombre/nombre?nombre=<<nombre>>" para la busqueda"
-//     * @param name - Nombre del video a buscar que entra en la URL como parametro 
-//     * @return Json con el/los videos encontrados con el nombre que entra como parametro o json con 
-//     * el error que se produjo
-//     */
-//	@GET
-//	@Path( "{nombre}" )
-//	@Produces( { MediaType.APPLICATION_JSON } )
-//	public Response getVideoName( @QueryParam("nombre") String name) {
-//		VideoAndesTM tm = new VideoAndesTM(getPath());
-//		List<Video> videos;
-//		try {
-//			if (name == null || name.length() == 0)
-//				throw new Exception("Nombre del video no valido");
-//			videos = tm.buscarVideosPorName(name);
-//		} catch (Exception e) {
-//			return Response.status(500).entity(doErrorMessage(e)).build();
-//		}
-//		return Response.status(200).entity(videos).build();
-//	}
+    /**
+     * Metodo que expone servicio REST usando GET que busca el producto con el nombre que entra como parametro
+     * <b>URL: </b> http://"ip o nombre de host":8080/ProductoAndes/rest/productos/nombre/nombre?nombre=<<nombre>>" para la busqueda"
+     * @param name - Nombre del producto a buscar que entra en la URL como parametro 
+     * @return Json con el/los productos encontrados con el nombre que entra como parametro o json con 
+     * el error que se produjo
+     */
+	@GET
+	@Path( "{nombre}" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response getProductoName( @QueryParam("nombre") String name) {
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		List<Producto> productos;
+		try {
+			if (name == null || name.length() == 0)
+				throw new Exception("Nombre del producto no valido");
+			productos = tm.buscarProductosPorName(name);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(productos).build();
+	}
+
 
 
 	 /**
