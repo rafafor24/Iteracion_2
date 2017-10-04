@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.Properties;
 
 import dao.DAOUsuario;
+import dao.DAOZona;
 import dao.DAOIngrediente;
 import dao.DAOMenu;
 import dao.DAOProducto;
 import dao.DAORestaurante;
 import vos.Usuario;
+import vos.Zona;
 import vos.Ingrediente;
 import vos.Menu;
 import vos.Producto;
@@ -291,6 +293,44 @@ public class RotondAndesTM {
 		}
 		return menus;
 	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Zonas de la base de datos.
+	 * @return ListaZonas - objeto que modela  un arreglo de Zonas. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Zona> darZonas() throws Exception {
+		List<Zona> zonas;
+		DAOZona daoZonas = new DAOZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZonas.setConn(conn);
+			zonas = daoZonas.darZonas();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return zonas;
+	}
+
 
 
 	/**
@@ -483,6 +523,45 @@ public class RotondAndesTM {
 		return usuarios;
 	}
 
+	
+	/**
+	 * Metodo que modela la transaccion que busca el/los zonas en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del zona a buscar. name != null
+	 * @return ListaZonas - objeto que modela  un arreglo de zonas. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Zona> buscarZonasPorName(String name) throws Exception {
+		List<Zona> zonas;
+		DAOZona daoZonas = new DAOZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZonas.setConn(conn);
+			zonas = daoZonas.buscarZonasPorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return zonas;
+	}
+
 
 
 	
@@ -671,7 +750,44 @@ public class RotondAndesTM {
 		}
 	}
 
-	
+
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Zona a la base de datos.
+	 * <b> post: </b> se ha agregado el Zona que entra como parametro
+	 * @param zona - el zona a agregar. zona != null
+	 * @throws Exception - cualquier error que se genere agregando el video
+	 */
+	public void addZona(Zona zona) throws Exception {
+		DAOZona daoZonas = new DAOZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZonas.setConn(conn);
+			daoZonas.addZona(zona);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
 	
 //	/**
 //	 * Metodo que modela la transaccion que agrega los videos que entran como parametro a la base de datos.
@@ -1067,6 +1183,78 @@ public class RotondAndesTM {
 		} finally {
 			try {
 				daoMenus.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que actualiza el zona que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el zona que entra como parametro
+	 * @param zona - zona a actualizar. zona != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateZona(Zona video) throws Exception {
+		DAOZona daoZonas = new DAOZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZonas.setConn(conn);
+			daoZonas.updateZona(video);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el zona que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el zona que entra como parametro
+	 * @param zona - zona a eliminar. zona != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteZona(Zona zona) throws Exception {
+		DAOZona daoZonas = new DAOZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZonas.setConn(conn);
+			daoZonas.deleteZona(zona);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZonas.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {

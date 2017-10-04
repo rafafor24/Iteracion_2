@@ -122,8 +122,8 @@ public class DAORestaurante {
 		String sql = "INSERT INTO RESTAURANTES VALUES (";
 		sql += "'"+restaurante.getNombre() + "',";
 		sql += "'"+restaurante.getRepresentante() + "',";
-		sql += "'"+restaurante.getTipoComida() + "',";
-		sql += "'"+restaurante.getPaginaWeb()+"'" + ")";
+		sql += "'"+restaurante.getTipo_comida() + "',";
+		sql += "'"+restaurante.getPagina_web()+"'" + ")";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -143,8 +143,8 @@ public class DAORestaurante {
 
 		String sql = "UPDATE RESTAURANTES SET ";
 		sql += "REPRESENTANTE='"+restaurante.getRepresentante() + "',";
-		sql += "TIPO_COMIDA='"+restaurante.getTipoComida() + "',";
-		sql += "PAGINA_WEB='"+restaurante.getPaginaWeb()+"' ";
+		sql += "TIPO_COMIDA='"+restaurante.getTipo_comida() + "',";
+		sql += "PAGINA_WEB='"+restaurante.getPagina_web()+"' ";
 		sql += " WHERE NOMBRE ='" + restaurante.getNombre()+"'";
 
 

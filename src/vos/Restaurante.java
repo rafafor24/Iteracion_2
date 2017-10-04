@@ -67,20 +67,20 @@ public class Restaurante {
 		this.representante = representante;
 	}
 
-	public String getTipoComida() {
+	public String getTipo_comida() {
 		return tipo_comida;
 	}
 
-	public void setTipoComida(String tipoComida) {
-		this.tipo_comida = tipoComida;
+	public void setTipo_comida(String tipo_comida) {
+		this.tipo_comida = tipo_comida;
 	}
 
-	public String getPaginaWeb() {
+	public String getPagina_web() {
 		return pagina_web;
 	}
 
-	public void setPaginaWeb(String paginaWeb) {
-		this.pagina_web = paginaWeb;
+	public void setPagina_web(String pagina_web) {
+		this.pagina_web = pagina_web;
 	}
 	
 	
