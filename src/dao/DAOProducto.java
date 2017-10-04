@@ -82,58 +82,38 @@ public class DAOProducto {
 	}
 
 
-//	/**
-//	 * Metodo que busca el/los videos con el nombre que entra como parametro.
-//	 * @param name - Nombre de el/los videos a buscar
-//	 * @return ArrayList con los videos encontrados
-//	 * @throws SQLException - Cualquier error que la base de datos arroje.
-//	 * @throws Exception - Cualquier error que no corresponda a la base de datos
-//	 */
-//	public ArrayList<Video> buscarVideosPorName(String name) throws SQLException, Exception {
-//		ArrayList<Video> videos = new ArrayList<Video>();
-//
-//		String sql = "SELECT * FROM VIDEO WHERE NAME ='" + name + "'";
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			String name2 = rs.getString("NAME");
-//			Long id = rs.getLong("ID");
-//			Integer duration = rs.getInt("DURATION");
-//			videos.add(new Video(id, name2, duration));
-//		}
-//
-//		return videos;
-//	}
-//	
-//	/**
-//	 * Metodo que busca el video con el id que entra como parametro.
-//	 * @param name - Id de el video a buscar
-//	 * @return Video encontrado
-//	 * @throws SQLException - Cualquier error que la base de datos arroje.
-//	 * @throws Exception - Cualquier error que no corresponda a la base de datos
-//	 */
-//	public Video buscarVideoPorId(Long id) throws SQLException, Exception 
-//	{
-//		Video video = null;
-//
-//		String sql = "SELECT * FROM VIDEO WHERE ID =" + id;
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		if(rs.next()) {
-//			String name = rs.getString("NAME");
-//			Long id2 = rs.getLong("ID");
-//			Integer duration = rs.getInt("DURATION");
-//			video = new Video(id2, name, duration);
-//		}
-//
-//		return video;
-//	}
+	/**
+	 * Metodo que busca el/los productos con el nombre que entra como parametro.
+	 * @param name - Nombre de el/los productos a buscar
+	 * @return ArrayList con los productos encontrados
+	 * @throws SQLException - Cualquier error que la base de datos arroje.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public ArrayList<Producto> buscarProductosPorName(String name) throws SQLException, Exception {
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+
+		String sql = "SELECT * FROM VIDEO WHERE NAME ='" + name + "'";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			String nombre = rs.getString("NOMBRE");
+			String descripcion = rs.getString("DESCRIPCION");
+			String traduccion = rs.getString("TRADUCCION");
+			Integer tiempo_preparacion = rs.getInt("TIEMPO_PREPARACION");
+			Integer costo_produccion = rs.getInt("COSTO_PRODUCCION");
+			Integer precio_venta = rs.getInt("PRECIO_VENTA");
+			Long tipo = rs.getLong("TIPO");
+			productos.add(new Producto(nombre, descripcion,traduccion,tiempo_preparacion,costo_produccion,precio_venta,tipo));
+		}
+
+		return productos;
+	}
+	
+
+
 
 	/**
 	 * Metodo que agrega el producto que entra como parametro a la base de datos.
