@@ -13,12 +13,14 @@ import dao.DAOUsuario;
 import dao.DAOZona;
 import dao.DAOIngrediente;
 import dao.DAOMenu;
+import dao.DAOPreferencia;
 import dao.DAOProducto;
 import dao.DAORestaurante;
 import vos.Usuario;
 import vos.Zona;
 import vos.Ingrediente;
 import vos.Menu;
+import vos.Preferencia;
 import vos.Producto;
 import vos.Restaurante;
 
@@ -331,6 +333,42 @@ public class RotondAndesTM {
 		return zonas;
 	}
 
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Preferencias de la base de datos.
+	 * @return ListaPreferencias - objeto que modela  un arreglo de Preferencias. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Preferencia> darPreferencias() throws Exception {
+		List<Preferencia> preferencias;
+		DAOPreferencia daoPreferencias = new DAOPreferencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPreferencias.setConn(conn);
+			preferencias = daoPreferencias.darPreferencias();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferencias.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return preferencias;
+	}
 
 
 	/**
@@ -563,6 +601,45 @@ public class RotondAndesTM {
 	}
 
 
+	/**
+	 * Metodo que modela la transaccion que busca el/los preferencias en la base de datos con el nombre entra como parametro.
+	 * @param name - Nombre del preferencia a buscar. name != null
+	 * @return ListaPreferencias - objeto que modela  un arreglo de preferencias. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Preferencia> buscarPreferenciasPorName(String name) throws Exception {
+		List<Preferencia> preferencias;
+		DAOPreferencia daoPreferencias = new DAOPreferencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPreferencias.setConn(conn);
+			preferencias = daoPreferencias.buscarPreferenciasPorName(name);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferencias.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return preferencias;
+	}
+
+
 
 	
 	/**
@@ -778,6 +855,44 @@ public class RotondAndesTM {
 		} finally {
 			try {
 				daoZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Preferencia a la base de datos.
+	 * <b> post: </b> se ha agregado el Preferencia que entra como parametro
+	 * @param preferencia - el preferencia a agregar. preferencia != null
+	 * @throws Exception - cualquier error que se genere agregando el video
+	 */
+	public void addPreferencia(Preferencia preferencia) throws Exception {
+		DAOPreferencia daoPreferencias = new DAOPreferencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPreferencias.setConn(conn);
+			daoPreferencias.addPreferencia(preferencia);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferencias.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -1255,6 +1370,79 @@ public class RotondAndesTM {
 		} finally {
 			try {
 				daoZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	
+	/**
+	 * Metodo que modela la transaccion que actualiza el preferencia que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el preferencia que entra como parametro
+	 * @param preferencia - preferencia a actualizar. preferencia != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updatePreferencia(Preferencia video) throws Exception {
+		DAOPreferencia daoPreferencias = new DAOPreferencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPreferencias.setConn(conn);
+			daoPreferencias.updatePreferencia(video);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferencias.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el preferencia que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el preferencia que entra como parametro
+	 * @param preferencia - preferencia a eliminar. preferencia != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deletePreferencia(Preferencia preferencia) throws Exception {
+		DAOPreferencia daoPreferencias = new DAOPreferencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPreferencias.setConn(conn);
+			daoPreferencias.deletePreferencia(preferencia);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferencias.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
