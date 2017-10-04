@@ -11,9 +11,11 @@ import java.util.Properties;
 
 import dao.DAOUsuario;
 import dao.DAOIngrediente;
+import dao.DAOProducto;
 import dao.DAORestaurante;
 import vos.Usuario;
 import vos.Ingrediente;
+import vos.Producto;
 import vos.Restaurante;
 
 public class RotondAndesTM {
@@ -213,6 +215,45 @@ public class RotondAndesTM {
 		}
 		return usuarios;
 	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Productos de la base de datos.
+	 * @return ListaProductos - objeto que modela  un arreglo de Productos. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Producto> darProductos() throws Exception {
+		List<Producto> productos;
+		DAOProducto daoProductos = new DAOProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductos.setConn(conn);
+			productos = daoProductos.darProductos();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productos;
+	}
+	
+
 
 //	/**
 //	 * Metodo que modela la transaccion que busca el/los videos en la base de datos con el nombre entra como parametro.
@@ -401,6 +442,44 @@ public class RotondAndesTM {
 		}
 	}
 	
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Producto a la base de datos.
+	 * <b> post: </b> se ha agregado el Producto que entra como parametro
+	 * @param producto - el producto a agregar. producto != null
+	 * @throws Exception - cualquier error que se genere agregando el video
+	 */
+	public void addProducto(Producto producto) throws Exception {
+		DAOProducto daoProductos = new DAOProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductos.setConn(conn);
+			daoProductos.addProducto(producto);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	
 	
 //	/**
 //	 * Metodo que modela la transaccion que agrega los videos que entran como parametro a la base de datos.
@@ -481,41 +560,7 @@ public class RotondAndesTM {
 			}
 		}
 	}
-	/**
-	 * Metodo que modela la transaccion que actualiza el usuario que entra como parametro a la base de datos.
-	 * <b> post: </b> se ha actualizado el usuario que entra como parametro
-	 * @param ingrediente - usuario a actualizar. usuario != null
-	 * @throws Exception - cualquier error que se genera actualizando los videos
-	 */
-	public void updateUsuario(Usuario usuario) throws Exception {
-		DAOUsuario daoUsuarios= new DAOUsuario();
-		try 
-		{
-			//////transaccion
-			this.conn = darConexion();
-			daoUsuarios.setConn(conn);
-			daoUsuarios.updateUsuario(usuario);
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoUsuarios.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
+	
 	/**
 	 * Metodo que modela la transaccion que elimina el ingrediente que entra como parametro a la base de datos.
 	 * <b> post: </b> se ha eliminado el ingrediente que entra como parametro
@@ -551,6 +596,43 @@ public class RotondAndesTM {
 			}
 		}
 	}
+	
+	/**
+	 * Metodo que modela la transaccion que actualiza el usuario que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el usuario que entra como parametro
+	 * @param ingrediente - usuario a actualizar. usuario != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateUsuario(Usuario usuario) throws Exception {
+		DAOUsuario daoUsuarios= new DAOUsuario();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoUsuarios.setConn(conn);
+			daoUsuarios.updateUsuario(usuario);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 	/**
 	 * Metodo que modela la transaccion que elimina el usuario que entra como parametro a la base de datos.
 	 * <b> post: </b> se ha eliminado el usuario que entra como parametro
@@ -586,6 +668,7 @@ public class RotondAndesTM {
 			}
 		}
 	}
+	
 	/**
 	 * Metodo que modela la transaccion que actualiza el restaurante que entra como parametro a la base de datos.
 	 * <b> post: </b> se ha actualizado el restaurante que entra como parametro
@@ -658,6 +741,78 @@ public class RotondAndesTM {
 		}
 	}
 
+	/**
+	 * Metodo que modela la transaccion que actualiza el producto que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el producto que entra como parametro
+	 * @param producto - producto a actualizar. producto != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateProducto(Producto video) throws Exception {
+		DAOProducto daoProductos = new DAOProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductos.setConn(conn);
+			daoProductos.updateProducto(video);
 
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el producto que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el producto que entra como parametro
+	 * @param producto - producto a eliminar. producto != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteProducto(Producto producto) throws Exception {
+		DAOProducto daoProductos = new DAOProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductos.setConn(conn);
+			daoProductos.deleteProducto(producto);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	
 }
 

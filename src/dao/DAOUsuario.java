@@ -62,7 +62,7 @@ public class DAOUsuario {
 	public ArrayList<Usuario> darUsuarios() throws SQLException, Exception {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 
-		String sql = "SELECT * FROM CLIENTES";
+		String sql = "SELECT * FROM USUARIOS";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -72,8 +72,8 @@ public class DAOUsuario {
 			String name = rs.getString("NOMBRE");
 			Integer identificacion = rs.getInt("IDENTIFICACION");
 			String rol = rs.getString("ROL");
-			String correoElectronico= rs.getString("CORREOELECTRONICO");
-			usuarios.add(new Usuario(name, identificacion,rol, correoElectronico));
+			String correo_electronico= rs.getString("CORREO_ELECTRONICO");
+			usuarios.add(new Usuario(name, identificacion,rol, correo_electronico));
 		}
 		return usuarios;
 	}
@@ -142,7 +142,7 @@ public class DAOUsuario {
 	 */
 	public void addUsuario(Usuario usuario) throws SQLException, Exception {
 
-		String sql = "INSERT INTO CLIENTES VALUES (";
+		String sql = "INSERT INTO USUARIOS VALUES (";
 		sql += "'"+usuario.getNombre() + "',";
 		sql += usuario.getIdentificacion() + ",";
 		sql += "'"+usuario.getRol() + "',";
@@ -164,11 +164,11 @@ public class DAOUsuario {
 	 */
 	public void updateUsuario(Usuario usuario) throws SQLException, Exception {
 
-		String sql = "UPDATE CLIENTES SET ";
+		String sql = "UPDATE USUARIOS SET ";
 		sql += "IDENTIFICACION=" + usuario.getIdentificacion()+",";
 		sql += "ROL='" + usuario.getRol()+"',";
-		sql += "CORREOELECTRONICO='" + usuario.getCorreoElectronico()+"'";
-		sql += " WHERE NOMBRE='" + usuario.getNombre()+"';";
+		sql += "CORREO_ELECTRONICO='" + usuario.getCorreoElectronico()+"'";
+		sql += " WHERE NOMBRE='" + usuario.getNombre()+"'";
 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -186,8 +186,8 @@ public class DAOUsuario {
 	 */
 	public void deleteUsuario(Usuario usuario) throws SQLException, Exception {
 
-		String sql = "DELETE FROM CLIENTES";
-		sql += " WHERE NOMBRE ='" + usuario.getNombre()+"';";
+		String sql = "DELETE FROM USUARIOS";
+		sql += " WHERE NOMBRE ='" + usuario.getNombre()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

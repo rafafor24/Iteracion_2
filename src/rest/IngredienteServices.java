@@ -18,7 +18,6 @@ import javax.ws.rs.core.Response;
 
 import tm.RotondAndesTM;
 import vos.Ingrediente;
-import vos.Restaurante;;
 
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/RotondAndes/rest/

@@ -59,18 +59,18 @@ public class Producto {
 	public Producto(@JsonProperty(value="nombre")String nombre,
 			@JsonProperty(value="descripcion")String descripcion,
 			@JsonProperty(value="traduccion")String traduccion,	
-			@JsonProperty(value="tiempo_preparacion")Integer tiempoPreparacion,
-			@JsonProperty(value="costo_produccion")Integer costoProduccion,
-			@JsonProperty(value="precio_venta") Integer precioVenta,
+			@JsonProperty(value="tiempo_preparacion")Integer tiempo_preparacio,
+			@JsonProperty(value="costo_produccion")Integer costo_produccion,
+			@JsonProperty(value="precio_venta") Integer precio_venta,
 			@JsonProperty(value="tipo") Long tipo)
 	{
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.traduccion = traduccion;
-		this.costo_produccion=costoProduccion;
-		this.precio_venta=precioVenta;
-		this.tiempo_preparacion=tiempoPreparacion;
+		this.costo_produccion=costo_produccion;
+		this.precio_venta=precio_venta;
+		this.tiempo_preparacion=tiempo_preparacio;
 		this.tipo=tipo;
 	}
 
@@ -102,24 +102,24 @@ public class Producto {
 		return tiempo_preparacion;
 	}
 
-	public void setTiempoPreparacion(Integer tiempoPreparacion) {
-		this.tiempo_preparacion = tiempoPreparacion;
+	public void setTiempoPreparacion(Integer tiempo_preparacion) {
+		this.tiempo_preparacion = tiempo_preparacion;
 	}
 
 	public Integer getCostoProduccion() {
 		return costo_produccion;
 	}
 
-	public void setCostoProduccion(Integer costoProduccion) {
-		this.costo_produccion = costoProduccion;
+	public void setCostoProduccion(Integer costo_produccion) {
+		this.costo_produccion = costo_produccion;
 	}
 
 	public Integer getPrecioVenta() {
 		return precio_venta;
 	}
 
-	public void setPrecioVenta(Integer precioVenta) {
-		this.precio_venta = precioVenta;
+	public void setPrecioVenta(Integer precio_venta) {
+		this.precio_venta = precio_venta;
 	}
 
 	public Long getTipo() {
