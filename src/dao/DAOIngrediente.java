@@ -165,7 +165,7 @@ public class DAOIngrediente {
 		String sql = "UPDATE INGREDIENTES SET ";
 		sql += "DESCRIPCION='" + ingrediente.getDescripcion()+"',";
 		sql += "TRADUCCION='" + ingrediente.getTraduccion()+"'";
-		sql += " WHERE NOMBRE='" + ingrediente.getNombre()+"';";
+		sql += " WHERE NOMBRE='" + ingrediente.getNombre()+"'";
 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -184,7 +184,7 @@ public class DAOIngrediente {
 	public void deleteIngrediente(Ingrediente ingrediente) throws SQLException, Exception {
 
 		String sql = "DELETE FROM INGREDIENTES";
-		sql += " WHERE NOMBRE ='" + ingrediente.getNombre()+"';";
+		sql += " WHERE NOMBRE ='" + ingrediente.getNombre()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

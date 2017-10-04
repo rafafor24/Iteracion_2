@@ -9,7 +9,7 @@ public class Ingrediente {
 	/**
 	 * Nombre del ingrediente
 	 */
-	@JsonProperty(value="name")
+	@JsonProperty(value="nombre")
 	private String nombre;
 
 	/**
