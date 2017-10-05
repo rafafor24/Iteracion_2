@@ -4,3 +4,4 @@ ubicada en Docs/Collections, Las pruebas de integridad se ejecutan tambien desde
 la coleccion "PRUEBASLLAVES" en la misma carpeta.
 Los modelos uml y relacional se encuentran en /Docs.
 Las tablas creadas en SQL Developer estan en /Docs/Tablas en SQL Developer.docx
+Generamos 20 datos aleatorios para cada tabla en /Docs/DATOS.sql gracias a mockaroo.com
