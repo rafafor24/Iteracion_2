@@ -13,6 +13,7 @@ import dao.DAOUsuario;
 import dao.DAOZona;
 import dao.DAOIngrediente;
 import dao.DAOMenu;
+import dao.DAOPedido;
 import dao.DAOPreferencia;
 import dao.DAOProducto;
 import dao.DAORestaurante;
@@ -20,6 +21,7 @@ import vos.Usuario;
 import vos.Zona;
 import vos.Ingrediente;
 import vos.Menu;
+import vos.Pedido;
 import vos.Preferencia;
 import vos.Producto;
 import vos.Restaurante;
@@ -146,6 +148,42 @@ public class RotondAndesTM {
 			}
 		}
 		return ingredientes;
+	}
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Pedidos de la base de datos.
+	 * @return ListaPedidos- objeto que modela  un arreglo de Pedidos. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Pedido> darPedidos() throws Exception {
+		List<Pedido> pedidos;
+		DAOPedido daoPedidos= new DAOPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedidos.setConn(conn);
+			pedidos = daoPedidos.darPedidos();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedidos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return pedidos;
 	}
 	
 	/**
@@ -632,6 +670,42 @@ public class RotondAndesTM {
 		} finally {
 			try {
 				daoIngredientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Pedido a la base de datos.
+	 * <b> post: </b> se ha agregado el Pedido que entra como parametro
+	 * @param pedido - el Pedido a agregar. pedido != null
+	 * @throws Exception - cualquier error que se genere agregando el Pedido
+	 */
+	public void addPedido(Pedido pedido) throws Exception {
+		DAOPedido daoPedidos = new DAOPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedidos.setConn(conn);
+			daoPedidos.addPedido(pedido);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedidos.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -1415,6 +1489,76 @@ public class RotondAndesTM {
 			}
 		}
 	}
+	/**
+	 * Metodo que modela la transaccion que actualiza el pedido que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el pedido que entra como parametro
+	 * @param pedido - pedido a actualizar. pedido != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updatePedido(Pedido pedido) throws Exception {
+		DAOPedido daoPedidos = new DAOPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedidos.setConn(conn);
+			daoPedidos.updatePedido(pedido);
 
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedidos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el Pedido que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Pedido que entra como parametro
+	 * @param Pedido - Pedido a eliminar. ingrediente != null
+	 * @throws Exception - cualquier error que se genera actualizando los pedidos
+	 */
+	public void deletePedido(Pedido pedido) throws Exception {
+		DAOPedido daoPedidos = new DAOPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPedidos.setConn(conn);
+			daoPedidos.deletePedido(pedido);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPedidos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 }
 

@@ -9,21 +9,25 @@ public class Preferencia {
 	/**
 	 * id de la preferencia
 	 */
+	@JsonProperty(value="id")
 	private Long id;
 	
 	/**
 	 * precio de preferencia por el cliente
 	 */
+	@JsonProperty(value="precio")
 	private Integer precio;
 	
 	/**
 	 * zona de preferencia del cliente
 	 */
+	@JsonProperty(value="zona")
 	private String zona;
 	
 	/**
 	 * tipo de comida de preferencia del cliente
 	 */
+	@JsonProperty(value="tipo_comida")
 	private Integer tipo_comida;
 
 	
