@@ -70,10 +70,10 @@ public class DAOPedido {
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			Integer id= rs.getInt("ID");
+			long id= rs.getLong("ID");
 			Date fecha= rs.getDate("DATE");
 			Integer hora= rs.getInt("HORA");
-			Boolean aceptado= rs.getBoolean("ACEPTADO");
+			int aceptado= rs.getInt("ACEPTADO");
 			pedidos.add(new Pedido(id,fecha, hora, aceptado));
 		}
 		return pedidos;

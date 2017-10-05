@@ -19,12 +19,12 @@ public class Pedido {
 	 * Estado del pedido
 	 */
 	@JsonProperty(value="aceptado")
-	private boolean aceptado;
+	private int aceptado;
 	/**
 	 * identificador del pedido
 	 */
 	@JsonProperty(value="id")
-	private int id;
+	private long id;
 	
 	/**
 	 * Metodo constructor de la clase Pedido
@@ -34,10 +34,10 @@ public class Pedido {
 	 * @param hora - hora del pedido.
 	 * @param aceptado- Estado del pedido.
 	 */
-	public Pedido( @JsonProperty(value="id")Integer id,
+	public Pedido( @JsonProperty(value="id")long id,
 			@JsonProperty(value="fecha")Date fecha,
 			@JsonProperty(value="hora")int hora,
-			@JsonProperty(value="aceptado") Boolean aceptado) 
+			@JsonProperty(value="aceptado") int aceptado) 
 	{
 		super();
 		this.id= id;
@@ -77,28 +77,28 @@ public class Pedido {
 	/**
 	 * @return the aceptado
 	 */
-	public boolean isAceptado() {
+	public int isAceptado() {
 		return aceptado;
 	}
 
 	/**
 	 * @param aceptado the aceptado to set
 	 */
-	public void setAceptado(boolean aceptado) {
+	public void setAceptado(int aceptado) {
 		this.aceptado = aceptado;
 	}
 
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
