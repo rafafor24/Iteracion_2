@@ -1,0 +1,290 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Requerimientos",
+		"_postman_id": "cbb5417b-c370-bede-4539-6aa6898589f4",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "REGISTRAR USUARIO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/usuarios",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"usuario\",\n        \"identificacion\":1010240796,\n        \"rol\": \"usuario\",\n        \"correo_electronico\": \"usuario@gmail.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTRAR RESTAURANTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/restaurantes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Restaurante\",\n        \"representante\": \"Representante resturante\",\n        \"tipo_comida\": \"italiana\",\n        \"pagina_web\": \"Representante.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTRAR PRODUCTO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/productos",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Pizza\",\n        \"descripcion\": \"pizza\",\n        \"traduccion\": \"pizza\",\n        \"tiempo_preparacion\":60,\n        \"costo_produccion\":50,\n        \"precio_venta\":90,\n        \"tipo\":1\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTRAR INGREDIENTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/ingredientes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"queso\",\n        \"descripcion\": \"queso\",\n        \"traduccion\": \"cheese\",\n        \"cantidad\":20\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTRAR MENU",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/menus",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Comida italiana\",\n        \"costo_produccion\":100,\n        \"precio_venta\":150,\n        \"entrada\":\"rollitos de canela\",\n        \"plato_fuerte\":\"lasagna\",\n        \"postre\":\"tres leches\",\n        \"bebida\":\"gaseosa\",\n        \"acompanamiento\":\"pan de ajo\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTRAR ZONA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/zonas",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Zona T\",\n        \"espacio_abierto\": 0,\n        \"capacidad\": 200,\n        \"apto_discapacitados\": \"0\",\n        \"descripcion\": \"Zona T\",\n        \"especializacion\": \"No se\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTRAR PREFERENCIA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/preferencias",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"precio\": 3,\n        \"zona\": \"SSSSSS\",\n        \"tipo_comida\": 5\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CAMBIAR PREFERENCIA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/preferencias",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"precio\": 33,\n        \"zona\": \"SSSSSSSSS\",\n        \"tipo_comida\": 4\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "QUITAR PREFERENCIA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/preferencias",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"precio\": 3,\n        \"zona\": \"SSSSSS\",\n        \"tipo_comida\": 5\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

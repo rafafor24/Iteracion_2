@@ -1,0 +1,755 @@
+{
+	"variables": [],
+	"info": {
+		"name": "PruebasLlaves",
+		"_postman_id": "32d92a08-0c23-5103-9ecc-82fa081a328e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "agregar un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/productos",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Pizza\",\n        \"descripcion\": \"pizza\",\n        \"traduccion\": \"pizza\",\n        \"tiempo_preparacion\":60,\n        \"costo_produccion\":50,\n        \"precio_venta\":90,\n        \"tipo\":1\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un producto con el mismo nombre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 500, Restriccion de llave unica\"]=responseCode.code===500"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/productos",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Pizza\",\n        \"descripcion\": \"pizza\",\n        \"traduccion\": \"pizza\",\n        \"tiempo_preparacion\":60,\n        \"costo_produccion\":50,\n        \"precio_venta\":90,\n        \"tipo\":1\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "borrar producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/productos",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Pizza\",\n        \"descripcion\": \"pizza\",\n        \"traduccion\": \"pizza\",\n        \"tiempo_preparacion\":60,\n        \"costo_produccion\":50,\n        \"precio_venta\":90,\n        \"tipo\":1\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un menu",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/menus",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Comida italiana\",\n        \"costo_produccion\":100,\n        \"precio_venta\":150,\n        \"entrada\":\"rollitos de canela\",\n        \"plato_fuerte\":\"lasagna\",\n        \"postre\":\"tres leches\",\n        \"bebida\":\"gaseosa\",\n        \"acompanamiento\":\"pan de ajo\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un menu con el mismo nombre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 500, Restriccion de llave unica\"]=responseCode.code===500"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/menus",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Comida italiana\",\n        \"costo_produccion\":100,\n        \"precio_venta\":150,\n        \"entrada\":\"rollitos de canela\",\n        \"plato_fuerte\":\"lasagna\",\n        \"postre\":\"tres leches\",\n        \"bebida\":\"gaseosa\",\n        \"acompanamiento\":\"pan de ajo\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "borrar menu",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/menus",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Comida italiana\",\n        \"costo_produccion\":100,\n        \"precio_venta\":150,\n        \"entrada\":\"rollitos de canela\",\n        \"plato_fuerte\":\"lasagna\",\n        \"postre\":\"tres leches\",\n        \"bebida\":\"gaseosa\",\n        \"acompanamiento\":\"pan de ajo\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/usuarios",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"cliente\",\n        \"identificacion\":1010240796,\n        \"rol\": \"cliente\",\n        \"correo_electronico\": \"cliente@gmail.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un usuario con un nombre ya existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 500, Restriccion de llave unica\"]=responseCode.code===500"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/usuarios",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"cliente\",\n        \"identificacion\":1010240796,\n        \"rol\": \"cliente\",\n        \"correo_electronico\": \"cliente@gmail.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "borrar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/usuarios",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"cliente\",\n        \"identificacion\":1010240796,\n        \"rol\": \"cliente\",\n        \"correo_electronico\": \"cliente@gmail.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un restaurante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/restaurantes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"VivaLaPizza\",\n        \"representante\": \"gerente\",\n        \"tipo_comida\": \"italiana\",\n        \"pagina_web\": \"vivalapizza.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un restaurante con un nombre existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 500, Restriccion de llave unica\"]=responseCode.code===500"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/restaurantes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"VivaLaPizza\",\n        \"representante\": \"gerente\",\n        \"tipo_comida\": \"italiana\",\n        \"pagina_web\": \"vivalapizza.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "borrar restaurante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/restaurantes",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"VivaLaPizza\",\n        \"representante\": \"gerente\",\n        \"tipo_comida\": \"italiana\",\n        \"pagina_web\": \"vivalapizza.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un ingrediente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/ingredientes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"queso\",\n        \"descripcion\": \"queso\",\n        \"traduccion\": \"cheese\",\n        \"cantidad\":20\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un ingrediente con un nombre ya existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 500, Restriccion de llave unica\"]=responseCode.code===500"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/ingredientes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"queso\",\n        \"descripcion\": \"queso\",\n        \"traduccion\": \"cheese\",\n        \"cantidad\":20\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "borrar ingrediente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/ingredientes",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"queso\",\n        \"descripcion\": \"queso\",\n        \"traduccion\": \"cheese\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar una zona",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/zonas",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Zona T\",\n        \"espacio_abierto\": 0,\n        \"capacidad\": 200,\n        \"apto_discapacitados\": \"0\",\n        \"descripcion\": \"Zona T\",\n        \"especializacion\": \"No se\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar una zona con un nombre ya existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 500, Restriccion de llave unica\"]=responseCode.code===500"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/zonas",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Zona T\",\n        \"espacio_abierto\": 0,\n        \"capacidad\": 200,\n        \"apto_discapacitados\": \"0\",\n        \"descripcion\": \"Zona T\",\n        \"especializacion\": \"No se\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "borrar zona",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/zonas",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Zona T\",\n        \"espacio_abierto\": 0,\n        \"capacidad\": 200,\n        \"apto_discapacitados\": \"0\",\n        \"descripcion\": \"Zona T\",\n        \"especializacion\": \"No se\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar una preferencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/preferencias",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"precio\": 3,\n        \"zona\": \"SSSSSS\",\n        \"tipo_comida\": 5\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar una preferencia ya existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 500, Restriccion de llave unica\"]=responseCode.code===500"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/preferencias",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"precio\": 3,\n        \"zona\": \"SSSSSS\",\n        \"tipo_comida\": 5\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "borrar preferencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/preferencias",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"precio\": 3,\n        \"zona\": \"SSSSSS\",\n        \"tipo_comida\": 5\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un pedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/pedidos",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"fecha\": \"2017-10-04\",\n        \"hora\": 0,\n        \"aceptado\": 5\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "agregar un pedido ya existente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 500, Restriccion de llave unica\"]=responseCode.code===500"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/pedidos",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"fecha\": \"2017-10-04\",\n        \"hora\": 0,\n        \"aceptado\": 5\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "borrar pedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/pedidos",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"fecha\": \"2017-10-04\",\n        \"hora\": 0,\n        \"aceptado\": 5\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
