@@ -67,28 +67,7 @@ public class PreferenciaServices {
 	}
 	
 
-    /**
-     * Metodo que expone servicio REST usando GET que busca el preferencia con el nombre que entra como parametro
-     * <b>URL: </b> http://"ip o nombre de host":8080/PreferenciaAndes/rest/preferencias/nombre/nombre?nombre=<<nombre>>" para la busqueda"
-     * @param name - Nombre del preferencia a buscar que entra en la URL como parametro 
-     * @return Json con el/los preferencias encontrados con el nombre que entra como parametro o json con 
-     * el error que se produjo
-     */
-	@GET
-	@Path( "{nombre}" )
-	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getPreferenciaName( @QueryParam("nombre") String name) {
-		RotondAndesTM tm = new RotondAndesTM(getPath());
-		List<Preferencia> preferencias;
-		try {
-			if (name == null || name.length() == 0)
-				throw new Exception("Nombre del preferencia no valido");
-			preferencias = tm.buscarPreferenciasPorName(name);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(preferencias).build();
-	}
+   
 
 
 

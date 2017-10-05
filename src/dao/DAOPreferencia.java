@@ -69,8 +69,8 @@ public class DAOPreferencia {
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			int id = rs.getInt("ID");
-			int precio = rs.getInt("PRECIO");
+			Long id = rs.getLong("ID");
+			Integer precio = rs.getInt("PRECIO");
 			String zona = rs.getString("ZONA");
 			Integer tipoComida= rs.getInt("TIPO_COMIDA");
 			preferencias.add(new Preferencia(id, precio, zona, tipoComida));

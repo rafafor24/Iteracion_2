@@ -9,12 +9,12 @@ public class Preferencia {
 	/**
 	 * id de la preferencia
 	 */
-	private int id;
+	private Long id;
 	
 	/**
 	 * precio de preferencia por el cliente
 	 */
-	private int precio;
+	private Integer precio;
 	
 	/**
 	 * zona de preferencia del cliente
@@ -36,7 +36,7 @@ public class Preferencia {
 	 * @param zona - Zona de preferencia.
 	 * @param tipo_comida -tipo comida de preferencia.
 	 */
-	public Preferencia( @JsonProperty(value="id")Integer id,
+	public Preferencia( @JsonProperty(value="id")Long id,
 			@JsonProperty(value="precio")Integer precio,
 			@JsonProperty(value="zona")String zona,
 			@JsonProperty(value="tipo_comida") Integer tipoComida) 
@@ -53,28 +53,28 @@ public class Preferencia {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	/**
 	 * @return the precio
 	 */
-	public int getPrecio() {
+	public Integer getPrecio() {
 		return precio;
 	}
 
 	/**
 	 * @param precio the precio to set
 	 */
-	public void setPrecio(int precio) {
+	public void setPrecio(Integer precio) {
 		this.precio = precio;
 	}
 

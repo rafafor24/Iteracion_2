@@ -601,44 +601,7 @@ public class RotondAndesTM {
 	}
 
 
-	/**
-	 * Metodo que modela la transaccion que busca el/los preferencias en la base de datos con el nombre entra como parametro.
-	 * @param name - Nombre del preferencia a buscar. name != null
-	 * @return ListaPreferencias - objeto que modela  un arreglo de preferencias. este arreglo contiene el resultado de la busqueda
-	 * @throws Exception -  cualquier error que se genere durante la transaccion
-	 */
-	public List<Preferencia> buscarPreferenciasPorName(String name) throws Exception {
-		List<Preferencia> preferencias;
-		DAOPreferencia daoPreferencias = new DAOPreferencia();
-		try 
-		{
-			//////transaccion
-			this.conn = darConexion();
-			daoPreferencias.setConn(conn);
-			preferencias = daoPreferencias.buscarPreferenciasPorName(name);
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoPreferencias.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return preferencias;
-	}
-
+	
 
 
 	
