@@ -14,17 +14,17 @@ public class Pedido {
 	 * hora en la que se realizo el pedido
 	 */
 	@JsonProperty(value="hora")
-	private int hora;
+	private Integer hora;
 	/**
 	 * Estado del pedido
 	 */
 	@JsonProperty(value="aceptado")
-	private int aceptado;
+	private Integer aceptado;
 	/**
 	 * identificador del pedido
 	 */
 	@JsonProperty(value="id")
-	private long id;
+	private Long id;
 	
 	/**
 	 * Metodo constructor de la clase Pedido
@@ -34,10 +34,10 @@ public class Pedido {
 	 * @param hora - hora del pedido.
 	 * @param aceptado- Estado del pedido.
 	 */
-	public Pedido( @JsonProperty(value="id")long id,
+	public Pedido( @JsonProperty(value="id")Long id,
 			@JsonProperty(value="fecha")Date fecha,
-			@JsonProperty(value="hora")int hora,
-			@JsonProperty(value="aceptado") int aceptado) 
+			@JsonProperty(value="hora")Integer hora,
+			@JsonProperty(value="aceptado") Integer aceptado) 
 	{
 		super();
 		this.id= id;
@@ -63,42 +63,42 @@ public class Pedido {
 	/**
 	 * @return the hora
 	 */
-	public int getHora() {
+	public Integer getHora() {
 		return hora;
 	}
 
 	/**
 	 * @param hora the hora to set
 	 */
-	public void setHora(int hora) {
+	public void setHora(Integer hora) {
 		this.hora = hora;
 	}
 
 	/**
 	 * @return the aceptado
 	 */
-	public int isAceptado() {
+	public Integer isAceptado() {
 		return aceptado;
 	}
 
 	/**
 	 * @param aceptado the aceptado to set
 	 */
-	public void setAceptado(int aceptado) {
+	public void setAceptado(Integer aceptado) {
 		this.aceptado = aceptado;
 	}
 
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

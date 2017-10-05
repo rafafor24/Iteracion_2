@@ -71,9 +71,9 @@ public class DAOPedido {
 
 		while (rs.next()) {
 			long id= rs.getLong("ID");
-			Date fecha= rs.getDate("DATE");
+			Date fecha= rs.getDate("FECHA");
 			Integer hora= rs.getInt("HORA");
-			int aceptado= rs.getInt("ACEPTADO");
+			Integer aceptado= rs.getInt("ACEPTADO");
 			pedidos.add(new Pedido(id,fecha, hora, aceptado));
 		}
 		return pedidos;
