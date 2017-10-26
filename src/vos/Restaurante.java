@@ -2,15 +2,10 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class Restaurante {
+public class Restaurante extends Usuario 
+{
 
 ////Atributos
-	
-	/**
-	 * Nombre del restaurante
-	 */
-	@JsonProperty(value="nombre")
-	private String nombre;
 
 	/**
 	 * Representante del restaurante
@@ -31,6 +26,12 @@ public class Restaurante {
 	private String pagina_web;
 	
 	/**
+	 * Id de usuario del restaurante
+	 */
+	@JsonProperty(value="id_usuario")
+	private Long id_usuario;
+	
+	/**
 	 * Metodo constructor de la clase Restaurante
 	 * <b>post: </b> Crea el Restaurante con los valores que entran como parametro
 	 * @param id - Id del Restaurante.
@@ -39,24 +40,29 @@ public class Restaurante {
 	 * @param tipo_comida - Tipo de comida del Restaurante.
 	 * @param pagina_web - PaginaWeb del Restaurante.
 	 */
-	public Restaurante(@JsonProperty(value="nombre")String nombre,
+	public Restaurante(String nombre, Integer identificacion, String correo_electronico,
 			@JsonProperty(value="representante")String representante,
 			@JsonProperty(value="tipo_comida")String tipo_comida,
-			@JsonProperty(value="pagina_web")String pagina_web) 
+			@JsonProperty(value="pagina_web")String pagina_web,
+			@JsonProperty(value="id_usuario")Long id_usuario) 
 	{
-		super();
-		this.nombre = nombre;
+		super(nombre, identificacion, "Restaurante", correo_electronico);
 		this.representante = representante;
 		this.tipo_comida = tipo_comida;
 		this.pagina_web = pagina_web;
+		this.id_usuario=id_usuario;
 	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	
+	public Restaurante(@JsonProperty(value="representante")String representante,
+			@JsonProperty(value="tipo_comida")String tipo_comida,
+			@JsonProperty(value="pagina_web")String pagina_web,
+			@JsonProperty(value="id_usuario")Long id_usuario) 
+	{
+		super(" ",0,"Restaurante"," ");
+		this.representante = representante;
+		this.tipo_comida = tipo_comida;
+		this.pagina_web = pagina_web;
+		this.id_usuario= id_usuario;
 	}
 
 	public String getRepresentante() {
@@ -81,6 +87,14 @@ public class Restaurante {
 
 	public void setPagina_web(String pagina_web) {
 		this.pagina_web = pagina_web;
+	}
+
+	public Long getId_usuario() {
+		return id_usuario;
+	}
+
+	public void setId_usuario(Long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 	
 	

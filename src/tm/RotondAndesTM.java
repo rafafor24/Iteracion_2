@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import dao.DAOUsuario;
 import dao.DAOZona;
+import dao.DAOCliente;
 import dao.DAOIngrediente;
 import dao.DAOMenu;
 import dao.DAOPedido;
@@ -19,6 +20,7 @@ import dao.DAOProducto;
 import dao.DAORestaurante;
 import vos.Usuario;
 import vos.Zona;
+import vos.Cliente;
 import vos.Ingrediente;
 import vos.Menu;
 import vos.Pedido;
@@ -408,7 +410,45 @@ public class RotondAndesTM {
 		return preferencias;
 	}
 
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Clientes de la base de datos.
+	 * @return ListaClientes - objeto que modela  un arreglo de Clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Cliente> darClientes() throws Exception {
+		List<Cliente> clientes;
+		DAOCliente daoClientes = new DAOCliente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoClientes.setConn(conn);
+			clientes = daoClientes.darClientes();
 
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return clientes;
+	}
+
+
+	
 	/**
 	 * Metodo que modela la transaccion que busca el/los productos en la base de datos con el nombre entra como parametro.
 	 * @param name - Nombre del producto a buscar. name != null
@@ -636,6 +676,44 @@ public class RotondAndesTM {
 			}
 		}
 		return zonas;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el/los clientes en la base de datos con el nombre entra como parametro.
+	 * @param pId - Nombre del cliente a buscar. name != null
+	 * @return ListaClientes - objeto que modela  un arreglo de clientes. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Cliente> buscarClientesPorName(Long pId) throws Exception {
+		List<Cliente> clientes;
+		DAOCliente daoClientes = new DAOCliente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoClientes.setConn(conn);
+			clientes = daoClientes.buscarClientesPorId(pId);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return clientes;
 	}
 
 
@@ -940,6 +1018,46 @@ public class RotondAndesTM {
 		}
 	}
 
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Cliente a la base de datos.
+	 * <b> post: </b> se ha agregado el Cliente que entra como parametro
+	 * @param cliente - el Cliente a agregar. ingrediente != null
+	 * @throws Exception - cualquier error que se genere agregando el video
+	 */
+	public void addCliente(Cliente cliente) throws Exception {
+		DAOCliente daoClientes = new DAOCliente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoClientes.setConn(conn);
+			daoClientes.addCliente(cliente);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+
+
+	
 	
 //	/**
 //	 * Metodo que modela la transaccion que agrega los videos que entran como parametro a la base de datos.
@@ -1560,5 +1678,79 @@ public class RotondAndesTM {
 			}
 		}
 	}
+	
+	/**
+	 * Metodo que modela la transaccion que actualiza el cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el cliente que entra como parametro
+	 * @param cliente - cliente a actualizar. cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateCliente(Cliente video) throws Exception {
+		DAOCliente daoClientes = new DAOCliente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoClientes.setConn(conn);
+			daoClientes.updateCliente(video);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * Metodo que modela la transaccion que elimina el cliente que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el cliente que entra como parametro
+	 * @param cliente - cliente a eliminar. cliente != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteCliente(Cliente cliente) throws Exception {
+		DAOCliente daoClientes = new DAOCliente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoClientes.setConn(conn);
+			daoClientes.deleteCliente(cliente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
 }
 
