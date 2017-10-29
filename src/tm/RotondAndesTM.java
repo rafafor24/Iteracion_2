@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -12,8 +13,10 @@ import java.util.Properties;
 import dao.DAOUsuario;
 import dao.DAOZona;
 import dao.DAOCliente;
+import dao.DAOEquivalencia;
 import dao.DAOIngrediente;
 import dao.DAOMenu;
+import dao.DAOMesa;
 import dao.DAOPedido;
 import dao.DAOPreferencia;
 import dao.DAOProducto;
@@ -21,8 +24,10 @@ import dao.DAORestaurante;
 import vos.Usuario;
 import vos.Zona;
 import vos.Cliente;
+import vos.Equivalencia;
 import vos.Ingrediente;
 import vos.Menu;
+import vos.Mesa;
 import vos.Pedido;
 import vos.Preferencia;
 import vos.Producto;
@@ -802,12 +807,15 @@ public class RotondAndesTM {
 	 */
 	public void addRestaurante(Restaurante restaurante) throws Exception {
 		DAORestaurante daoRestaurantes = new DAORestaurante();
+		DAOUsuario daoUsuario = new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
 			daoRestaurantes.setConn(conn);
 			daoRestaurantes.addRestaurante(restaurante);
+			daoUsuario.setConn(conn);
+			daoUsuario.addUsuario(restaurante.darUsuario());
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -1026,12 +1034,15 @@ public class RotondAndesTM {
 	 */
 	public void addCliente(Cliente cliente) throws Exception {
 		DAOCliente daoClientes = new DAOCliente();
+		DAOUsuario daoUsuario = new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
 			daoClientes.setConn(conn);
+			daoUsuario.setConn(conn);
 			daoClientes.addCliente(cliente);
+			daoUsuario.addUsuario(cliente);
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -1255,12 +1266,15 @@ public class RotondAndesTM {
 	 */
 	public void updateRestaurante(Restaurante video) throws Exception {
 		DAORestaurante daoRestaurantes = new DAORestaurante();
+		DAOUsuario daoUsuario = new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
 			daoRestaurantes.setConn(conn);
+			daoUsuario.setConn(conn);
 			daoRestaurantes.updateRestaurante(video);
+			daoUsuario.updateUsuario(video.darUsuario());
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -1291,12 +1305,15 @@ public class RotondAndesTM {
 	 */
 	public void deleteRestaurante(Restaurante restaurante) throws Exception {
 		DAORestaurante daoRestaurantes = new DAORestaurante();
+		DAOUsuario daoUsuario = new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
 			daoRestaurantes.setConn(conn);
+			daoUsuario.setConn(conn);
 			daoRestaurantes.deleteRestaurante(restaurante);
+			daoUsuario.deleteUsuario(restaurante.darUsuario());
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -1685,14 +1702,17 @@ public class RotondAndesTM {
 	 * @param cliente - cliente a actualizar. cliente != null
 	 * @throws Exception - cualquier error que se genera actualizando los videos
 	 */
-	public void updateCliente(Cliente video) throws Exception {
+	public void updateCliente(Cliente cliente) throws Exception {
 		DAOCliente daoClientes = new DAOCliente();
+		DAOUsuario daoUsuario = new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
 			daoClientes.setConn(conn);
-			daoClientes.updateCliente(video);
+			daoUsuario.setConn(conn);
+			daoClientes.updateCliente(cliente);
+			daoUsuario.updateUsuario(cliente);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -1723,12 +1743,15 @@ public class RotondAndesTM {
 	 */
 	public void deleteCliente(Cliente cliente) throws Exception {
 		DAOCliente daoClientes = new DAOCliente();
+		DAOUsuario daoUsuario = new DAOUsuario();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
 			daoClientes.setConn(conn);
+			daoUsuario.setConn(conn);
 			daoClientes.deleteCliente(cliente);
+			daoUsuario.deleteUsuario(cliente);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -1741,6 +1764,351 @@ public class RotondAndesTM {
 		} finally {
 			try {
 				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Equivalencias de la base de datos.
+	 * @return ListaEquivalencias- objeto que modela  un arreglo de Equivalencias. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Equivalencia> darEquivalencias() throws Exception {
+		List<Equivalencia> equivalencias;
+		DAOEquivalencia daoEquivalencias= new DAOEquivalencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoEquivalencias.setConn(conn);
+			equivalencias = daoEquivalencias.darEquivalencias();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoEquivalencias.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return equivalencias;
+	}
+	
+
+/**
+	 * Metodo que modela la transaccion que agrega un solo Equivalencia a la base de datos.
+	 * <b> post: </b> se ha agregado el Equivalencia que entra como parametro
+	 * @param equivalencia - el Equivalencia a agregar. equivalencia != null
+ * @param name 
+	 * @throws Exception - cualquier error que se genere agregando el Equivalencia
+	 */
+	public void addEquivalencia(Equivalencia equivalencia, String name) throws Exception {
+		DAOEquivalencia daoEquivalencias = new DAOEquivalencia();
+		DAORestaurante daoRestaurantes = new DAORestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoEquivalencias.setConn(conn);
+			daoRestaurantes.setConn(conn);
+			ArrayList array= daoRestaurantes.buscarRestaurantesPorName(name);
+			if((array!=null)&&(!array.isEmpty()))
+			{
+				daoEquivalencias.addEquivalencia(equivalencia);	
+			}
+			else
+			{
+				throw new SQLException("No existe el usuario restaurante");
+			}
+			
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoEquivalencias.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+/**
+	 * Metodo que modela la transaccion que actualiza el equivalencia que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el equivalencia que entra como parametro
+	 * @param equivalencia - equivalencia a actualizar. equivalencia != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateEquivalencia(Equivalencia equivalencia) throws Exception {
+		DAOEquivalencia daoEquivalencias = new DAOEquivalencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoEquivalencias.setConn(conn);
+			daoEquivalencias.updateEquivalencia(equivalencia);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoEquivalencias.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el Equivalencia que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Equivalencia que entra como parametro
+	 * @param Equivalencia - Equivalencia a eliminar. ingrediente != null
+	 * @throws Exception - cualquier error que se genera actualizando los equivalencias
+	 */
+	public void deleteEquivalencia(Equivalencia equivalencia) throws Exception {
+		DAOEquivalencia daoEquivalencias = new DAOEquivalencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoEquivalencias.setConn(conn);
+			daoEquivalencias.deleteEquivalencia(equivalencia);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoEquivalencias.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Mesas de la base de datos.
+	 * @return ListaMesas- objeto que modela  un arreglo de Mesas. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Mesa> darMesas() throws Exception {
+		List<Mesa> mesas;
+		DAOMesa daoMesas= new DAOMesa();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMesas.setConn(conn);
+			mesas = daoMesas.darMesas();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMesas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return mesas;
+	}
+	
+
+/**
+	 * Metodo que modela la transaccion que agrega un solo Mesa a la base de datos.
+	 * <b> post: </b> se ha agregado el Mesa que entra como parametro
+	 * @param mesa - el Mesa a agregar. mesa != null
+ * @param name 
+	 * @throws Exception - cualquier error que se genere agregando el Mesa
+	 */
+	public void addMesa(Mesa mesa) throws Exception {
+		DAOMesa daoMesas = new DAOMesa();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMesas.setConn(conn);
+			daoMesas.addMesa(mesa);	
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMesas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+/**
+	 * Metodo que modela la transaccion que actualiza el mesa que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el mesa que entra como parametro
+	 * @param mesa - mesa a actualizar. mesa != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateMesa(Mesa mesa) throws Exception {
+		DAOMesa daoMesas = new DAOMesa();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMesas.setConn(conn);
+			daoMesas.updateMesa(mesa);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMesas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina el Mesa que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Mesa que entra como parametro
+	 * @param Mesa - Mesa a eliminar. ingrediente != null
+	 * @throws Exception - cualquier error que se genera actualizando los mesas
+	 */
+	public void deleteMesa(Mesa mesa) throws Exception {
+		DAOMesa daoMesas = new DAOMesa();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMesas.setConn(conn);
+			daoMesas.deleteMesa(mesa);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMesas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * Metodo que modela la transaccion que actualiza el restaurante que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el restaurante que entra como parametro
+	 * @param restaurante - restaurante a actualizar. restaurante != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void surtirRestaurante(String representante) throws Exception {
+		DAORestaurante daoRestaurantes = new DAORestaurante();
+		
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurantes.setConn(conn);
+			daoRestaurantes.surtirRestaurante(representante);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoRestaurantes.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {

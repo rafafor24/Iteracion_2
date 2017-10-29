@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -101,6 +102,25 @@ public class RestauranteServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(restaurante).build();
+	}
+	
+	/**
+     * Metodo que expone servicio REST usando POST que agrega el restaurante que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/video
+     * @param restaurante - restaurante a agregar
+     * @return Json con el restaurantes que agrego o Json con el error que se produjo
+     */
+	@PUT
+	@Path( "surtir/{representante}" )
+	@Produces(MediaType.TEXT_PLAIN)
+	public String surtirRestaurante(@PathParam("representante") String representante) {
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		try {
+			tm.surtirRestaurante(representante);
+		} catch (Exception e) {
+			return "FAIL";
+		}
+		return "Restaurante surtido por representante: "+representante;
 	}
 	
 	

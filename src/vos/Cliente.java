@@ -11,24 +11,13 @@ public class Cliente extends Usuario
 	@JsonProperty(value="id")
 	private Long id;
 	
-	/**
-	 * Id de usuario del cliente
-	 */
-	@JsonProperty(value="id_usuario")
-	private Long id_usuario;
-	
-	public Cliente(String nombre, Integer identificacion, String correo_electronico,@JsonProperty(value="id")Long id,
-			@JsonProperty(value="id_usuario") Long id_usuario) {
+	public Cliente(@JsonProperty(value="nombre")String nombre, 
+			@JsonProperty(value="identificacion")Integer identificacion, 
+			@JsonProperty(value="correo_electronico")String correo_electronico,
+			@JsonProperty(value="id")Long id)
+	{
 		super(nombre, identificacion, "Cliente", correo_electronico);
 		this.setId(id);
-		this.setId_usuario(id_usuario);
-	}
-
-	public Cliente(@JsonProperty(value="id")Long id,
-			@JsonProperty(value="id_usuario") Long id_usuario) {
-		super(" ", 0, "Cliente", " ");
-		this.setId(id);
-		this.setId_usuario(id_usuario);
 	}
 
 	public Long getId() {
@@ -38,13 +27,4 @@ public class Cliente extends Usuario
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public Long getId_usuario() {
-		return id_usuario;
-	}
-
-	public void setId_usuario(Long id_usuario) {
-		this.id_usuario = id_usuario;
-	}
-
 }

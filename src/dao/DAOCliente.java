@@ -63,7 +63,7 @@ public class DAOCliente {
 	public ArrayList<Cliente> darClientes() throws SQLException, Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-		String sql = "SELECT * FROM CLIENTES";
+		String sql = "SELECT * FROM CLIENTES INNER JOIN USUARIOS ON CLIENTES.NOMBRE_USUARIO=USUARIOS.NOMBRE";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -71,8 +71,10 @@ public class DAOCliente {
 
 		while (rs.next()) {
 			Long id = rs.getLong("ID");
-			Long id_usuario = rs.getLong("ID_USUARIO");
-			clientes.add(new Cliente(id,id_usuario));
+			String nombre_usuario = rs.getString("NOMBRE_USUARIO");
+			Integer identificacion = rs.getInt("IDENTIFICACION");
+			String correo_electronico= rs.getString("CORREO_ELECTRONICO");
+			clientes.add(new Cliente(nombre_usuario,identificacion,correo_electronico,id));
 		}
 		return clientes;
 	}
@@ -88,7 +90,7 @@ public class DAOCliente {
 	public ArrayList<Cliente> buscarClientesPorId(Long pId) throws SQLException, Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-		String sql = "SELECT * FROM CLIENTES WHERE ID =" + pId;
+		String sql = "SELECT * FROM CLIENTES INNER JOIN USUARIOS ON CLIENTES.NOMBRE_USUARIO=USUARIOS.NOMBRE WHERE ID =" + pId;
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -96,8 +98,10 @@ public class DAOCliente {
 
 		while (rs.next()) {
 			Long id = rs.getLong("ID");
-			Long id_usuario = rs.getLong("ID_USUARIO");
-			clientes.add(new Cliente(id,id_usuario));
+			String nombre_usuario = rs.getString("NOMBRE_USUARIO");
+			Integer identificacion = rs.getInt("IDENTIFICACION");
+			String correo_electronico= rs.getString("CORREO_ELECTRONICO");
+			clientes.add(new Cliente(nombre_usuario,identificacion,correo_electronico,id));
 		}
 
 		return clientes;
@@ -116,8 +120,8 @@ public class DAOCliente {
 	public void addCliente(Cliente cliente) throws SQLException, Exception {
 
 		String sql = "INSERT INTO CLIENTES VALUES (";
-		sql += cliente.getId() +",";
-		sql += cliente.getId_usuario() + ")";
+		sql += cliente.getId() + ",";
+		sql += "'"+cliente.getNombre() + "')";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -136,7 +140,7 @@ public class DAOCliente {
 	public void updateCliente(Cliente cliente) throws SQLException, Exception {
 
 		String sql = "UPDATE CLIENTES SET ";
-		sql += "ID_USUARIO="+cliente.getId_usuario();
+		sql += "ID="+cliente.getId();
 		sql += " WHERE ID ='" + cliente.getId()+"'";
 
 

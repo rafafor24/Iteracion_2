@@ -26,12 +26,6 @@ public class Restaurante extends Usuario
 	private String pagina_web;
 	
 	/**
-	 * Id de usuario del restaurante
-	 */
-	@JsonProperty(value="id_usuario")
-	private Long id_usuario;
-	
-	/**
 	 * Metodo constructor de la clase Restaurante
 	 * <b>post: </b> Crea el Restaurante con los valores que entran como parametro
 	 * @param id - Id del Restaurante.
@@ -40,29 +34,32 @@ public class Restaurante extends Usuario
 	 * @param tipo_comida - Tipo de comida del Restaurante.
 	 * @param pagina_web - PaginaWeb del Restaurante.
 	 */
-	public Restaurante(String nombre, Integer identificacion, String correo_electronico,
+	public Restaurante(@JsonProperty(value="nombre")String nombre, 
+			@JsonProperty(value="identificacion")Integer identificacion, 
+			@JsonProperty(value="correo_electronico")String correo_electronico,
 			@JsonProperty(value="representante")String representante,
 			@JsonProperty(value="tipo_comida")String tipo_comida,
-			@JsonProperty(value="pagina_web")String pagina_web,
-			@JsonProperty(value="id_usuario")Long id_usuario) 
+			@JsonProperty(value="pagina_web")String pagina_web) 
 	{
 		super(nombre, identificacion, "Restaurante", correo_electronico);
 		this.representante = representante;
 		this.tipo_comida = tipo_comida;
 		this.pagina_web = pagina_web;
-		this.id_usuario=id_usuario;
 	}
 	
-	public Restaurante(@JsonProperty(value="representante")String representante,
-			@JsonProperty(value="tipo_comida")String tipo_comida,
-			@JsonProperty(value="pagina_web")String pagina_web,
-			@JsonProperty(value="id_usuario")Long id_usuario) 
+//	public Restaurante(@JsonProperty(value="representante")String representante,
+//			@JsonProperty(value="tipo_comida")String tipo_comida,
+//			@JsonProperty(value="pagina_web")String pagina_web) 
+//	{
+//		super(" ",0,"Restaurante"," ");
+//		this.representante = representante;
+//		this.tipo_comida = tipo_comida;
+//		this.pagina_web = pagina_web;
+//	}
+	
+	public Usuario darUsuario()
 	{
-		super(" ",0,"Restaurante"," ");
-		this.representante = representante;
-		this.tipo_comida = tipo_comida;
-		this.pagina_web = pagina_web;
-		this.id_usuario= id_usuario;
+		return new Usuario(this.getNombre(),this.getIdentificacion(),this.getRol(),this.getCorreo_electronico());
 	}
 
 	public String getRepresentante() {
@@ -87,14 +84,6 @@ public class Restaurante extends Usuario
 
 	public void setPagina_web(String pagina_web) {
 		this.pagina_web = pagina_web;
-	}
-
-	public Long getId_usuario() {
-		return id_usuario;
-	}
-
-	public void setId_usuario(Long id_usuario) {
-		this.id_usuario = id_usuario;
 	}
 	
 	

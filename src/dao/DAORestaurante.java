@@ -63,7 +63,7 @@ public class DAORestaurante {
 	public ArrayList<Restaurante> darRestaurantes() throws SQLException, Exception {
 		ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
 
-		String sql = "SELECT * FROM RESTAURANTES";
+		String sql = "SELECT * FROM RESTAURANTES INNER JOIN USUARIOS ON RESTAURANTES.NOMBRE_USUARIO=USUARIOS.NOMBRE";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -73,8 +73,10 @@ public class DAORestaurante {
 			String representante = rs.getString("REPRESENTANTE");
 			String tipo_comida = rs.getString("TIPO_COMIDA");
 			String pagina_web = rs.getString("PAGINA_WEB");
-			Long id_usuario = rs.getLong("ID_USUARIO");
-			restaurantes.add(new Restaurante(representante,tipo_comida,pagina_web,id_usuario));
+			String nombre_usuario = rs.getString("NOMBRE_USUARIO");
+			Integer identificacion = rs.getInt("IDENTIFICACION");
+			String correo_electronico= rs.getString("CORREO_ELECTRONICO");
+			restaurantes.add(new Restaurante(nombre_usuario,identificacion,correo_electronico,representante,tipo_comida,pagina_web));
 		}
 		return restaurantes;
 	}
@@ -90,7 +92,7 @@ public class DAORestaurante {
 	public ArrayList<Restaurante> buscarRestaurantesPorName(String name) throws SQLException, Exception {
 		ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
 
-		String sql = "SELECT * FROM RESTAURANTES WHERE REPRESENTANTE ='" + name + "'";
+		String sql = "SELECT * FROM RESTAURANTES INNER JOIN USUARIOS ON RESTAURANTES.NOMBRE_USUARIO=USUARIOS.NOMBRE WHERE REPRESENTANTE ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -100,8 +102,10 @@ public class DAORestaurante {
 			String representante = rs.getString("REPRESENTANTE");
 			String tipo_comida = rs.getString("TIPO_COMIDA");
 			String pagina_web = rs.getString("PAGINA_WEB");
-			Long id_usuario = rs.getLong("ID_USUARIO");
-			restaurantes.add(new Restaurante(representante,tipo_comida,pagina_web,id_usuario));
+			String nombre_usuario = rs.getString("NOMBRE_USUARIO");
+			Integer identificacion = rs.getInt("IDENTIFICACION");
+			String correo_electronico= rs.getString("CORREO_ELECTRONICO");
+			restaurantes.add(new Restaurante(nombre_usuario,identificacion,correo_electronico,representante,tipo_comida,pagina_web));
 		}
 
 		return restaurantes;
@@ -123,11 +127,21 @@ public class DAORestaurante {
 		sql += "'"+restaurante.getRepresentante() + "',";
 		sql += "'"+restaurante.getTipo_comida() + "',";
 		sql += "'"+restaurante.getPagina_web()+"',";
-		sql += restaurante.getId_usuario() + ")";
+		sql += "'"+restaurante.getNombre()+"')";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+		
+//		String sql2 = "INSERT INTO USUARIOS VALUES (";
+//		sql2 += "'"+restaurante.getNombre() + "',";
+//		sql2 += restaurante.getIdentificacion() + ",";
+//		sql2 += "'"+restaurante.getRol() + "',";
+//		sql2 += "'"+restaurante.getCorreo_electronico()+"'" + ")";
+//
+//		PreparedStatement prepStmt2 = conn.prepareStatement(sql2);
+//		recursos.add(prepStmt2);
+//		prepStmt2.executeQuery();
 
 	}
 	
@@ -144,7 +158,7 @@ public class DAORestaurante {
 		String sql = "UPDATE RESTAURANTES SET ";
 		sql += "TIPO_COMIDA='"+restaurante.getTipo_comida() + "',";
 		sql += "PAGINA_WEB='"+restaurante.getPagina_web()+"',";
-		sql += "ID_USUARIO="+restaurante.getId_usuario();
+		sql += "NOMBRE_USUARIO='"+restaurante.getNombre()+"'";
 		sql += " WHERE REPRESENTANTE ='" + restaurante.getRepresentante()+"'";
 
 
@@ -171,4 +185,21 @@ public class DAORestaurante {
 		prepStmt.executeQuery();
 	}
 
+	/**
+	 * Metodo que busca el/los restaurantes con el nombre que entra como parametro.
+	 * @param name - Nombre de el/los restaurantes a buscar
+	 * @return ArrayList con los restaurantes encontrados
+	 * @throws SQLException - Cualquier error que la base de datos arroje.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public void surtirRestaurante(String representante) throws SQLException, Exception {
+
+		String sql = "UPDATE RESTAURANTE_PRODUCTO SET CANTIDAD_ACTUAL=CANTIDAD_MAXIMA WHERE REPRESENTANTE = ";
+		sql +="'"+representante+"'";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+	
 }
