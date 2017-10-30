@@ -196,6 +196,8 @@ public class DAORestaurante {
 
 		String sql = "UPDATE RESTAURANTE_PRODUCTO SET CANTIDAD_ACTUAL=CANTIDAD_MAXIMA WHERE REPRESENTANTE = ";
 		sql +="'"+representante+"'";
+		System.out.println(representante);
+		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

@@ -18,6 +18,7 @@ import dao.DAOIngrediente;
 import dao.DAOMenu;
 import dao.DAOMesa;
 import dao.DAOPedido;
+import dao.DAOPedidoCM;
 import dao.DAOPreferencia;
 import dao.DAOProducto;
 import dao.DAORestaurante;
@@ -29,6 +30,7 @@ import vos.Ingrediente;
 import vos.Menu;
 import vos.Mesa;
 import vos.Pedido;
+import vos.PedidoCM;
 import vos.Preferencia;
 import vos.Producto;
 import vos.Restaurante;
@@ -768,14 +770,23 @@ public class RotondAndesTM {
 	 * @param pedido - el Pedido a agregar. pedido != null
 	 * @throws Exception - cualquier error que se genere agregando el Pedido
 	 */
-	public void addPedido(Pedido pedido) throws Exception {
+	public void addPedido(Pedido pedido,Long id_cm,String tipo) throws Exception {
 		DAOPedido daoPedidos = new DAOPedido();
+		DAOPedidoCM daoPedidoCM = new DAOPedidoCM();
 		try 
 		{
+			System.out.println("IDPEDIDOOOOOOOOOOOOOOOOOOOO:"+pedido.getId());
+			System.out.println("IDDDDDDDDDDDDDDDDDCMMMMMMMMM:"+id_cm);
+			PedidoCM pedido_cm=new PedidoCM(pedido.getId(), id_cm,tipo);
 			//////transaccion
 			this.conn = darConexion();
+			
 			daoPedidos.setConn(conn);
 			daoPedidos.addPedido(pedido);
+			daoPedidoCM.setConn(conn);
+			daoPedidoCM.addPedidoCM(pedido_cm);
+			
+			
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -1666,14 +1677,18 @@ public class RotondAndesTM {
 	 * @param Pedido - Pedido a eliminar. ingrediente != null
 	 * @throws Exception - cualquier error que se genera actualizando los pedidos
 	 */
-	public void deletePedido(Pedido pedido) throws Exception {
+	public void deletePedido(Pedido pedido,Long id_cm,String tipo) throws Exception {
 		DAOPedido daoPedidos = new DAOPedido();
+		DAOPedidoCM daoPedidosCM=new DAOPedidoCM(); 
 		try 
 		{
+			PedidoCM pedido_cm= new PedidoCM(pedido.getId(), id_cm,tipo);
 			//////transaccion
 			this.conn = darConexion();
 			daoPedidos.setConn(conn);
 			daoPedidos.deletePedido(pedido);
+			daoPedidosCM.setConn(conn);
+			daoPedidosCM.deletePedidoCM(pedido_cm);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());

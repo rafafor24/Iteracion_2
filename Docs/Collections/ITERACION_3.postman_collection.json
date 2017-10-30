@@ -1,0 +1,328 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ITERACION_3",
+		"_postman_id": "fe7c54cb-fca6-aeed-c7ea-5f3a73003472",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "R11 Equivalencia de Ingrediente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/equivalencias/gerentexy",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id1\":\"Pepperoni\",\n\t\"id2\":\"Salami\",\n\t\"tipo\":\"Ingrediente\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R11 DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/equivalencias",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id1\":\"Pepperoni\",\n\t\"id2\":\"Salami\",\n\t\"tipo\":\"Ingrediente\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R12 Equivalencia de Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/equivalencias/gerentexy",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id1\":\"Pasta\",\n\t\"id2\":\"Pizza\",\n\t\"tipo\":\"Producto\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R12 DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 200, OK\"]=responseCode.code===200"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/equivalencias",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id1\":\"Pasta\",\n\t\"id2\":\"Pizza\",\n\t\"tipo\":\"Producto\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R11 Equivalencia de Ingrediente sin permiso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 405, Method not allowed\"]=responseCode.code===405"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/equivalencias",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id1\":\"Pepperoni\",\n\t\"id2\":\"Salami\",\n\t\"tipo\":\"Ingrediente\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R12 Equivalencia de Producto sin permiso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							" tests[\"Status code is 405, Method not allowed\"]=responseCode.code===405"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/equivalencias",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id1\":\"Pasta\",\n\t\"id2\":\"Pizza\",\n\t\"tipo\":\"Producto\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R13 Surtir restaurante",
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/restaurantes/surtir/gerentexyz",
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R15 Registrar cliente para registrarle el pedido",
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/clientes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\"id\":1,\n        \"nombre\": \"cliente\",\n        \"identificacion\":1010240796,\n        \"rol\": \"cliente\",\n        \"correo_electronico\": \"cliente@gmail.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R15 DELETE cliente",
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/clientes",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\"id\":1,\n        \"nombre\": \"cliente\",\n        \"identificacion\":1010240796,\n        \"rol\": \"cliente\",\n        \"correo_electronico\": \"cliente@gmail.com\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R15 Registrar pedido para producto",
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/pedidos/producto/1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"fecha\": \"2017-10-04\",\n        \"hora\": 0,\n        \"aceptado\": 1\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R15,R17 Borrar pedido",
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/pedidos/producto/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"fecha\": \"2017-10-04\",\n        \"hora\": 0,\n        \"aceptado\": 1\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R15 Registrar pedido para menu",
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/pedidos/menu/1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"fecha\": \"2017-10-04\",\n        \"hora\": 0,\n        \"aceptado\": 1\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "R15,R17 Borrar pedido",
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/pedidos/menu/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"fecha\": \"2017-10-04\",\n        \"hora\": 0,\n        \"aceptado\": 1\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

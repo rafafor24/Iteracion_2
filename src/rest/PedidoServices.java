@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -76,12 +77,13 @@ public class PedidoServices {
      * @return Json con el ingrediente que agrego o Json con el error que se produjo
      */
 	@POST
+	@Path("{tipo}/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addPedido(Pedido pedido) {
+	public Response addPedido(Pedido pedido,@PathParam("id") Long id,@PathParam("tipo") String tipo) {
 		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
-			tm.addPedido(pedido);
+			tm.addPedido(pedido,id,tipo);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
@@ -135,12 +137,13 @@ public class PedidoServices {
      * @return Json con el pedido que elimino o Json con el error que se produjo
      */
 	@DELETE
+	@Path("{tipo}/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deletePedido(Pedido pedido) {
+	public Response deletePedido(Pedido pedido,@PathParam("id") Long id,@PathParam("tipo") String tipo) {
 		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
-			tm.deletePedido(pedido);
+			tm.deletePedido(pedido,id,tipo);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
