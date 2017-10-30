@@ -6,16 +6,16 @@ public class Equivalencia
 {
 
 	/**
-	 * id de lA equivalencia
+	 * nombre de lA equivalencia
 	 */
-	@JsonProperty(value="id1")
-	private Long id1;
+	@JsonProperty(value="nombre1")
+	private String nombre1;
 	
 	/**
 	 * id2 de lA equivalencia
 	 */
-	@JsonProperty(value="id2")
-	private Long id2;
+	@JsonProperty(value="nombre2")
+	private String nombre2;
 	
 	/**
 	 * id2 de lA equivalencia
@@ -23,31 +23,17 @@ public class Equivalencia
 	@JsonProperty(value="tipo")
 	private String tipo;
 	
-	public Equivalencia(@JsonProperty(value="id2")Long id2,
-			@JsonProperty(value="id1")Long id1,
+	public Equivalencia(@JsonProperty(value="nombre2")String nombre2,
+			@JsonProperty(value="nombre1")String nombre1,
 			@JsonProperty(value="tipo")String tipo)
 	{
 		
-		this.setId1(id1);
-		this.setId2(id2);
+		this.setNombre1(nombre1);
+		this.setNombre2(nombre2);
 		this.setTipo(tipo);
 	}
 
-	public Long getId1() {
-		return id1;
-	}
-
-	public void setId1(Long id) {
-		this.id1 = id;
-	}
-
-	public Long getId2() {
-		return id2;
-	}
-
-	public void setId2(Long id2) {
-		this.id2 = id2;
-	}
+	
 
 	public String getTipo() {
 		return tipo;
@@ -55,5 +41,29 @@ public class Equivalencia
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+
+
+	public String getNombre1() {
+		return nombre1;
+	}
+
+
+
+	public void setNombre1(String nombre1) {
+		this.nombre1 = nombre1;
+	}
+
+
+
+	public String getNombre2() {
+		return nombre2;
+	}
+
+
+
+	public void setNombre2(String nombre2) {
+		this.nombre2 = nombre2;
 	}
 }

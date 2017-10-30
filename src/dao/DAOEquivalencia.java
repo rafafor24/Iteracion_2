@@ -70,10 +70,10 @@ public class DAOEquivalencia {
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			long id1= rs.getLong("ID1");
-			long id2= rs.getLong("ID2");
+			String nombre1= rs.getString("NOMBRE1");
+			String nombre2= rs.getString("NOMBRE2");
 			String tipo= rs.getString("TIPO");
-			equivalencias.add(new Equivalencia(id1,id2,tipo));
+			equivalencias.add(new Equivalencia(nombre1,nombre2,tipo));
 		}
 		return equivalencias;
 	}
@@ -89,8 +89,8 @@ public class DAOEquivalencia {
 	public void addEquivalencia(Equivalencia equivalencia) throws SQLException, Exception {
 
 		String sql = "INSERT INTO EQUIVALENCIAS VALUES (";
-		sql += equivalencia.getId1() + ",";
-		sql += equivalencia.getId2() + ",";
+		sql += "'"+equivalencia.getNombre1() + "',";
+		sql += "'"+equivalencia.getNombre2() + ",";
 		sql += "'"+equivalencia.getTipo() + "')";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -110,10 +110,10 @@ public class DAOEquivalencia {
 	public void updateEquivalencia(Equivalencia equivalencia) throws SQLException, Exception {
 
 		String sql = "UPDATE EQUIVALENCIAS SET ";
-		sql += equivalencia.getId1() + ",";
-		sql += equivalencia.getId2() + ",";
-		sql += "'"+equivalencia.getTipo() + "' ";
-		sql += " WHERE ID1=" + equivalencia.getId1();
+		sql += "NOMBRE1='"+equivalencia.getNombre1() + "',";
+		sql += "NOMBRE2='"+equivalencia.getNombre2() + "',";
+		sql += "TIPO='"+equivalencia.getTipo() + "' ";
+		sql += " WHERE NOMBRE1=" + equivalencia.getNombre1();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -131,7 +131,7 @@ public class DAOEquivalencia {
 	public void deleteEquivalencia(Equivalencia equivalencia) throws SQLException, Exception {
 
 		String sql = "DELETE FROM EQUIVALENCIAS";
-		sql += " WHERE ID1 =" + equivalencia.getId1();
+		sql += " WHERE NOMBRE1 =" + equivalencia.getNombre1();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
