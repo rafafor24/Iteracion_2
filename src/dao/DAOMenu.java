@@ -72,12 +72,8 @@ public class DAOMenu {
 			String name = rs.getString("NOMBRE");
 			Integer costo_produccion = rs.getInt("COSTO_PRODUCCION");
 			Integer precio_venta = rs.getInt("PRECIO_VENTA");
-			String entrada = rs.getString("ENTRADA");
-			String plato_fuerte = rs.getString("PLATO_FUERTE");
-			String postre = rs.getString("POSTRE");
-			String bebida = rs.getString("BEBIDA");
-			String acompanamiento = rs.getString("ACOMPANAMIENTO");
-			menus.add(new Menu(name,costo_produccion,precio_venta,entrada,plato_fuerte,postre,bebida,acompanamiento));
+			String nombre_producto = rs.getString("NOMBRE_PRODUCTO");
+			menus.add(new Menu(name,costo_produccion,precio_venta,nombre_producto));
 		}
 		return menus;
 	}
@@ -103,12 +99,8 @@ public class DAOMenu {
 			String nombre = rs.getString("NOMBRE");
 			Integer costo_produccion = rs.getInt("COSTO_PRODUCCION");
 			Integer precio_venta = rs.getInt("PRECIO_VENTA");
-			String entrada = rs.getString("ENTRADA");
-			String plato_fuerte = rs.getString("PLATO_FUERTE");
-			String postre = rs.getString("POSTRE");
-			String bebida = rs.getString("BEBIDA");
-			String acompanamiento = rs.getString("ACOMPANAMIENTO");
-			menus.add(new Menu(nombre,costo_produccion,precio_venta,entrada,plato_fuerte,postre,bebida,acompanamiento));
+			String nombre_producto = rs.getString("NOMBRE_PRODUCTO");
+			menus.add(new Menu(nombre,costo_produccion,precio_venta,nombre_producto));
 		}
 
 		return menus;
@@ -131,11 +123,7 @@ public class DAOMenu {
 		sql += "'"+menu.getNombre() + "',";
 		sql += menu.getCosto_produccion()+",";
 		sql += menu.getPrecio_venta()+",";
-		sql += "'"+menu.getEntrada()+ "',";
-		sql += "'"+menu.getPlato_fuerte()+ "',";
-		sql += "'"+menu.getPostre()+ "',";
-		sql += "'"+menu.getBebida()+ "',";
-		sql += "'"+menu.getAcompanamiento()+ "')";
+		sql += "'"+menu.getNombre_producto()+"')";
 				
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -157,11 +145,7 @@ public class DAOMenu {
 		String sql = "UPDATE MENUS SET ";
 		sql += "COSTO_PRODUCCION="+menu.getCosto_produccion()+",";
 		sql += "PRECIO_VENTA="+menu.getPrecio_venta()+",";
-		sql += "ENTRADA='"+menu.getEntrada()+"',";
-		sql += "PLATO_FUERTE='"+menu.getPlato_fuerte()+"',";
-		sql += "POSTRE='"+menu.getPostre()+"',";
-		sql += "BEBIDA='"+menu.getBebida()+"',";
-		sql += "ACOMPANAMIENTO='"+menu.getAcompanamiento()+"'";
+		sql += "NOMBRE_PRODUCTO='"+menu.getNombre_producto()+"'";
 		sql += " WHERE NOMBRE='" + menu.getNombre()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
