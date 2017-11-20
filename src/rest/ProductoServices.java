@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 
 import tm.RotondAndesTM;
 import vos.Producto;
+import vos.RestauranteProducto;
 
 @Path("productos")
 public class ProductoServices {
@@ -94,12 +95,14 @@ public class ProductoServices {
      * @return Json con el producto que agrego o Json con el error que se produjo
      */
 	@POST
+	@Path( "{representante}/{id: \\d+}" )
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addProducto(Producto producto) {
+	public Response addProducto(Producto producto, @PathParam("representante") String representante_restaurante) {
+		RestauranteProducto relacion= new RestauranteProducto(representante_restaurante, producto.getNombre(), 0, 0);
 		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
-			tm.addProducto(producto);
+			tm.addProducto(producto,relacion);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}

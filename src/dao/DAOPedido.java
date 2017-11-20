@@ -75,8 +75,9 @@ public class DAOPedido {
 			Date fecha= rs.getDate("FECHA");
 			Integer hora= rs.getInt("HORA");
 			Integer aceptado= rs.getInt("ACEPTADO");
+			String nombre_usuario=rs.getString("NOMBRE_USUARIO");
 			
-			pedidos.add(new Pedido(id,fecha, hora, aceptado));
+			pedidos.add(new Pedido(id,fecha, hora, aceptado,nombre_usuario));
 		}
 		return pedidos;
 	}
@@ -92,13 +93,14 @@ public class DAOPedido {
 	public void addPedido(Pedido pedido) throws SQLException, Exception {
 
 		Date fecha= pedido.getFecha();
-		String fechita=fecha.getDate()+"/"+fecha.getMonth()+"/"+fecha.getYear();
+		String fechita=fecha.getDate()+"/"+fecha.getMonth()+"/"+(fecha.getYear()+1900);
 		
 		String sql = "INSERT INTO PEDIDOS VALUES (";
 		sql += pedido.getId() + ",'";
 		sql += fechita+"',";
 		sql += pedido.getHora()+",";
-		sql += pedido.isAceptado()+ ")";
+		sql += pedido.isAceptado()+ ",'";
+		sql += pedido.getNombre_usuario()+"')";
 
 		System.out.println(sql);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -121,6 +123,7 @@ public class DAOPedido {
 		sql += "FECHA="+ pedido.getFecha()+",";
 		sql += "HORA="+pedido.getHora()+",";
 		sql += "ACEPTADO='"+pedido.isAceptado()+"',";
+		sql += "NOMBRE_USUARIO='"+pedido.getNombre_usuario()+"'";
 		sql += " WHERE ID='" + pedido.getId()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

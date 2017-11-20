@@ -87,4 +87,15 @@ public class Restaurante extends Usuario
 	}
 	
 	
+	public String toString()
+	{
+//		String nombre;
+//        int identificacion;
+//        String correo_electronico;
+//        String representante;
+//        int tipo_comida;
+//        String pagina_web;
+		return "nombre="+this.getNombre()+", identificacion="+this.getIdentificacion()+", correo="+
+		this.getCorreo_electronico()+", representante="+this.representante+", tipocomida="+this.tipo_comida+", paginaweb="+this.pagina_web;
+	}
 }

@@ -128,7 +128,7 @@ public class DAORestaurante {
 		sql += "'"+restaurante.getTipo_comida() + "',";
 		sql += "'"+restaurante.getPagina_web()+"',";
 		sql += "'"+restaurante.getNombre()+"')";
-
+		System.out.println("addrestaurante:"+sql);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

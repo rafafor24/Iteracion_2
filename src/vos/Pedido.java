@@ -29,6 +29,12 @@ public class Pedido {
 	private Long id;
 	
 	/**
+	 * identificador del pedido
+	 */
+	@JsonProperty(value="nombre_usuario")
+	private String nombre_usuario;
+	
+	/**
 	 * Metodo constructor de la clase Pedido
 	 * <b>post: </b> Crea el Pedido con los valores que entran como parametro
 	 * @param id - Id del Pedido.
@@ -39,13 +45,15 @@ public class Pedido {
 	public Pedido( @JsonProperty(value="id")Long id,
 			@JsonProperty(value="fecha")Date fecha,
 			@JsonProperty(value="hora")Integer hora,
-			@JsonProperty(value="aceptado") Integer aceptado) 
+			@JsonProperty(value="aceptado") Integer aceptado,
+			@JsonProperty(value="nombre_usuario")String nombre_usuario) 
 	{
 		super();
 		this.id= id;
 		this.fecha= fecha;
 		this.hora= hora;
 		this.aceptado= aceptado;
+		this.setNombre_usuario(nombre_usuario);
 	}
 
 	/**
@@ -102,6 +110,20 @@ public class Pedido {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the nombre_usuario
+	 */
+	public String getNombre_usuario() {
+		return nombre_usuario;
+	}
+
+	/**
+	 * @param nombre_usuario the nombre_usuario to set
+	 */
+	public void setNombre_usuario(String nombre_usuario) {
+		this.nombre_usuario = nombre_usuario;
 	}
 	
 	

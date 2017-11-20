@@ -123,7 +123,7 @@ public class DAOUsuario {
 		sql += usuario.getIdentificacion() + ",";
 		sql += "'"+usuario.getRol() + "',";
 		sql += "'"+usuario.getCorreo_electronico()+"'" + ")";
-
+		System.out.println("usuario:"+sql);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

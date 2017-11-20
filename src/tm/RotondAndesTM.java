@@ -16,24 +16,32 @@ import dao.DAOCliente;
 import dao.DAOEquivalencia;
 import dao.DAOIngrediente;
 import dao.DAOMenu;
+import dao.DAOMenuProducto;
 import dao.DAOMesa;
 import dao.DAOPedido;
-import dao.DAOPedidoCM;
+
 import dao.DAOPreferencia;
 import dao.DAOProducto;
+import dao.DAOProductoPedido;
 import dao.DAORestaurante;
+import dao.DAORestauranteProducto;
+import dao.DAOServicio;
 import vos.Usuario;
 import vos.Zona;
 import vos.Cliente;
 import vos.Equivalencia;
 import vos.Ingrediente;
 import vos.Menu;
+import vos.MenuProducto;
 import vos.Mesa;
 import vos.Pedido;
-import vos.PedidoCM;
+
 import vos.Preferencia;
 import vos.Producto;
+import vos.ProductoPedido;
 import vos.Restaurante;
+import vos.RestauranteProducto;
+import vos.Servicio;
 
 public class RotondAndesTM {
 
@@ -307,30 +315,32 @@ public class RotondAndesTM {
 	 * @param pedido - el Pedido a agregar. pedido != null
 	 * @throws Exception - cualquier error que se genere agregando el Pedido
 	 */
-	public void addPedido(Pedido pedido,Long id_cm,String tipo) throws Exception {
+	public void addPedido(Pedido pedido,String nombre_usuario,String nombre_producto) throws Exception {
 		DAOPedido daoPedidos = new DAOPedido();
-		DAOPedidoCM daoPedidoCM = new DAOPedidoCM();
+		DAOProductoPedido daoPP= new DAOProductoPedido();
+		ProductoPedido productoPedido= new ProductoPedido(nombre_producto, pedido.getId());
 		try 
 		{
-			System.out.println("IDPEDIDOOOOOOOOOOOOOOOOOOOO:"+pedido.getId());
-			System.out.println("IDDDDDDDDDDDDDDDDDCMMMMMMMMM:"+id_cm);
-			PedidoCM pedido_cm=new PedidoCM(pedido.getId(), id_cm,tipo);
+			pedido.setNombre_usuario(nombre_usuario);
+			
 			//////transaccion
 			this.conn = darConexion();
-
+			conn.setAutoCommit(false);
+			daoPP.setConn(conn);
 			daoPedidos.setConn(conn);
 			daoPedidos.addPedido(pedido);
-			daoPedidoCM.setConn(conn);
-			daoPedidoCM.addPedidoCM(pedido_cm);
+			daoPP.addProductoPedido(productoPedido);
 
 
 			conn.commit();
 
 		} catch (SQLException e) {
+			conn.rollback();
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
 			throw e;
 		} catch (Exception e) {
+			conn.rollback();
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
 			throw e;
@@ -390,16 +400,15 @@ public class RotondAndesTM {
 	 */
 	public void deletePedido(Pedido pedido,Long id_cm,String tipo) throws Exception {
 		DAOPedido daoPedidos = new DAOPedido();
-		DAOPedidoCM daoPedidosCM=new DAOPedidoCM(); 
+		
 		try 
 		{
-			PedidoCM pedido_cm= new PedidoCM(pedido.getId(), id_cm,tipo);
+			
 			//////transaccion
 			this.conn = darConexion();
 			daoPedidos.setConn(conn);
 			daoPedidos.deletePedido(pedido);
-			daoPedidosCM.setConn(conn);
-			daoPedidosCM.deletePedidoCM(pedido_cm);
+			
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -471,10 +480,12 @@ public class RotondAndesTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
-			daoRestaurantes.setConn(conn);
-			daoRestaurantes.addRestaurante(restaurante);
+			
 			daoUsuario.setConn(conn);
 			daoUsuario.addUsuario(restaurante.darUsuario());
+			daoRestaurantes.setConn(conn);
+			daoRestaurantes.addRestaurante(restaurante);
+			
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -763,17 +774,22 @@ public class RotondAndesTM {
 	 * @param producto - el producto a agregar. producto != null
 	 * @throws Exception - cualquier error que se genere agregando el video
 	 */
-	public void addProducto(Producto producto) throws Exception {
+	public void addProducto(Producto producto,RestauranteProducto rp) throws Exception {
 		DAOProducto daoProductos = new DAOProducto();
+		DAORestauranteProducto daoRP=new DAORestauranteProducto();
 		try 
 		{
 			//////transaccion
 			this.conn = darConexion();
-			daoProductos.setConn(conn);
+			conn.setAutoCommit(false);
+			daoProductos.setConn(conn);			
 			daoProductos.addProducto(producto);
+			daoRP.setConn(conn);
+			daoRP.addRestauranteProducto(rp);
 			conn.commit();
 
 		} catch (SQLException e) {
+			conn.rollback();
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
 			throw e;
@@ -865,6 +881,7 @@ public class RotondAndesTM {
 			}
 		}
 	}
+	
 	/**
 	 * Metodo que modela la transaccion que retorna todos los Menus de la base de datos.
 	 * @return ListaMenus - objeto que modela  un arreglo de Menus. este arreglo contiene el resultado de la busqueda
@@ -1379,8 +1396,9 @@ public class RotondAndesTM {
 			this.conn = darConexion();
 			daoClientes.setConn(conn);
 			daoUsuario.setConn(conn);
-			daoClientes.addCliente(cliente);
+			
 			daoUsuario.addUsuario(cliente);
+			daoClientes.addCliente(cliente);
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -1843,6 +1861,272 @@ public class RotondAndesTM {
 			}
 		}
 	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los MenuProductos de la base de datos.
+	 * @return ListaMenuProductos - objeto que modela  un arreglo de MenuProductos. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<MenuProducto> darMenuProductos() throws Exception {
+		List<MenuProducto> menuProductos;
+		DAOMenuProducto daoMenuProductos = new DAOMenuProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuProductos.setConn(conn);
+			menuProductos = daoMenuProductos.darMenuProductos();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return menuProductos;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que agrega un solo MenuProducto a la base de datos.
+	 * <b> post: </b> se ha agregado el MenuProducto que entra como parametro
+	 * @param menuProducto - el menuProducto a agregar. menuProducto != null
+	 * @throws Exception - cualquier error que se genere agregando el video
+	 */
+	public void addMenuProducto(MenuProducto menuProducto) throws Exception {
+		DAOMenuProducto daoMenuProductos = new DAOMenuProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuProductos.setConn(conn);
+			daoMenuProductos.addMenuProducto(menuProducto);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+
+	/**
+	 * Metodo que modela la transaccion que elimina el menuProducto que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el menuProducto que entra como parametro
+	 * @param menuProducto - menuProducto a eliminar. menuProducto != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteMenuProducto(MenuProducto menuProducto) throws Exception {
+		DAOMenuProducto daoMenuProductos = new DAOMenuProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuProductos.setConn(conn);
+			daoMenuProductos.deleteMenuProducto(menuProducto);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Servicios de la base de datos.
+	 * @return ListaServicios- objeto que modela  un arreglo de Servicios. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Servicio> darServicios() throws Exception {
+		List<Servicio> servicios;
+		DAOServicio daoServicios= new DAOServicio();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoServicios.setConn(conn);
+			servicios = daoServicios.darServicios();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return servicios;
+	}
+
+
+	/**
+	 * Metodo que modela la transaccion que agrega un solo Servicio a la base de datos.
+	 * <b> post: </b> se ha agregado el Servicio que entra como parametro
+	 * @param servicio - el Servicio a agregar. servicio != null
+	 * @param name 
+	 * @throws Exception - cualquier error que se genere agregando el Servicio
+	 */
+	public void addServicio(Servicio servicio) throws Exception {
+		DAOServicio daoServicios = new DAOServicio();
+		
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoServicios.setConn(conn);
+			
+			
+				daoServicios.addServicio(servicio);	
+			
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * Metodo que modela la transaccion que actualiza el servicio que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el servicio que entra como parametro
+	 * @param servicio - servicio a actualizar. servicio != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateServicio(Servicio servicio) throws Exception {
+		DAOServicio daoServicios = new DAOServicio();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoServicios.setConn(conn);
+			daoServicios.updateServicio(servicio);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * Metodo que modela la transaccion que elimina el Servicio que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado el Servicio que entra como parametro
+	 * @param Servicio - Servicio a eliminar. ingrediente != null
+	 * @throws Exception - cualquier error que se genera actualizando los servicios
+	 */
+	public void deleteServicio(Servicio servicio) throws Exception {
+		DAOServicio daoServicios = new DAOServicio();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoServicios.setConn(conn);
+			daoServicios.deleteServicio(servicio);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
 
 	/**
 	 * Metodo que modela la transaccion que busca el/los productos en la base de datos con el nombre entra como parametro.
