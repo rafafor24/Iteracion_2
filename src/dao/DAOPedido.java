@@ -102,7 +102,7 @@ public class DAOPedido {
 		sql += pedido.isAceptado()+ ",'";
 		sql += pedido.getNombre_usuario()+"')";
 
-		System.out.println(sql);
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

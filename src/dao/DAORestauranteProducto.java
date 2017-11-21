@@ -122,7 +122,7 @@ public class DAORestauranteProducto {
 		sql += ""+restauranteProducto.getCantidad_maxima()+",";
 		sql += ""+restauranteProducto.getCantidad_actual()+")";
 
-		System.out.println("retaurante producto:"+sql);
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

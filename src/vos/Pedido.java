@@ -10,6 +10,7 @@ public class Pedido {
 /**
  * fecha en la que se realizo el pedido
  */
+	
 	@JsonProperty(value="fecha")
 	private Date fecha;
 	/**

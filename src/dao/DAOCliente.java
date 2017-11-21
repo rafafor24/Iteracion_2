@@ -122,7 +122,7 @@ public class DAOCliente {
 		String sql = "INSERT INTO CLIENTES VALUES (";
 		sql += cliente.getId() + ",";
 		sql += "'"+cliente.getNombre() + "')";
-		System.out.println("cliente:"+sql);
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

@@ -27,4 +27,9 @@ public class Cliente extends Usuario
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public Usuario darUsuario()
+	{
+		return new Usuario(getNombre(), getIdentificacion(), getRol(), getCorreo_electronico());
+	}
 }

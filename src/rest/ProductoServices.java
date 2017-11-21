@@ -95,7 +95,7 @@ public class ProductoServices {
      * @return Json con el producto que agrego o Json con el error que se produjo
      */
 	@POST
-	@Path( "{representante}/{id: \\d+}" )
+	@Path( "{representante}" )
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addProducto(Producto producto, @PathParam("representante") String representante_restaurante) {

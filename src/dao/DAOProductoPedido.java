@@ -92,7 +92,7 @@ public class DAOProductoPedido {
 		sql += productoPedido.getId_pedido()+")";
 		
 
-		System.out.println("RPRPRPRPRPRPRPRPRPRPRPR:"+sql);
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

@@ -13,6 +13,7 @@ import java.util.Properties;
 import dao.DAOUsuario;
 import dao.DAOZona;
 import dao.DAOCliente;
+import dao.DAOConsultas;
 import dao.DAOEquivalencia;
 import dao.DAOIngrediente;
 import dao.DAOMenu;
@@ -29,6 +30,7 @@ import dao.DAOServicio;
 import vos.Usuario;
 import vos.Zona;
 import vos.Cliente;
+import vos.Consulta1y2;
 import vos.Equivalencia;
 import vos.Ingrediente;
 import vos.Menu;
@@ -2434,5 +2436,43 @@ public class RotondAndesTM {
 	}
 
 
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Usuarios segun consulta1.
+	 * @return ListaUsuarios - objeto que modela  un arreglo de Usuarios. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Usuario> consulta1(Consulta1y2 consulta,Long cantidad) throws Exception {
+		List<Usuario> usuarios;
+		DAOConsultas daoConsultas= new DAOConsultas();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultas.setConn(conn);
+			usuarios = daoConsultas.consultar(consulta,cantidad);
+			conn.commit();
+			
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usuarios;
+	}
+	
 }
 

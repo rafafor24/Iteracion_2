@@ -133,7 +133,7 @@ public class DAOProducto {
 		sql += producto.getCosto_produccion()+",";
 		sql += producto.getPrecio_venta()+",";
 		sql += producto.getTipo()+")";
-		System.out.println("producto: "+sql);
+		
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

@@ -2,12 +2,16 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import uk.co.jemos.podam.common.PodamConstants;
+import uk.co.jemos.podam.common.PodamStringValue;
+
 public class Usuario {
 ////Atributos
 	
 	/**
 	 * Nombre del usuario
 	 */
+	
 	@JsonProperty(value="nombre")
 	private String nombre;
 
