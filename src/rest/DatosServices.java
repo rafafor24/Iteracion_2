@@ -63,7 +63,7 @@ public class DatosServices {
 		String delim=",";
 	final String NEXT_LINE = "\n";
 	PodamFactory factory = new PodamFactoryImpl();
-	Long cantRestUsuCli=500L;
+	Long cantRestUsuCli=25000L;
 	Long cantProductoPorRestaurante=20L;
 	Long cantPedidosCliente=20L;
 	Long cantPedidosUsuario=20L;
@@ -129,7 +129,7 @@ public class DatosServices {
 		{
 			// pedidosCliente PEDIDOS pedidosCliente PEDIDOS pedidosCliente PEDIDOS pedidosCliente PEDIDOS pedidosCliente PEDIDOS
 			Pedido pedido = factory.manufacturePojo(Pedido.class);
-			
+			pedido.setNombre_usuario(cliente.getNombre());
 			pedidos.add(pedido);
 			
 			if(contadorCantProductos==productos.size())
@@ -160,7 +160,7 @@ public class DatosServices {
 		{
 			//pedidosUsuario PEDIDOS pedidosUsuario PEDIDOS pedidosUsuario PEDIDOS pedidosUsuario PEDIDOS pedidosUsuario PEDIDOS
 			Pedido pedido = factory.manufacturePojo(Pedido.class);
-			
+			pedido.setNombre_usuario(usuario.getNombre());
 			pedidos.add(pedido);
 			if(contadorCantProductos==productos.size())
 			{
@@ -363,6 +363,7 @@ public class DatosServices {
 		fw.append("ID").append(delim);
 		fw.append("FECHA").append(delim);
 		fw.append("HORA").append(delim);
+		fw.append("ACEPTADO").append(delim);
 		fw.append("NOMBRE_USUARIO").append(NEXT_LINE);
 		
 
@@ -374,11 +375,13 @@ public class DatosServices {
 			int	mes = (int) (Math.random() * 12) + 1;
 			int	anio = (int) (Math.random() *17 ) + 2000;
 		
-			String fechita=dia+"/"+mes+"/"+(anio);
-			
+			String fechita=anio+"-"+mes+"-"+dia;
+			int aceptado=(int) (Math.random() * 1);
 			fw.append(fechita);
 			fw.append(delim);
 			fw.append(pedidos.get(i).getHora()+"");
+			fw.append(delim);
+			fw.append(aceptado+"");
 			fw.append(delim);
 			fw.append(pedidos.get(i).getNombre_usuario());
 			fw.append(NEXT_LINE);
