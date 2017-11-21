@@ -149,11 +149,11 @@ public class DatosServices {
 
 		
 		Usuario usuario = factory.manufacturePojo(Usuario.class);
-		usuario.setRol("Usuario No Registrado");
+		usuario.setRol("UsuarioNoRegistrado");
 		usuarios.add(usuario);
 		
 		Usuario usuario2 = factory.manufacturePojo(Usuario.class);
-		usuario2.setRol("Usuario No Registrado");
+		usuario2.setRol("UsuarioNoRegistrado");
 		usuarios.add(usuario2);
 
 		for(int o=0;o<cantPedidosUsuario;o++)
