@@ -1,0 +1,1 @@
+En esta carpeta se generarian los datos para llenar todas las tablas, debido a que cada set de datos pesa 175Mb no se subio con el proyecto, la generacion de datos se activa con un GET de /datos desde postman para propositos practicos.
