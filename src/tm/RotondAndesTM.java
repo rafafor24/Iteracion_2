@@ -2474,5 +2474,80 @@ public class RotondAndesTM {
 		return usuarios;
 	}
 	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Usuarios segun consulta1.
+	 * @return ListaUsuarios - objeto que modela  un arreglo de Usuarios. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Usuario> consulta4() throws Exception {
+		List<Usuario> usuarios;
+		DAOConsultas daoConsultas= new DAOConsultas();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultas.setConn(conn);
+			usuarios = daoConsultas.consultarClientesBuenos();
+			conn.commit();
+			
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usuarios;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Usuarios segun consulta1.
+	 * @return ListaUsuarios - objeto que modela  un arreglo de Usuarios. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Usuario> consulta3() throws Exception {
+		List<Usuario> usuarios;
+		DAOConsultas daoConsultas= new DAOConsultas();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultas.setConn(conn);
+			usuarios = daoConsultas.consultarDias();
+			conn.commit();
+			
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usuarios;
+	}
 }
 

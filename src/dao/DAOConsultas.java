@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import vos.Cliente;
 import vos.Consulta1y2;
+import vos.ResultadoConsulta3;
 import vos.Usuario;
 
 public class DAOConsultas {
@@ -88,6 +89,71 @@ public class DAOConsultas {
 			usuarios.add(new Usuario(name, identificacion,rol, correo_electronico));
 		}
 		return usuarios;
+	}
+	
+	/**
+	 * Metodo que, usando la conexión a la base de datos, saca todos los clientes de la base de datos
+	 * <b>SQL Statement:</b> SELECT * FROM CLIENTES;
+	 * @return Arraylist con los clientes de la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public ArrayList<Usuario> consultarClientesBuenos() throws SQLException, Exception {
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	
+
+		String sql = "select * from USUARIOS where NOMBRE IN(select NOMUSER "
+				+ "from PRODUCTOS inner join (select NOMPROD,NOMUSER from USUARIOS inner join"
+				+ " (select Producto_pedido.NOMBRE_PRODUCTO as NOMPROD,SERVICIOS.NOMBRE_USUARIO as NOMUSER "
+				+ "from producto_pedido inner join SERVICIOS ON(SERVICIOS.ID_PEDIDO=producto_pedido.ID_PEDIDO)) tabla "
+				+ "ON(USUARIOS.NOMBRE=tabla.NOMUSER) where usuarios.rol='Cliente')tabla2  ON(tabla2.NOMPROD=PRODUCTOS.NOMBRE) "
+				+ "group by(NOMUSER) having AVG(PRODUCTOS.PRECIO_VENTA)>50000000)";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			String name = rs.getString("NOMBRE");
+			Integer identificacion = rs.getInt("IDENTIFICACION");
+			String rol = rs.getString("ROL");
+			String correo_electronico= rs.getString("CORREO_ELECTRONICO");
+			usuarios.add(new Usuario(name, identificacion,rol, correo_electronico));
+		}
+		return usuarios;
+	}
+	
+	/**
+	 * Metodo que, usando la conexión a la base de datos, saca todos los clientes de la base de datos
+	 * <b>SQL Statement:</b> SELECT * FROM CLIENTES;
+	 * @return Arraylist con los clientes de la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public ArrayList<ResultadoConsulta3> consultarDias() throws SQLException, Exception {
+		ArrayList<ResultadoConsulta3> resultados = new ArrayList<ResultadoConsulta3>();
+	
+
+		String sql = "select * from USUARIOS where NOMBRE IN(select NOMUSER "
+				+ "from PRODUCTOS inner join (select NOMPROD,NOMUSER from USUARIOS inner join"
+				+ " (select Producto_pedido.NOMBRE_PRODUCTO as NOMPROD,SERVICIOS.NOMBRE_USUARIO as NOMUSER "
+				+ "from producto_pedido inner join SERVICIOS ON(SERVICIOS.ID_PEDIDO=producto_pedido.ID_PEDIDO)) tabla "
+				+ "ON(USUARIOS.NOMBRE=tabla.NOMUSER) where usuarios.rol='Cliente')tabla2  ON(tabla2.NOMPROD=PRODUCTOS.NOMBRE) "
+				+ "group by(NOMUSER) having AVG(PRODUCTOS.PRECIO_VENTA)>50000000)";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			String dia = rs.getString("DIA");
+			String prodmas = rs.getString("PRODMAS");
+			String prodmenos = rs.getString("PRODMENOS");
+			String restmas= rs.getString("RESTMAS");
+			String restmenos= rs.getString("RESTMENOS");
+			resultados.add(new ResultadoConsulta3(dia,prodmas,prodmenos,restmas,restmenos));
+		}
+		return resultados;
 	}
 
 }

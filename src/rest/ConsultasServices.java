@@ -1,5 +1,6 @@
 package rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -60,4 +61,46 @@ public class ConsultasServices {
 		}
 		return Response.status(200).entity(usuarios).build();
 	}
+	
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los ingredientes de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/RotondAndes/rest/ingredientes
+	 * @return Json con todos los ingredientes de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path("cons4")
+//	@PathParam("fecha1") String fecha1,@PathParam("fecha2") String fecha2,@PathParam("representante") String representante
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response consultar4() {
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		List<Usuario> usuarios;
+		try {
+			
+				usuarios = tm.consulta4();	
+			
+			
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(usuarios).build();
+	}
+	
+	@GET
+	@Path("cons3")
+//	@PathParam("fecha1") String fecha1,@PathParam("fecha2") String fecha2,@PathParam("representante") String representante
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response consultar3() {
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		List<Usuario> usuarios;
+		try {
+				usuarios = tm.consulta3();
+			
+			
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(usuarios).build();
+	}
+	
 }
