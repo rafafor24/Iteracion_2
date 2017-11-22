@@ -147,10 +147,10 @@ public class DAOConsultas {
 
 		while (rs.next()) {
 			String dia = rs.getString("DIA");
-			String prodmas = rs.getString("PRODMAS");
-			String prodmenos = rs.getString("PRODMENOS");
-			String restmas= rs.getString("RESTMAS");
-			String restmenos= rs.getString("RESTMENOS");
+			String prodmas = rs.getString("NOMBRE_PRODUCTO");
+			String prodmenos = rs.getString("NOMBRE_PRODUCTO");
+			String restmas= rs.getString("REPRESENTANTE_RESTAURANTE");
+			String restmenos= rs.getString("REPRESENTANTE_RESTAURANTE");
 			resultados.add(new ResultadoConsulta3(dia,prodmas,prodmenos,restmas,restmenos));
 		}
 		return resultados;
