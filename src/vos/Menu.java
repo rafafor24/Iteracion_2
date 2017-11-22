@@ -21,11 +21,7 @@ public class Menu {
 	@JsonProperty(value="precio_venta")
 	private Integer precio_venta;
 	
-	/**
-	 * Nombre de producto de menu
-	 */
-	@JsonProperty(value="nombre_producto")
-	private String nombre_producto;
+
 
 
 	/**
@@ -38,15 +34,15 @@ public class Menu {
 	 */
 	public Menu(@JsonProperty(value="nombre")String nombre,
 			@JsonProperty(value="costo_produccion")Integer costo_produccion,
-			@JsonProperty(value="precio_venta") Integer precio_venta,
-			@JsonProperty(value="nombre_producto") String nombre_producto
+			@JsonProperty(value="precio_venta") Integer precio_venta
+			
 			)
 	{
 		super();
 		this.nombre = nombre;
 		this.costo_produccion=costo_produccion;
 		this.precio_venta=precio_venta;
-		this.nombre_producto=nombre_producto;
+		
 		
 	}
 
@@ -82,13 +78,6 @@ public class Menu {
 	
 
 	
-	public String getNombre_producto() {
-		return nombre_producto;
-	}
 
-
-	public void setNombre_producto(String nombre_producto) {
-		this.nombre_producto = nombre_producto;
-	}
 
 }

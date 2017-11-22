@@ -72,8 +72,8 @@ public class DAOMenu {
 			String name = rs.getString("NOMBRE");
 			Integer costo_produccion = rs.getInt("COSTO_PRODUCCION");
 			Integer precio_venta = rs.getInt("PRECIO_VENTA");
-			String nombre_producto = rs.getString("NOMBRE_PRODUCTO");
-			menus.add(new Menu(name,costo_produccion,precio_venta,nombre_producto));
+			
+			menus.add(new Menu(name,costo_produccion,precio_venta));
 		}
 		return menus;
 	}
@@ -99,8 +99,8 @@ public class DAOMenu {
 			String nombre = rs.getString("NOMBRE");
 			Integer costo_produccion = rs.getInt("COSTO_PRODUCCION");
 			Integer precio_venta = rs.getInt("PRECIO_VENTA");
-			String nombre_producto = rs.getString("NOMBRE_PRODUCTO");
-			menus.add(new Menu(nombre,costo_produccion,precio_venta,nombre_producto));
+			
+			menus.add(new Menu(nombre,costo_produccion,precio_venta));
 		}
 
 		return menus;
@@ -122,8 +122,8 @@ public class DAOMenu {
 		String sql = "INSERT INTO MENUS VALUES (";
 		sql += "'"+menu.getNombre() + "',";
 		sql += menu.getCosto_produccion()+",";
-		sql += menu.getPrecio_venta()+",";
-		sql += "'"+menu.getNombre_producto()+"')";
+		sql += menu.getPrecio_venta()+")";
+		
 				
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -145,7 +145,6 @@ public class DAOMenu {
 		String sql = "UPDATE MENUS SET ";
 		sql += "COSTO_PRODUCCION="+menu.getCosto_produccion()+",";
 		sql += "PRECIO_VENTA="+menu.getPrecio_venta()+",";
-		sql += "NOMBRE_PRODUCTO='"+menu.getNombre_producto()+"'";
 		sql += " WHERE NOMBRE='" + menu.getNombre()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
