@@ -1,0 +1,122 @@
+{
+	"info": {
+		"name": "REQUERIMIENTOS DE CONSULTA",
+		"_postman_id": "2b3034ef-71aa-ba4b-a4cd-5c01c5fe3f0b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/RotondAndes/rest/consultar/2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fecha1\":\"15/07/2017\",\n\t\"fecha2\": \"28/12/2017\",\n\t\"representante\":\"xyz\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/consultar/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"consultar",
+						"2"
+					]
+				},
+				"description": "Consulta 2"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/RotondAndes/rest/consultar/2 copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fecha1\":\"15/07/2017\",\n\t\"fecha2\": \"28/12/2017\",\n\t\"representante\":\"xyz\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/consultar/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"consultar",
+						"1"
+					]
+				},
+				"description": "Consulta 2"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/RotondAndes/rest/consultar/cons4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/consultar/cons4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"consultar",
+						"cons4"
+					]
+				},
+				"description": "Consulta 4"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/RotondAndes/rest/consultar/cons3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/consultar/cons3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"consultar",
+						"cons3"
+					]
+				},
+				"description": "Consulta 3"
+			},
+			"response": []
+		}
+	]
+}

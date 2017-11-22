@@ -43,6 +43,7 @@ import vos.Producto;
 import vos.ProductoPedido;
 import vos.Restaurante;
 import vos.RestauranteProducto;
+import vos.ResultadoConsulta3;
 import vos.Servicio;
 
 public class RotondAndesTM {
@@ -2517,8 +2518,8 @@ public class RotondAndesTM {
 	 * @return ListaUsuarios - objeto que modela  un arreglo de Usuarios. este arreglo contiene el resultado de la busqueda
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public List<Usuario> consulta3() throws Exception {
-		List<Usuario> usuarios;
+	public List<ResultadoConsulta3> consulta3() throws Exception {
+		List<ResultadoConsulta3> usuarios;
 		DAOConsultas daoConsultas= new DAOConsultas();
 		try 
 		{

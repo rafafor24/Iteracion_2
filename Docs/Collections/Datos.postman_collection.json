@@ -1,0 +1,65 @@
+{
+	"info": {
+		"name": "Datos",
+		"_postman_id": "38251384-454f-36b8-363b-8297510281aa",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/RotondAndes/rest/datos/v2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/datos/v2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"datos",
+						"v2"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/RotondAndes/rest/datos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"nombre\": \"Comida italiana\",\n        \"costo_produccion\":100,\n        \"precio_venta\":150,\n        \"nombre_producto\":\"rollitos de canela\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/datos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"datos"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
