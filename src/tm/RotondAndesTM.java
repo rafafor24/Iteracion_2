@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import dao.DAOUsuario;
 import dao.DAOZona;
+import dtm.RotondAndesDistributed;
 import dao.DAOCliente;
 import dao.DAOConsultas;
 import dao.DAOEquivalencia;
@@ -83,6 +84,8 @@ public class RotondAndesTM {
 	 * conexion a la base de datos
 	 */
 	private Connection conn;
+	
+	private RotondAndesDistributed dtm;
 
 
 	/**
@@ -95,6 +98,9 @@ public class RotondAndesTM {
 	public RotondAndesTM(String contextPathP) {
 		connectionDataPath = contextPathP + CONNECTION_DATA_FILE_NAME_REMOTE;
 		initConnectionData();
+		System.out.println("Instancing DTM...");
+		dtm = RotondAndesDistributed.getInstance(this);
+		System.out.println("Done!");
 	}
 
 	/**
