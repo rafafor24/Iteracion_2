@@ -80,6 +80,28 @@ public class DAOProducto {
 		}
 		return productos;
 	}
+	
+	public ArrayList<Producto> darProductosDisponibles() throws SQLException, Exception {
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+
+		String sql = "SELECT * FROM PRODUCTOS where NOMBRE IN(SELECT NOMBRE_PRODUCTO FROM RESTAURANTE_PRODUCTO WHERE CANTIDAD_ACTUAL>0)";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			String name = rs.getString("NOMBRE");
+			String descripcion = rs.getString("DESCRIPCION");
+			String traduccion = rs.getString("TRADUCCION");
+			Integer tiempo_preparacion = rs.getInt("TIEMPO_PREPARACION");
+			Integer costo_produccion = rs.getInt("COSTO_PRODUCCION");
+			Integer precio_venta = rs.getInt("PRECIO_VENTA");
+			Long tipo = rs.getLong("TIPO");
+			productos.add(new Producto(name, descripcion,traduccion,tiempo_preparacion,costo_produccion,precio_venta,tipo));
+		}
+		return productos;
+	}
 
 
 	/**

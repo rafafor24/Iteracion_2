@@ -72,7 +72,8 @@ public class DAOMesa {
 		while (rs.next()) {
 			long id= rs.getLong("ID");
 			long id_cliente= rs.getLong("ID_CLIENTE");
-			mesas.add(new Mesa(id,id_cliente));
+			long id_pedido = rs.getLong("ID_PEDIDO");
+			mesas.add(new Mesa(id,id_cliente,id_pedido));
 		}
 		return mesas;
 	}
@@ -89,8 +90,11 @@ public class DAOMesa {
 
 		String sql = "INSERT INTO MESAS VALUES (";
 		sql += mesa.getId() + ",";
-		sql += mesa.getIdcliente()+ ")";
+		sql += mesa.getIdcliente()+",";
+		sql += mesa.getIdPedido()+")";
 
+		
+		System.out.println("SQL de insertar Mesa:"+sql);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

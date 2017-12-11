@@ -88,7 +88,7 @@ public class DAORestauranteProducto {
 	public ArrayList<RestauranteProducto> buscarRestauranteProductosPorName(String name) throws SQLException, Exception {
 		ArrayList<RestauranteProducto> restauranteProductos = new ArrayList<RestauranteProducto>();
 
-		String sql = "SELECT * FROM RESTAURANTE_PRODUCTO WHERE NOMBRE ='" + name + "'";
+		String sql = "SELECT * FROM RESTAURANTE_PRODUCTO WHERE NOMBRE_PRODUCTO ='" + name + "'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

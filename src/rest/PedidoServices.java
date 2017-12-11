@@ -77,14 +77,14 @@ public class PedidoServices {
      * @return Json con el ingrediente que agrego o Json con el error que se produjo
      */
 	@POST
-	@Path("/{nombre_usuario}/{nombre_producto}")
+	@Path("/{id_cliente: \\d+}/{nombre_producto}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addPedido(Pedido pedido,@PathParam("nombre_usuario") String nombre_usuario,@PathParam("nombre_producto") String nombre_producto) {
-		System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH: "+nombre_usuario+nombre_producto);
+	public Response addPedido(Pedido pedido,@PathParam("id_cliente") Long id_cliente,@PathParam("nombre_producto") String nombre_producto) {
+		
 		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
-			tm.addPedido(pedido,nombre_usuario,nombre_producto);
+			tm.addPedido(pedido,id_cliente,nombre_producto);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}

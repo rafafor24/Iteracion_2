@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import tm.RotondAndesTM;
 import vos.Consulta1y2;
+import vos.Rentabilidad;
 import vos.ResultadoConsulta3;
 import vos.Usuario;
 
@@ -102,6 +103,25 @@ public class ConsultasServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(usuarios).build();
+	}
+	
+	
+	@POST
+	@Path("rentabilidad")
+//	@PathParam("fecha1") String fecha1,@PathParam("fecha2") String fecha2,@PathParam("representante") String representante
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public Response darRentabilidad(Consulta1y2 cons) {
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		List<Rentabilidad> rentabilidad;
+		try {
+				rentabilidad = tm.darRentabilidad(cons);
+			
+			
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(rentabilidad).build();
 	}
 	
 }

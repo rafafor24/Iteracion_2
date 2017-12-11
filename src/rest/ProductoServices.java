@@ -62,6 +62,26 @@ public class ProductoServices {
 		return Response.status(200).entity(productos).build();
 	}
 	
+	/**
+	 * Metodo que expone servicio REST usando GET que da todos los productos de la base de datos.
+	 * <b>URL: </b> http://"ip o nombre de host":8080/RotondAndes/rest/productos
+	 * @return Json con todos los productos de la base de datos o json con 
+     * el error que se produjo
+	 */
+	@GET
+	@Path( "{disponibles}" )
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getProductosDisponibles() {
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		List<Producto> productos;
+		try {
+			productos = tm.darProductosDisponibles();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(productos).build();
+	}
+	
 
     /**
      * Metodo que expone servicio REST usando GET que busca el producto con el nombre que entra como parametro

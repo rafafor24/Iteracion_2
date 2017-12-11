@@ -18,11 +18,16 @@ public class Mesa
 	@JsonProperty(value="id_cliente")
 	private Long idcliente;
 	
+	@JsonProperty(value="id_pedido")
+	private Long idPedido;
+	
 	public Mesa(@JsonProperty(value="id_cliente")Long idcliente, 
-			@JsonProperty(value="id")Long id)
+			@JsonProperty(value="id")Long id,
+			@JsonProperty(value="id_pedido") Long idPedido)
 	{
 		this.setId(id);
 		this.setIdcliente(idcliente);
+		this.setIdPedido(idPedido);
 	}
 
 	public Long getId() {
@@ -39,6 +44,20 @@ public class Mesa
 
 	public void setIdcliente(Long idcliente) {
 		this.idcliente = idcliente;
+	}
+
+	/**
+	 * @return the idPedido
+	 */
+	public Long getIdPedido() {
+		return idPedido;
+	}
+
+	/**
+	 * @param idPedido the idPedido to set
+	 */
+	public void setIdPedido(Long idPedido) {
+		this.idPedido = idPedido;
 	}
 
 }

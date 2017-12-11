@@ -3,6 +3,7 @@ package tm;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,10 +39,11 @@ import vos.Menu;
 import vos.MenuProducto;
 import vos.Mesa;
 import vos.Pedido;
-
+import vos.PedidoProductosMesa;
 import vos.Preferencia;
 import vos.Producto;
 import vos.ProductoPedido;
+import vos.Rentabilidad;
 import vos.Restaurante;
 import vos.RestauranteProducto;
 import vos.ResultadoConsulta3;
@@ -138,6 +140,19 @@ public class RotondAndesTM {
 	///////Transacciones////////////////////
 	////////////////////////////////////////
 
+	public PedidoProductosMesa darPrueba() throws Exception {
+		
+		Pedido pedido= new Pedido(3L, new Date(System.currentTimeMillis()), 0, 1, "usuarioPrueba");
+		
+		List<String> productos = new ArrayList<>();
+		
+		productos.add("prodname1");
+		productos.add("prodname2");
+		productos.add("prodname3");
+		productos.add("prodname4");
+				return new PedidoProductosMesa(1L, 2L, pedido, productos);
+	}
+	
 
 	/**
 	 * Metodo que modela la transaccion que retorna todos los Ingredientes de la base de datos.
@@ -324,24 +339,36 @@ public class RotondAndesTM {
 	 * @param pedido - el Pedido a agregar. pedido != null
 	 * @throws Exception - cualquier error que se genere agregando el Pedido
 	 */
-	public void addPedido(Pedido pedido,String nombre_usuario,String nombre_producto) throws Exception {
+	public void addPedido(Pedido pedido,Long id_cliente,String nombre_producto) throws Exception {
+		
+		System.out.println("Una vez a addPedido");
 		DAOPedido daoPedidos = new DAOPedido();
 		DAOProductoPedido daoPP= new DAOProductoPedido();
 		ProductoPedido productoPedido= new ProductoPedido(nombre_producto, pedido.getId());
+		DAOCliente daocliente = new DAOCliente();
 		try 
-		{
-			pedido.setNombre_usuario(nombre_usuario);
-			
+		{			
 			//////transaccion
 			this.conn = darConexion();
 			conn.setAutoCommit(false);
 			daoPP.setConn(conn);
 			daoPedidos.setConn(conn);
-			daoPedidos.addPedido(pedido);
-			daoPP.addProductoPedido(productoPedido);
+			daocliente.setConn(conn);
+			Cliente cliente =daocliente.buscarClientesPorId(id_cliente).get(0);
+			if(cliente!=null)
+			{
+				pedido.setNombre_usuario(cliente.getNombre());
+				daoPedidos.addPedido(pedido);
+				daoPP.addProductoPedido(productoPedido);
 
 
-			conn.commit();
+				conn.commit();	
+			}
+			else
+			{
+				conn.rollback();
+			}
+			
 
 		} catch (SQLException e) {
 			conn.rollback();
@@ -365,6 +392,65 @@ public class RotondAndesTM {
 			}
 		}
 	}
+	
+	public void addPedidoMesa(PedidoProductosMesa pedido) throws Exception 
+	{
+		Long idMesa=pedido.getIdMesa();
+		Long idCliente =pedido.getIdCliente();
+		System.out.println("idcliente:" +idCliente);
+		DAORestauranteProducto daoRP= new DAORestauranteProducto();
+		DAOMesa daoMesa = new DAOMesa();
+		DAOPedido daoPedidos = new DAOPedido();
+		DAOProductoPedido daoPP= new DAOProductoPedido();
+		try
+		{
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoRP.setConn(conn);
+			daoMesa.setConn(conn);
+			daoPedidos.setConn(conn);
+			daoPP.setConn(conn);
+			daoPedidos.addPedido(pedido.getPedido());
+			conn.commit();
+			daoMesa.addMesa(new Mesa(idCliente,idMesa,pedido.getPedido().getId()));
+			
+			for(int i =0;i<pedido.getNombreProductos().size();i++)				
+			{
+				System.out.println("enfor");
+				System.out.println(daoRP.buscarRestauranteProductosPorName(pedido.getNombreProductos().get(i)).get(0).getCantidad_actual());
+				if(daoRP.buscarRestauranteProductosPorName(pedido.getNombreProductos().get(i)).get(0).getCantidad_actual()>0)
+				{					
+					ProductoPedido productoPedido= new ProductoPedido(pedido.getNombreProductos().get(i), pedido.getPedido().getId());
+					daoPP.addProductoPedido(productoPedido);
+				}
+				
+			}
+		}
+		catch (SQLException e) {
+			conn.rollback();
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			conn.rollback();
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			try {
+				daoMesa.cerrarRecursos();
+				daoRP.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 	/**
 	 * Metodo que modela la transaccion que actualiza el pedido que entra como parametro a la base de datos.
 	 * <b> post: </b> se ha actualizado el pedido que entra como parametro
@@ -755,6 +841,44 @@ public class RotondAndesTM {
 			this.conn = darConexion();
 			daoProductos.setConn(conn);
 			productos = daoProductos.darProductos();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productos;
+	}
+	
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los Productos de la base de datos.
+	 * @return ListaProductos - objeto que modela  un arreglo de Productos. este arreglo contiene el resultado de la busqueda
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public List<Producto> darProductosDisponibles() throws Exception {
+		List<Producto> productos;
+		DAOProducto daoProductos = new DAOProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductos.setConn(conn);
+			productos = daoProductos.darProductosDisponibles();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -2555,6 +2679,39 @@ public class RotondAndesTM {
 			}
 		}
 		return usuarios;
+	}
+	
+	public List<Rentabilidad> darRentabilidad(Consulta1y2 cons) throws Exception {
+		List<Rentabilidad> rentabilidad;
+		DAOConsultas daoConsultas= new DAOConsultas();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoConsultas.setConn(conn);
+			rentabilidad = daoConsultas.darRentabilidad(cons);
+			conn.commit();
+			
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoConsultas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return rentabilidad;
 	}
 }
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import vos.Cliente;
 import vos.Consulta1y2;
+import vos.Rentabilidad;
 import vos.ResultadoConsulta3;
 import vos.Usuario;
 
@@ -152,6 +153,123 @@ public class DAOConsultas {
 			String restmas= rs.getString("REPRESENTANTE_RESTAURANTE");
 			String restmenos= rs.getString("REPRESENTANTE_RESTAURANTE");
 			resultados.add(new ResultadoConsulta3(dia,prodmas,prodmenos,restmas,restmenos));
+		}
+		return resultados;
+	}
+	
+	
+	/**
+	 * Metodo que, usando la conexión a la base de datos, saca todos los clientes de la base de datos
+	 * <b>SQL Statement:</b> SELECT * FROM CLIENTES;
+	 * @return Arraylist con los clientes de la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public ArrayList<Rentabilidad> darRentabilidad(Consulta1y2 cons) throws SQLException, Exception {
+		ArrayList<Rentabilidad> resultados = new ArrayList<Rentabilidad>();
+		String representante = cons.getRepresentante();
+		String fecha1 =cons.getFecha1();
+		String fecha2 = cons.getFecha2();
+		
+		String sql = "SELECT *"+
+				"FROM"+
+				" (SELECT B.NOMBRE_ZONA AS NOMBRE,"+
+				" SUM(A.PRECIO_VENTA) AS INGRESOS,"+
+				" (CASE"+
+				" WHEN 1=1 THEN 'Nombre de Zona'"+
+				" ELSE 'Chao'"+
+				"  END) AS TIPO"+
+				"  FROM"+
+				"  (SELECT PRODUCTO_PEDIDO.ID_PEDIDO,"+
+				" PRODUCTO_PEDIDO.NOMBRE_PRODUCTO,"+
+				"  PRODUCTOS.PRECIO_VENTA"+
+				" FROM PRODUCTO_PEDIDO"+
+				"  INNER JOIN PRODUCTOS ON(PRODUCTO_PEDIDO.NOMBRE_PRODUCTO=PRODUCTOS.NOMBRE)) A"+
+				"  INNER JOIN"+
+				"  (SELECT SERVICIOSZOONA.ID_PEDIDO,"+
+				"  PEDIDOS.FECHA,"+
+				" PEDIDOS.NOMBRE_USUARIO,"+
+				"  SERVICIOSZOONA.REPREST,"+
+				"  SERVICIOSZOONA.NOMBRE_ZONA"+
+				" FROM PEDIDOS"+
+				" INNER JOIN"+
+				" (SELECT SERVICIOS.REPRESENTANTE_RESTAURANTE AS REPREST,"+
+				"   NOMBRE_ZONA,"+
+				"  ID_PEDIDO,"+
+				"  NOMBRE_USUARIO"+
+				" FROM SERVICIOS"+
+				"  INNER JOIN RESTAURANTE_ZONA ON(SERVICIOS.REPRESENTANTE_RESTAURANTE = RESTAURANTE_ZONA.REPRESENTANTE_RESTAURANTE)) SERVICIOSZOONA ON(SERVICIOSZOONA.ID_PEDIDO=PEDIDOS.ID)"+
+				"  WHERE SERVICIOSZOONA.REPREST='"+representante+"'"+
+				" AND (PEDIDOS.FECHA BETWEEN '"+fecha1+"' AND '"+fecha2+"')) B ON(A.ID_PEDIDO=B.ID_PEDIDO)"+
+				" GROUP BY B.NOMBRE_ZONA)"+
+				" UNION"+
+				" (SELECT A.NOMBRE_PRODUCTO AS NOMBRE,"+
+				"SUM(A.PRECIO_VENTA) AS INGRESOS,"+
+				"   (CASE"+
+				"     WHEN 1=1 THEN 'Nombre de Producto'"+
+				"       ELSE 'Chao'"+
+				"     END) AS TIPO"+
+				" FROM"+
+				" (SELECT PRODUCTO_PEDIDO.ID_PEDIDO,"+
+				"   PRODUCTO_PEDIDO.NOMBRE_PRODUCTO,"+
+				"    PRODUCTOS.PRECIO_VENTA"+
+				"   FROM PRODUCTO_PEDIDO"+
+				"  INNER JOIN PRODUCTOS ON(PRODUCTO_PEDIDO.NOMBRE_PRODUCTO=PRODUCTOS.NOMBRE)) A"+
+				" INNER JOIN"+
+				" (SELECT SERVICIOSZOONA.ID_PEDIDO,"+
+				"      PEDIDOS.FECHA,"+
+				"     PEDIDOS.NOMBRE_USUARIO,"+
+				"     SERVICIOSZOONA.REPREST,"+
+				"      SERVICIOSZOONA.NOMBRE_ZONA"+
+				" FROM PEDIDOS"+
+				" INNER JOIN"+
+				"  (SELECT SERVICIOS.REPRESENTANTE_RESTAURANTE AS REPREST,"+
+				"        NOMBRE_ZONA,"+
+				"        ID_PEDIDO,"+
+				"        NOMBRE_USUARIO"+
+				"   FROM SERVICIOS"+
+				"   INNER JOIN RESTAURANTE_ZONA ON(SERVICIOS.REPRESENTANTE_RESTAURANTE = RESTAURANTE_ZONA.REPRESENTANTE_RESTAURANTE)) SERVICIOSZOONA ON(SERVICIOSZOONA.ID_PEDIDO=PEDIDOS.ID)"+
+				"   WHERE SERVICIOSZOONA.REPREST='"+representante+"'"+
+				"     AND (PEDIDOS.FECHA BETWEEN '"+fecha1+"' AND '"+fecha2+"')) B ON(A.ID_PEDIDO=B.ID_PEDIDO)"+
+				" GROUP BY A.NOMBRE_PRODUCTO)"+
+				"UNION"+
+				"(SELECT AA.TIPO_COMIDA AS NOMBRE,"+
+				"     SUM(BB.PRECIO_VENTA) AS INGRESOS,"+
+				"     (CASE"+
+				"          WHEN 1=1 THEN 'Tipo de Comida'"+
+				"          ELSE 'Chao'"+
+				"      END) AS TIPO FROM"+
+				" (SELECT A.ID_PEDIDO, A.REPREST,RESTAURANTES.TIPO_COMIDA"+
+				"  FROM"+
+				"   (SELECT SERVICIOSZOONA.ID_PEDIDO,PEDIDOS.FECHA,PEDIDOS.NOMBRE_USUARIO, SERVICIOSZOONA.REPREST,SERVICIOSZOONA.NOMBRE_ZONA"+
+				"   FROM PEDIDOS"+
+				"    INNER JOIN"+
+				"    (SELECT SERVICIOS.REPRESENTANTE_RESTAURANTE AS REPREST,NOMBRE_ZONA,ID_PEDIDO,NOMBRE_USUARIO"+
+				"    FROM SERVICIOS"+
+				"     INNER JOIN RESTAURANTE_ZONA ON(SERVICIOS.REPRESENTANTE_RESTAURANTE = RESTAURANTE_ZONA.REPRESENTANTE_RESTAURANTE)) SERVICIOSZOONA ON(SERVICIOSZOONA.ID_PEDIDO=PEDIDOS.ID)"+
+				"  WHERE SERVICIOSZOONA.REPREST='"+representante+"'"+
+				"    AND (PEDIDOS.FECHA BETWEEN '"+fecha1+"' AND '"+fecha2+"'))A"+
+				"  INNER JOIN RESTAURANTES ON(A.REPREST=RESTAURANTES.REPRESENTANTE)) AA"+
+				" INNER JOIN"+
+				"  (SELECT PRODUCTO_PEDIDO.ID_PEDIDO,"+
+				"       PRODUCTO_PEDIDO.NOMBRE_PRODUCTO,"+
+				"       PRODUCTOS.PRECIO_VENTA"+
+				"  FROM PRODUCTO_PEDIDO"+
+				"   INNER JOIN PRODUCTOS ON(PRODUCTO_PEDIDO.NOMBRE_PRODUCTO=PRODUCTOS.NOMBRE)) BB ON(AA.ID_PEDIDO=BB.ID_PEDIDO)"+
+				"  GROUP BY AA.TIPO_COMIDA)";
+		
+		System.out.println("super SQL ="+sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			String dia = rs.getString("NOMBRE");
+			Long prodmas = rs.getLong("INGRESOS");
+			String prodmenos = rs.getString("TIPO");
+			
+			resultados.add(new Rentabilidad(dia,prodmas,prodmenos));
 		}
 		return resultados;
 	}
