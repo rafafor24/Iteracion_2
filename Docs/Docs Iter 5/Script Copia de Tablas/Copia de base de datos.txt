@@ -1,0 +1,1 @@
+Se tiene una copia de la base de datos localmente y ademas una copia en el segundo usuario del subgrupo. El script se presenta a continuacion:

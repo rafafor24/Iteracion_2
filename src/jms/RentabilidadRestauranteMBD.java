@@ -42,8 +42,8 @@ public class RentabilidadRestauranteMBD implements MessageListener, ExceptionLis
 	public final static int TIME_OUT = 5;
 	private final static String APP = "app1";
 	
-	private final static String GLOBAL_TOPIC_NAME = "java:global/RMQTopicAllProducts";
-	private final static String LOCAL_TOPIC_NAME = "java:global/RMQAllProductsLocal";
+	private final static String GLOBAL_TOPIC_NAME = "java:global/RMQTopicRentabilidad";
+	private final static String LOCAL_TOPIC_NAME = "java:global/RMQRentabilidadLocal";
 	
 	private final static String REQUEST = "REQUEST";
 	private final static String REQUEST_ANSWER = "REQUEST_ANSWER";
