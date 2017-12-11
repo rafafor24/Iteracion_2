@@ -82,6 +82,7 @@ public class DAOProducto {
 	}
 	
 	public ArrayList<Producto> darProductosDisponibles() throws SQLException, Exception {
+		System.out.println("entra a DAO");
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTOS where NOMBRE IN(SELECT NOMBRE_PRODUCTO FROM RESTAURANTE_PRODUCTO WHERE CANTIDAD_ACTUAL>0)";

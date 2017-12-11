@@ -182,5 +182,25 @@ public class RestauranteServices {
 		}
 		return Response.status(200).entity(restaurante).build();
 	}
+	
+	/**
+     * Metodo que expone servicio REST usando PUT que actualiza el restaurante que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/RestauranteAndes/rest/restaurantes
+     * @param restaurante - restaurante a actualizar. 
+     * @return Json con el restaurante que actualizo o Json con el error que se produjo
+     */
+	@PUT
+	@Path("retirar/{representante}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void retirarRestaurante(@PathParam("representante") String representante) {
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		try {
+			tm.retirarRestaurante(representante);
+		} catch (Exception e) {
+			
+		}
+		
+	}
 
 }

@@ -158,7 +158,8 @@ public class DAORestaurante {
 		String sql = "UPDATE RESTAURANTES SET ";
 		sql += "TIPO_COMIDA='"+restaurante.getTipo_comida() + "',";
 		sql += "PAGINA_WEB='"+restaurante.getPagina_web()+"',";
-		sql += "NOMBRE_USUARIO='"+restaurante.getNombre()+"'";
+		sql += "NOMBRE_USUARIO='"+restaurante.getNombre()+"',";
+		sql += "ESTADO='"+ restaurante.getEstado()+"' ";
 		sql += " WHERE REPRESENTANTE ='" + restaurante.getRepresentante()+"'";
 
 
@@ -198,6 +199,26 @@ public class DAORestaurante {
 		sql +="'"+representante+"'";
 		System.out.println(representante);
 		System.out.println(sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+	
+	/**
+	 * Metodo que actualiza el restaurante que entra como parametro en la base de datos.
+	 * @param restaurante - el restaurante a actualizar. restaurante !=  null
+	 * <b> post: </b> se ha actualizado el restaurante en la base de datos en la transaction actual. pendiente que el restaurante master
+	 * haga commit para que los cambios bajen a la base de datos.
+	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el restaurante.
+	 * @throws Exception - Cualquier error que no corresponda a la base de datos
+	 */
+	public void retirarRestaurante(String representante) throws SQLException, Exception {
+
+		String sql = "UPDATE RESTAURANTES SET ";
+		sql += "ESTADO='Retirado' ";
+		sql += " WHERE REPRESENTANTE ='" + representante+"'";
+
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

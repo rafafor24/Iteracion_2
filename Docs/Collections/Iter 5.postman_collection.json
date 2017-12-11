@@ -1,0 +1,122 @@
+{
+	"info": {
+		"name": "Iter 5",
+		"_postman_id": "e4317d70-b40b-fdd4-3cf3-b842fc3c88f9",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Rentabilidad Req Consulta 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fecha1\":\"15/07/2017\",\n\t\"fecha2\": \"28/12/2017\",\n\t\"representante\":\"xyz\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/RotondAndes/rest/consultar/rentabilidad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"consultar",
+						"rentabilidad"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Pedido Productos Mesa Req Func 1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idCliente\": 224946021489664,\n    \"idMesa\": 1,\n    \"pedido\": {\n        \"id\": 10,\n        \"fecha\": \"2017-12-10\",\n        \"hora\": 0,\n        \"aceptado\": 1,\n        \"nombre_usuario\": \"TBi7Wx564n\"\n    },\n    \"nombreProductos\": [\n        \"DuNVaEfptP\",\n        \"lSnH6Ajk5F\"\n        \n    ]\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8081/RotondAndes/rest/datos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"datos"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Productos Disponibles Req Consulta 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8081/RotondAndes/rest/productos/disponibles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"productos",
+						"disponibles"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retirar Restaurante Req Func 2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8081/RotondAndes/rest/restaurantes/retirar/hcZhH062cT",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"restaurantes",
+						"retirar",
+						"hcZhH062cT"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

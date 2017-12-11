@@ -25,6 +25,9 @@ public class Restaurante extends Usuario
 	@JsonProperty(value="pagina_web")
 	private String pagina_web;
 	
+	@JsonProperty(value="estado")
+	private String estado;
+	
 	/**
 	 * Metodo constructor de la clase Restaurante
 	 * <b>post: </b> Crea el Restaurante con los valores que entran como parametro
@@ -45,6 +48,7 @@ public class Restaurante extends Usuario
 		this.representante = representante;
 		this.tipo_comida = tipo_comida;
 		this.pagina_web = pagina_web;
+		this.estado= "Activo";
 	}
 	
 //	public Restaurante(@JsonProperty(value="representante")String representante,
@@ -97,5 +101,19 @@ public class Restaurante extends Usuario
 //        String pagina_web;
 		return "nombre="+this.getNombre()+", identificacion="+this.getIdentificacion()+", correo="+
 		this.getCorreo_electronico()+", representante="+this.representante+", tipocomida="+this.tipo_comida+", paginaweb="+this.pagina_web;
+	}
+
+	/**
+	 * @return the estado
+	 */
+	public String getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 }

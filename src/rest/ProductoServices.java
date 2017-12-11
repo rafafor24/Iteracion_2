@@ -69,9 +69,10 @@ public class ProductoServices {
      * el error que se produjo
 	 */
 	@GET
-	@Path( "{disponibles}" )
+	@Path( "disponibles" )
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getProductosDisponibles() {
+		System.out.println("Entra A resource");
 		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Producto> productos;
 		try {

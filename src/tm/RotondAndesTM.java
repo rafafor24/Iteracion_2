@@ -871,6 +871,7 @@ public class RotondAndesTM {
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public List<Producto> darProductosDisponibles() throws Exception {
+		System.out.println("Entra a TM");
 		List<Producto> productos;
 		DAOProducto daoProductos = new DAOProducto();
 		try 
@@ -2712,6 +2713,45 @@ public class RotondAndesTM {
 			}
 		}
 		return rentabilidad;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que actualiza el restaurante que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado el restaurante que entra como parametro
+	 * @param restaurante - restaurante a actualizar. restaurante != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void retirarRestaurante(String representate) throws Exception {
+		DAORestaurante daoRestaurantes = new DAORestaurante();
+		
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurantes.setConn(conn);
+			
+			daoRestaurantes.retirarRestaurante(representate);
+			
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoRestaurantes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
 	}
 }
 
