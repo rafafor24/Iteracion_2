@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import vos.Cliente;
 import vos.Consulta1y2;
+import vos.ListaRentabilidad;
 import vos.Rentabilidad;
 import vos.ResultadoConsulta3;
 import vos.Usuario;
@@ -165,8 +166,11 @@ public class DAOConsultas {
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ArrayList<Rentabilidad> darRentabilidad(Consulta1y2 cons) throws SQLException, Exception {
+	public ListaRentabilidad darRentabilidad(Consulta1y2 cons) throws SQLException, Exception {
+		
 		ArrayList<Rentabilidad> resultados = new ArrayList<Rentabilidad>();
+		ListaRentabilidad renta = new ListaRentabilidad(resultados);
+		
 		String representante = cons.getRepresentante();
 		String fecha1 =cons.getFecha1();
 		String fecha2 = cons.getFecha2();
@@ -271,7 +275,9 @@ public class DAOConsultas {
 			
 			resultados.add(new Rentabilidad(dia,prodmas,prodmenos));
 		}
-		return resultados;
+		renta.setRentabilidad(resultados);
+		
+		return renta;
 	}
 
 }

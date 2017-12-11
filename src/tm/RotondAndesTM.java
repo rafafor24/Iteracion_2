@@ -35,6 +35,8 @@ import vos.Cliente;
 import vos.Consulta1y2;
 import vos.Equivalencia;
 import vos.Ingrediente;
+import vos.ListaProductos;
+import vos.ListaRentabilidad;
 import vos.Menu;
 import vos.MenuProducto;
 import vos.Mesa;
@@ -870,9 +872,9 @@ public class RotondAndesTM {
 	 * @return ListaProductos - objeto que modela  un arreglo de Productos. este arreglo contiene el resultado de la busqueda
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public List<Producto> darProductosDisponibles() throws Exception {
+	public ListaProductos darProductosDisponibles() throws Exception {
 		System.out.println("Entra a TM");
-		List<Producto> productos;
+		ListaProductos productos;
 		DAOProducto daoProductos = new DAOProducto();
 		try 
 		{
@@ -2682,8 +2684,8 @@ public class RotondAndesTM {
 		return usuarios;
 	}
 	
-	public List<Rentabilidad> darRentabilidad(Consulta1y2 cons) throws Exception {
-		List<Rentabilidad> rentabilidad;
+	public ListaRentabilidad darRentabilidad(Consulta1y2 cons) throws Exception {
+		ListaRentabilidad rentabilidad;
 		DAOConsultas daoConsultas= new DAOConsultas();
 		try 
 		{

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vos.ListaProductos;
 import vos.Producto;
 
 public class DAOProducto {
@@ -81,9 +82,10 @@ public class DAOProducto {
 		return productos;
 	}
 	
-	public ArrayList<Producto> darProductosDisponibles() throws SQLException, Exception {
+	public ListaProductos darProductosDisponibles() throws SQLException, Exception {
 		System.out.println("entra a DAO");
-		ArrayList<Producto> productos = new ArrayList<Producto>();
+		ArrayList<Producto> list = new ArrayList<>();
+		ListaProductos productos = new ListaProductos(list);
 
 		String sql = "SELECT * FROM PRODUCTOS where NOMBRE IN(SELECT NOMBRE_PRODUCTO FROM RESTAURANTE_PRODUCTO WHERE CANTIDAD_ACTUAL>0)";
 
@@ -99,8 +101,9 @@ public class DAOProducto {
 			Integer costo_produccion = rs.getInt("COSTO_PRODUCCION");
 			Integer precio_venta = rs.getInt("PRECIO_VENTA");
 			Long tipo = rs.getLong("TIPO");
-			productos.add(new Producto(name, descripcion,traduccion,tiempo_preparacion,costo_produccion,precio_venta,tipo));
+			list.add(new Producto(name, descripcion,traduccion,tiempo_preparacion,costo_produccion,precio_venta,tipo));
 		}
+		productos.setProducto(list);
 		return productos;
 	}
 

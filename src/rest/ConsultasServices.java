@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import tm.RotondAndesTM;
 import vos.Consulta1y2;
+import vos.ListaRentabilidad;
 import vos.Rentabilidad;
 import vos.ResultadoConsulta3;
 import vos.Usuario;
@@ -113,7 +114,7 @@ public class ConsultasServices {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response darRentabilidad(Consulta1y2 cons) {
 		RotondAndesTM tm = new RotondAndesTM(getPath());
-		List<Rentabilidad> rentabilidad;
+		ListaRentabilidad rentabilidad;
 		try {
 				rentabilidad = tm.darRentabilidad(cons);
 			

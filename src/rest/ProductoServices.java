@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.RotondAndesTM;
+import vos.ListaProductos;
 import vos.Producto;
 import vos.RestauranteProducto;
 
@@ -74,7 +75,7 @@ public class ProductoServices {
 	public Response getProductosDisponibles() {
 		System.out.println("Entra A resource");
 		RotondAndesTM tm = new RotondAndesTM(getPath());
-		List<Producto> productos;
+		ListaProductos productos;
 		try {
 			productos = tm.darProductosDisponibles();
 		} catch (Exception e) {

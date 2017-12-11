@@ -2,6 +2,8 @@ package dtm;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.util.List;
 
 import javax.jms.JMSException;
 import javax.jms.Queue;
@@ -22,7 +24,15 @@ import org.codehaus.jackson.map.JsonMappingException;
 import com.rabbitmq.jms.admin.RMQConnectionFactory;
 import com.rabbitmq.jms.admin.RMQDestination;
 
+import jms.NonReplyException;
+import jms.ProductosDisponiblesMBD;
+import jms.RentabilidadRestauranteMBD;
 import tm.RotondAndesTM;
+import vos.Consulta1y2;
+import vos.ListaProductos;
+import vos.ListaRentabilidad;
+import vos.Producto;
+import vos.Rentabilidad;
 
 
 public class RotondAndesDistributed 
@@ -38,7 +48,9 @@ public class RotondAndesDistributed
 	
 	private TopicConnectionFactory factory;
 	
-//	private AllVideosMDB allVideosMQ;
+	private ProductosDisponiblesMBD productosMQ;
+	
+	private RentabilidadRestauranteMBD rentabilidadMQ;
 	
 	private static String path;
 
@@ -47,15 +59,17 @@ public class RotondAndesDistributed
 	{
 		InitialContext ctx = new InitialContext();
 		factory = (RMQConnectionFactory) ctx.lookup(MQ_CONNECTION_NAME);
-		//allVideosMQ = new AllVideosMDB(factory, ctx);
-		
-		//allVideosMQ.start();
+		productosMQ = new ProductosDisponiblesMBD(factory, ctx);
+		rentabilidadMQ = new RentabilidadRestauranteMBD(factory, ctx);
+		productosMQ.start();
+		rentabilidadMQ.start();
 		
 	}
 	
 	public void stop() throws JMSException
 	{
-		//allVideosMQ.close();
+		productosMQ.close();
+		rentabilidadMQ.close();
 	}
 	
 	/**
@@ -108,6 +122,26 @@ public class RotondAndesDistributed
 		return getInstance(tm);
 	}
 	
-//	
 
+	public ListaProductos getLocalProductosDisponibles() throws Exception
+	{
+		return tm.darProductosDisponibles();
+	}
+	
+	public ListaProductos getRemoteProductosDisponibles() throws JsonGenerationException, JsonMappingException, JMSException, IOException, NonReplyException, InterruptedException, NoSuchAlgorithmException
+	{
+		return productosMQ.getRemoteVideos();
+	}
+
+	
+	public ListaRentabilidad getLocalRentabilidad() throws Exception
+	{
+	Consulta1y2 cons= new Consulta1y2("01/02/2017","01/03/2017", "xyz");	
+		return tm.darRentabilidad(cons);
+	}
+	
+	public ListaRentabilidad getRemotRentabilidad() throws JsonGenerationException, JsonMappingException, JMSException, IOException, NonReplyException, InterruptedException, NoSuchAlgorithmException
+	{
+		return rentabilidadMQ.getRemoteRentabilidad();
+	}
 }
